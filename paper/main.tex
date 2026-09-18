@@ -1,0 +1,3250 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{enumitem}
+\usepackage{aliascnt}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+
+\newaliascnt{claim}{theorem}
+\newtheorem{claim}[claim]{Claim}
+\aliascntresetthe{claim}
+
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\crefname{claim}{claim}{claims}
+\Crefname{claim}{Claim}{Claims}
+\crefname{definition}{definition}{definitions}
+\Crefname{definition}{Definition}{Definitions}
+\crefname{remark}{remark}{remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Lio}{\mathscr L}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\eps}{\varepsilon}
+
+\title[Mahler's Problem on Liouville Numbers]
+{Mahler's Problem on Liouville Numbers}
+
+\author{Diego Marques}
+\address{Departamento de Matem\'atica, Universidade de Bras\'ilia, Bras\'ilia, 70910-900, Brazil}
+\email{diego@mat.unb.br}
+\subjclass[2020]{Primary 11J82; Secondary 11J81, 26E05, 30D20}
+\keywords{Liouville numbers, Mahler's problem, Maillet's property,
+real-analytic functions, two-height approximation, arithmetic rigidity,
+irrationality exponent}
+\date{}
+
+\hypersetup{
+  pdftitle={Mahler's Problem on Liouville Numbers},
+  pdfauthor={Diego Marques},
+  pdfsubject={Mahler's Problem on Liouville Numbers},
+  pdfkeywords={Liouville numbers, Mahler's problem, Maillet's property,
+real-analytic functions, two-height approximation, arithmetic rigidity,
+irrationality exponent}
+}
+
+\begin{document}
+
+\begin{abstract}
+A classical theorem of Maillet states that every nonconstant rational
+function with rational coefficients maps Liouville numbers to Liouville numbers.
+In 1984, Mahler asked whether there exists a transcendental entire
+function with the same property. We resolve this question in the
+negative. More generally, we prove that every real-analytic function
+on an interval with this property is the restriction of a rational
+function in $\R(x)$. The local result is quantitative: for every nonrational
+real-analytic function, every nonempty open subinterval of its
+domain contains a Liouville number whose image has irrationality
+exponent at most $100$. The proof rests on a two-height counting estimate that treats
+source and target denominators independently. An adaptive
+determinant argument, uniform Wronskian sublevel bounds, and
+Farey separation establish the estimate; a nested-interval
+construction yields the quantitative result.
+\end{abstract}
+
+
+\maketitle
+
+\section{Introduction}
+
+A real number $\xi$ is called a \emph{Liouville number} if, for every
+integer $N\geq1$, there exist infinitely many pairs
+$(p,q)\in\Z\times\Z_{>0}$, with $q\geq2$, such that
+\begin{equation}\label{eq:intro-liouville}
+0<\abs{\xi-\frac pq}<q^{-N}.
+\end{equation}
+We denote the set of Liouville numbers by $\Lio$. Since Liouville introduced these numbers
+\cite{Liouville1844,Liouville1851}, their exceptional
+rational approximation properties have made them a natural setting for
+the study of arithmetic properties of functions; see, for instance,
+\cite{Bugeaud2004,FischlerRivoal2024,Waldschmidt2003}.
+
+A classical result of Maillet \cite{Maillet1906} states that every
+nonconstant rational function $R\in\Q(x)$ maps $\Lio$ into itself. We say that a
+function has \emph{Maillet's property} if it preserves every Liouville
+number in its domain.
+
+In one of his last papers, published in 1984, Mahler
+\cite{Mahler1984} formulated several problems at the interface of
+transcendence and Diophantine approximation. Motivated by Maillet's
+theorem, he asked:
+
+\begin{quote}
+\emph{Which analytic functions $f(z)$ have the property that if $\xi$ is
+any Liouville number, then so is $f(\xi)$? In particular, are there entire
+transcendental functions with this property?}
+\end{quote}
+
+The final sentence isolates the central transcendental problem: whether Maillet's arithmetic invariance can persist for a genuinely transcendental entire function. Subsequently recorded by Waldschmidt in his collection of open Diophantine problems \cite[Question~3.27, p.~281]{Waldschmidt2004} and by Bugeaud in his monograph \cite[Problem~44, p.~215]{Bugeaud2004}, this existence problem has remained open for over four decades.
+
+We answer Mahler's question in the negative.
+
+\begin{theorem}\label{thm:intro-mahler}
+Let $F:\C\to\C$ be entire. If
+\[
+F(\Lio)\subseteq\Lio,
+\]
+then $F\in\R[z]$. In particular, no transcendental entire function has
+Maillet's property.
+\end{theorem}
+
+%Theorem~\ref{thm:intro-mahler} is a rigidity theorem rather than an
+%interpolation result. We impose no assumption that $F(\Q)\subseteq\Q$,
+%no restriction on the denominators or heights of values of $F$ at
+%rational points, and no growth condition on $F$.
+
+The requirement that \emph{every} Liouville number be preserved
+is essential in Theorem~\ref{thm:intro-mahler}. Classical arithmetic
+interpolation allows considerable flexibility on countable sets
+\cite{Stackel1895,Stackel1902,Weierstrass1923}: transcendental entire
+functions can even preserve every algebraic number field
+\cite{VanderPoorten1968}; see also
+\cite{BoxallJones2015,Lombardo2017,Surroca2006}.
+Preservation of Liouville numbers on large sets is likewise
+compatible with much greater flexibility. Alnia\c{c}{\i}k and Saias
+\cite{AlniacikSaias1994} showed that a continuous, nowhere locally
+constant real function maps a dense $G_\delta$ subset of $\Lio$
+in its domain into $\Lio$, and transcendental entire functions
+can preserve distinguished subclasses of $\Lio$
+\cite{MarquesMoreira2015,MarquesSchleischitz2016}.
+
+The regularity boundary is sharp within the classical
+smooth--analytic hierarchy. The flexibility established at finite
+orders of smoothness \cite{LelisMoreiraSilva2026} persists in the
+$C^\infty$ category: there exist transcendental $C^\infty$
+diffeomorphisms of $\mathbb R$, arbitrarily close to the identity
+in the compact-open $C^\infty$ topology, such that every derivative
+of every positive iterate has Maillet's property
+\cite{MarquesSmooth2026}. By contrast,
+Corollary~\ref{cor:intro-rigidity} shows that real analyticity
+forces rational rigidity.
+
+Theorem~\ref{thm:intro-mahler} follows from a local quantitative
+result. Recall that the irrationality exponent of
+$y\in\mathbb R$ is
+\begin{equation}\label{eq:intro-mu}
+\mu(y):=
+\sup\left\{
+\lambda>0:
+\begin{aligned}
+&0<\abs{y-a/b}<b^{-\lambda}\\
+&\text{for infinitely many }(a,b)\in\Z\times\Z_{>0}
+\end{aligned}
+\right\}.
+\end{equation}
+Thus
+\[
+y\in\Lio\quad\Longleftrightarrow\quad\mu(y)=+\infty.
+\]
+
+\begin{theorem}\label{thm:intro-local}
+There exists an absolute constant $\tau>2$ with the following property.
+Let $U\subseteq\mathbb R$ be an open interval and let
+$f:U\to\mathbb R$ be real-analytic. Suppose that $f$ is not the
+restriction to $U$ of a rational function in $\mathbb R(x)$ without
+poles on $U$. Then every nonempty open subinterval $V\subseteq U$
+contains a point $\xi\in\Lio$ such that
+\[
+\mu(f(\xi))\leq\tau.
+\]
+In fact, $\xi$ may be chosen so that
+\[
+\left|f(\xi)-\frac{a}{b}\right|>b^{-\tau}
+\]
+for every $a\in\mathbb Z$ and every sufficiently large integer $b$.
+One may take $\tau=100$.
+\end{theorem}
+
+The particular choice $\tau=100$ is not intrinsic and has not been
+optimized. The substantive point is the existence of an absolute
+finite bound, independent of the function. Taking the contrapositive of
+Theorem~\ref{thm:intro-local} gives the corresponding local rigidity
+statement.
+
+\begin{corollary}\label{cor:intro-rigidity}
+Let $f:U\to\R$ be real-analytic on an open interval. If
+\[
+f(\Lio\cap U)\subseteq\Lio,
+\]
+then there exists a rational function $R\in\R(x)$, with no pole in $U$,
+such that
+\[
+f(x)=R(x)\qquad(x\in U).
+\]
+\end{corollary}
+
+The rational-rigidity conclusion raises a natural arithmetic question:
+must the resulting rational function be defined over $\Q$?  The answer
+displays a sharp distinction between degree one and higher degree.
+
+\begin{theorem}\label{thm:intro-mobius}
+Let
+\[
+M(x)=\frac{ax+b}{cx+d}\in\R(x),
+\qquad ad-bc\neq0.
+\]
+Then $M$ has Maillet's property if and only if $M\in\Q(x)$,
+equivalently, if and only if
+\[
+[a:b:c:d]\in\mathbb P^3(\Q).
+\]
+Moreover, if $M\notin\Q(x)$, then every nonempty open interval
+contained in the domain of $M$ contains a point $\xi\in\Lio$ such that
+$M(\xi)\notin\Lio$.
+\end{theorem}
+
+\begin{theorem}\label{thm:intro-nonlinear}
+There exist continuum many positive transcendental real numbers $\sigma$
+with the following property: for every integer $m\geq2$ and every
+$\xi\in\Lio$,
+\[
+\sigma\xi^m\in\Lio.
+\]
+\end{theorem}
+
+Thus coefficient rigidity holds for rational maps of degree one but
+fails in every degree at least two. In particular, the conclusion
+$F\in\R[z]$ in Theorem~\ref{thm:intro-mahler} cannot be strengthened
+to $F\in\overline{\Q}[z]$. We do not attempt here to classify all rational functions in $\R(x)$ with Maillet's property.
+
+The passage to the entire case is immediate. An entire function
+preserving $\Lio$ is real-valued on $\mathbb R$ by density and
+continuity. Corollary~\ref{cor:intro-rigidity} makes its restriction
+rational; analytic continuation and the absence of poles then
+force it to be a polynomial.\\
+
+\noindent
+\textbf{The two-height mechanism.}
+The local theorem requires arbitrarily good rational approximation
+in the source and exclusion of very good rational approximation
+in the image at every sufficiently large denominator. We construct
+such a point by counting source fractions $p/q$, with $q\asymp Q$,
+whose images are close to target fractions $a/b$, keeping the two
+denominator scales separate.
+
+Small target denominators are handled by elementary counting.
+For larger denominators, write $b\asymp Q^u$ and adapt the source
+degree to $u$, while keeping the target degree equal to one.
+A determinant comparison places the rational pairs in each short
+source cell on a common relation
+\[
+A(x)+B(x)y=0.
+\]
+Such a relation cannot hold identically on the graph of a
+nonrational $f$; this is why the argument also applies to
+nonrational algebraic functions. After localization away from the
+relevant Wronskian zeros, sublevel estimates uniform in the
+normalized coefficients control both the length and the number
+of components of the set where $A+Bf$ is small. Farey separation
+then gives a bounded number of source fractions per cell, while
+the choice of degree keeps the number of cells subquadratic
+in $Q$.
+
+The resulting estimate has a quadratic term controlled by the
+lower target cutoff and a subquadratic remainder uniform in that
+cutoff. The constant multiplying the quadratic term is independent
+of the source subinterval. These uniformities allow safe rational
+centers to be chosen repeatedly on shrinking intervals.
+
+We then choose nested intervals near these centers. The source
+approximation orders tend to infinity, and target avoidance is
+imposed with a margin that persists throughout each interval.
+Consecutive target-denominator ranges cover all sufficiently
+large denominators. The limiting point is therefore Liouville,
+while its image has irrationality exponent at most $100$.
+Liouville numbers enter only in this final construction; the
+counting estimate concerns rational approximation to the graph
+itself.
+
+The determinant argument lies in the tradition of Bombieri--Pila and
+Pila \cite{BombieriPila1989,Pila1991,Pila2005}; related developments
+include \cite{BeresnevichDickinsonVelani2007,ComteYomdin2018,
+Habegger2018,Huang2015,Huxley1994,KleinbockMargulis1998,
+PilaWilkie2006,VaughanVelani2006}. Separate coordinate denominators and Wronskian arguments already
+occur in Pila's work. 
+
+The results of Section~\ref{sec:arithmetic-boundary} are independent of the analytic counting
+argument. The degree-one classification uses a Diophantine
+dichotomy for the coefficient vector and rational reconstruction
+from three points. The higher-degree examples combine a
+continued-fraction construction, Petruska's theorem on strong
+Liouville numbers, and a gap principle for $U_m$-numbers.
+
+\section{Rational counting preliminaries}
+\label{sec:rational-counting}
+
+\noindent
+\textbf{Notation and conventions.} For a finite union of intervals $E\subseteq\R$, we denote its Lebesgue
+measure by $|E|$. We write $J\Subset U$ if $\overline J$ is a compact
+subset of $U$.
+
+The symbols $O(\cdot)$, $\ll$, and $\asymp$ have their usual meanings.
+Unless otherwise stated, implied constants may depend on quantities
+fixed before the estimate, but not on parameters subsequently allowed
+to vary or tend to infinity. Additional dependence is indicated by
+subscripts; thus $X\ll_{A,J}Y$ means that
+$X\leq C(A,J)Y$ for some $C(A,J)>0$. Generic constants
+$C,C_1,C_2,\ldots$ may vary from one occurrence to the next.
+
+Subscripts or superscripts on named constants are mnemonic rather than
+indicating parameter dependence; for example, \textup{sub} and
+\textup{low} refer to sublevel and low-target-height estimates,
+respectively.
+
+With these conventions in place, we record the two rational-counting
+estimates needed in Section~\ref{sec:scarcity}. They provide complementary
+upper and lower bounds for reduced rational points of comparable height.
+The first is based on the separation of reduced fractions; the absence
+of a factor $Q$ in the component term will be essential in Section~\ref{sec:scarcity}.
+
+\begin{lemma}[Reduced fractions in a finite union of intervals]
+\label{lem:rational-union}
+Let $E\subseteq\R$ be a union of at most $R$ intervals, where
+$R\in\Z_{>0}$, and let $Q\in\Z_{>0}$. Reduced fractions are counted as rational
+numbers, so their positive-denominator representations are unique. Then
+\begin{equation}\label{eq:rational-union}
+\#\set{\frac pq\in E:\gcd(p,q)=1,\ Q\leq q<2Q}
+\leq4Q^2|E|+R.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Write $E$ as the disjoint union of its nonempty connected components
+$I_1,\ldots,I_s$, where $s\leq R$. If $p/q\neq p'/q'$ are reduced
+fractions with positive denominators $q,q'<2Q$, then
+\[
+\abs{\frac pq-\frac{p'}{q'}}
+=
+\frac{|pq'-p'q|}{qq'}
+\geq\frac1{qq'}>\frac1{4Q^2}.
+\]
+Consequently, an interval of length $\ell$ contains at most
+$4Q^2\ell+1$ such fractions. Applying this to each $I_\nu$ and
+summing proves \eqref{eq:rational-union}.
+\end{proof}
+
+The complementary estimate supplies a positive proportion of reduced
+source fractions in every fixed interval.
+
+\begin{lemma}[Reduced fractions in a denominator block]
+\label{lem:farey-lower-en}
+There exists an absolute constant $c_{\mathrm F}>0$ with the following
+property. For every nondegenerate compact interval $J\subseteq\R$,
+there exists $Q_0(J)\in\Z_{>0}$ such that
+\begin{equation}\label{eq:farey-lower-en}
+\#\set{\frac pq\in J:\gcd(p,q)=1,\ Q\leq q<2Q}
+\geq c_{\mathrm F}|J|Q^2
+\end{equation}
+for every integer $Q\geq Q_0(J)$. One may take
+$c_{\mathrm F}=1/4$.
+\end{lemma}
+
+\begin{proof}
+Write $J=[\alpha,\beta]$ and, for $q\ge1$, let
+\[
+N_q(J):=\#\{p\in\Z:\alpha q\le p\le\beta q,\ \gcd(p,q)=1\}.
+\]
+By M\"obius inversion,
+\[
+N_q(J)=|J|\varphi(q)+O(\tau_0(q)),
+\]
+where $\tau_0(q)$ denotes the number of positive
+divisors of $q$, and the implied constant is absolute. Hence, using the classical estimates \cite{Apostol1976},
+\[
+\sum_{n\le X}\varphi(n)=\frac{3}{\pi^2}X^2+O(X\log X),
+\qquad
+\sum_{n\le X}\tau_0(n)=O(X\log X),
+\]
+we obtain
+\[
+\sum_{Q\le q<2Q}N_q(J)
+=
+\frac{9}{\pi^2}|J|Q^2
++O\bigl((1+|J|)Q\log Q\bigr).
+\]
+Since $J$ is fixed and nondegenerate, the error term is
+$o(|J|Q^2)$. As $9/\pi^2>1/4$, the result follows for all
+sufficiently large $Q$.
+\end{proof}
+
+
+\section{Wronskian localization and uniform sublevel bounds}
+\label{sec:wronskians}
+
+In Section~\ref{sec:scarcity}, the determinant argument produces auxiliary
+polynomials $A(X)+B(X)Y$ whose coefficients depend on the
+rational points being counted. We therefore need sublevel
+estimates for $A(x)+B(x)f(x)$ that are uniform over all normalized
+coefficient vectors. Nonrationality of $f$ provides the required
+Wronskian nondegeneracy after localization.
+
+Let $\phi_1,\ldots,\phi_N$ be functions of class $C^{N-1}$ on an
+interval. Their \textit{Wronskian} is
+\begin{equation}\label{eq:wronskian-definition-en}
+W(\phi_1,\ldots,\phi_N)(x)
+:=
+\det\bigl(\phi_j^{(k-1)}(x)\bigr)_{1\leq k,j\leq N}.
+\end{equation}
+
+\subsection{Rationality and linear independence}
+
+We first recall the classical Wronskian criterion for analytic
+functions. The analyticity assumption is essential here: the
+corresponding statement fails, in general, for smooth functions.
+
+\begin{lemma}[Analytic independence and Wronskians]
+\label{lem:analytic-wronskian-en}
+Let $U\subseteq\R$ be a connected open interval. If
+$\phi_1,\ldots,\phi_N$ are real-analytic and linearly independent on
+$U$, then
+\[
+W(\phi_1,\ldots,\phi_N)\not\equiv0
+\qquad\text{on }U.
+\]
+\end{lemma}
+
+This is the classical analytic Wronskian criterion, going back at least
+to B\^ocher \cite{Bocher1900}; see also \cite{BostanDumas2010} for a modern
+treatment.
+
+For the remainder of the local argument, fix a real-analytic function
+$f:U\to\R$ which is not the restriction to $U$ of a rational function
+in $\R(x)$. For $d\geq0$, put
+\begin{equation}\label{eq:N-d-en}
+N_d:=2(d+1)
+\end{equation}
+and consider the indexed family
+\begin{equation}\label{eq:rational-family-en}
+\mathcal F_d(f)
+:=
+\bigl(x^i f(x)^j\bigr)_{\substack{0\leq i\leq d\\ j\in\{0,1\}}}.
+\end{equation}
+
+\begin{lemma}[Rationality and linear dependence]
+\label{lem:rational-independence-en}
+Let $f:U\to\R$ be real-analytic. The following are equivalent.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.7em]
+\item $f$ is the restriction to $U$ of a rational function in
+$\R(x)$ with no pole in $U$;
+\item the family $\mathcal F_d(f)$ is linearly dependent over $\R$
+for some $d\geq0$.
+\end{enumerate}
+Consequently, under the standing hypothesis on $f$, the family
+$\mathcal F_d(f)$ is linearly independent for every $d\geq0$.
+\end{lemma}
+
+\begin{proof}
+Suppose first that $f=P/Q$ on $U$, where $P,Q\in\R[X]$, $Q$ has no
+zero in $U$, and $Q\neq0$. If
+$d\geq\max\{\deg P,\deg Q\}$, then
+\[
+Q(x)f(x)-P(x)=0
+\qquad(x\in U),
+\]
+which is a nontrivial linear relation among the members of
+$\mathcal F_d(f)$.
+
+Conversely, suppose that $\mathcal F_d(f)$ is linearly dependent. Then
+there are polynomials $A,B\in\R[X]$, not both zero and of degree at
+most $d$, such that
+\begin{equation}\label{eq:A-B-f-relation-en}
+A(x)+B(x)f(x)=0
+\qquad(x\in U).
+\end{equation}
+If $B=0$, then $A$ vanishes on the open interval $U$, and hence
+$A=0$, a contradiction. Thus $B\neq0$.
+
+Let $D=\gcd(A,B)$ in $\R[X]$ and write $A=DA_0$, $B=DB_0$, with
+$A_0$ and $B_0$ coprime. On the nonempty open set
+$U\setminus\{D=0\}$, equation \eqref{eq:A-B-f-relation-en} gives
+$A_0+B_0f=0$. Since $D$ has only finitely many zeros, continuity extends this identity to all of $U$:
+\[
+A_0(x)+B_0(x)f(x)=0
+\qquad(x\in U).
+\]
+If $B_0(x_0)=0$ at some $x_0\in U$, then the last identity also gives
+$A_0(x_0)=0$, contrary to the coprimality of $A_0$ and $B_0$.
+Therefore $B_0$ has no zero in $U$, and
+\[
+f(x)=-\frac{A_0(x)}{B_0(x)}
+\qquad(x\in U).
+\]
+This proves \textup{(i)}.
+\end{proof}
+
+Order the pairs
+\[
+(i,j)\in\{0,\ldots,d\}\times\{0,1\}
+\]
+lexicographically, and denote the corresponding ordered family of
+functions $x^if(x)^j$ by
+\[
+\varphi_{d,1},\ldots,\varphi_{d,N_d}.
+\]
+Define
+\begin{equation}\label{eq:W-d-en}
+W_d(x)
+:=
+W(\varphi_{d,1},\ldots,\varphi_{d,N_d})(x).
+\end{equation}
+The ordering affects $W_d$ at most by a sign and therefore has no
+bearing on its zero set.
+
+\begin{corollary}\label{cor:wronskian-finite-en}
+For every $d\geq0$, the function $W_d$ is real-analytic and not
+identically zero on $U$. Consequently, if $I\Subset U$ is a compact
+interval, then
+\[
+\set{x\in I:W_d(x)=0}
+\]
+is finite.
+\end{corollary}
+
+\begin{proof}
+The functions in $\mathcal F_d(f)$ are real-analytic and, by
+Lemma~\ref{lem:rational-independence-en}, linearly independent.
+Lemma~\ref{lem:analytic-wronskian-en} therefore gives
+$W_d\not\equiv0$ on $U$. The function $W_d$ is real-analytic because
+it is a determinant of derivatives of real-analytic functions. If it
+had infinitely many zeros in $I$, compactness would give an
+accumulation point in $U$, and the identity theorem would force
+$W_d\equiv0$ on the connected interval $U$, a contradiction.
+\end{proof}
+
+\subsection{One-dimensional sublevel estimates}
+
+We next record the elementary one-dimensional estimate underlying the
+uniform argument. It expresses the principle that a function with a
+derivative uniformly separated from zero cannot remain small on a
+long set.
+
+\begin{lemma}\label{lem:one-derivative-en}
+Let $k\geq1$, let $I\subseteq\R$ be a nondegenerate compact interval,
+and let $g\in C^k(I)$. Suppose that
+\begin{equation}\label{eq:kth-lower-en}
+\abs{g^{(k)}(x)}\geq\lambda>0
+\qquad(x\in I).
+\end{equation}
+Then, for every $\eps>0$, the set
+\[
+E_g(\eps):=\set{x\in I:\abs{g(x)}\leq\eps}
+\]
+has at most $2k+1$ connected components and satisfies
+\begin{equation}\label{eq:one-derivative-length-en}
+|E_g(\eps)|
+\leq
+2k(2k+1)
+\left(\frac{\eps}{\lambda}\right)^{1/k}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since $g^{(k)}$ is continuous and nowhere zero on $I$, it has constant
+sign. By Rolle's theorem, for every $c\in\R$ the equation $g(x)=c$
+has at most $k$ solutions. Hence the relative boundary of
+\[
+E_g(\varepsilon)=\{x\in I:|g(x)|\leq\varepsilon\}
+\]
+has at most $2k$ points, and $E_g(\varepsilon)$ has at most
+$2k+1$ connected components.
+
+Let $[a,b]$ be a nondegenerate component of $E_g(\varepsilon)$, and put
+\[
+h:=\frac{b-a}{k},
+\qquad
+x_j:=a+jh
+\quad(0\leq j\leq k).
+\]
+By the mean-value theorem for finite differences, for some
+$\theta\in(a,b)$,
+\[
+h^k g^{(k)}(\theta)
+=
+\sum_{j=0}^k(-1)^{k-j}\binom{k}{j}g(x_j).
+\]
+Since $|g(x_j)|\leq\varepsilon$,
+\[
+h^k\lambda
+\leq
+2^k\varepsilon,
+\]
+and therefore
+\[
+b-a=kh
+\leq
+2k\left(\frac{\varepsilon}{\lambda}\right)^{1/k}.
+\]
+Summing over at most $2k+1$ nondegenerate components gives
+\[
+|E_g(\varepsilon)|
+\leq
+2k(2k+1)
+\left(\frac{\varepsilon}{\lambda}\right)^{1/k}.
+\]
+\end{proof}
+
+We now pass from a lower bound for one prescribed derivative to a
+bound that is uniform over all normalized linear combinations of a
+fixed finite family. Wronskian nondegeneracy gives a uniform lower bound for at least
+one derivative at each point. Compactness of the product of the
+coefficient sphere and the source interval makes the resulting
+local estimates uniform.
+
+\begin{lemma}[Uniform sublevel bounds under Wronskian nondegeneracy]
+\label{lem:uniform-sublevel-en}
+Let $J\subseteq\R$ be a nondegenerate compact interval, let $N\geq2$,
+and let $\phi_1,\ldots,\phi_N$ be of class $C^{N-1}$ on a neighborhood
+of $J$. Assume that
+\begin{equation}\label{eq:wronskian-separated-en}
+\inf_{x\in J}\abs{W(\phi_1,\ldots,\phi_N)(x)}>0.
+\end{equation}
+For $c=(c_1,\ldots,c_N)\in\R^N$, write
+\[
+G_c(x)=\sum_{j=1}^N c_j\phi_j(x).
+\]
+Then there exist constants
+\[
+C_{\mathrm{sub}}>0,
+\qquad
+R_{\mathrm{sub}}\in\Z_{>0},
+\qquad
+\eps_0\in(0,1)
+\]
+such that, for every $c\in\R^N$ with $\norm{c}_2=1$ and every
+$0<\eps<\eps_0$, the set
+\[
+\set{x\in J:\abs{G_c(x)}\leq\eps}
+\]
+is a union of at most $R_{\mathrm{sub}}$ intervals and satisfies
+\begin{equation}\label{eq:uniform-sublevel-en}
+\left|\set{x\in J:\abs{G_c(x)}\leq\eps}\right|
+\leq C_{\mathrm{sub}}\eps^{1/(N-1)}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Consider the jet matrix
+\[
+\mathcal A(x)
+=
+\bigl(\phi_j^{(k)}(x)\bigr)_{
+\substack{0\leq k\leq N-1\\1\leq j\leq N}}.
+\]
+Its determinant is the Wronskian in
+\eqref{eq:wronskian-separated-en}; hence $\mathcal A(x)$ is invertible
+for every $x\in J$. The least singular value of $\mathcal A(x)$
+depends continuously on $x$. Since $J$ is compact, there exists
+$\sigma>0$ such that
+\begin{equation}\label{eq:uniform-singular-value-en}
+\norm{\mathcal A(x)c}_2\geq\sigma\norm{c}_2
+\qquad(x\in J,\ c\in\R^N).
+\end{equation}
+For $\norm{c}_2=1$,
+\[
+\mathcal A(x)c
+=
+\bigl(G_c(x),G_c'(x),\ldots,G_c^{(N-1)}(x)\bigr)^{\mathsf T},
+\]
+and therefore
+\[
+\max_{0\leq k\leq N-1}\abs{G_c^{(k)}(x)}
+\geq
+\eta,
+\qquad
+\eta:=\frac{\sigma}{\sqrt N},
+\]
+for every $(c,x)\in\mathbb S^{N-1}\times J$.
+
+Fix $(c_0,x_0)\in\mathbb S^{N-1}\times J$. There is an index
+$k(c_0,x_0)\in\{0,\ldots,N-1\}$ for which
+\[
+\abs{G_{c_0}^{(k(c_0,x_0))}(x_0)}\geq\eta.
+\]
+Continuity in $(c,x)$ yields a relatively open neighborhood $U$ of
+$c_0$ in $\mathbb S^{N-1}$ and a compact interval $I\subseteq J$,
+with $x_0\in\Int_J(I)$, such that
+\[
+\abs{G_c^{(k(c_0,x_0))}(x)}\geq\frac{\eta}{2}
+\qquad(c\in U,\ x\in I).
+\]
+These sets $U\times\Int_J(I)$ cover the compact space
+$\mathbb S^{N-1}\times J$. Choose a finite subcover
+\[
+U_\nu\times\Int_J(I_\nu),
+\qquad1\leq\nu\leq L,
+\]
+and let $k_\nu\in\{0,\ldots,N-1\}$ denote the corresponding derivative
+order. Thus
+\begin{equation}\label{eq:local-large-jet-en}
+\abs{G_c^{(k_\nu)}(x)}\geq\frac{\eta}{2}
+\qquad(c\in U_\nu,\ x\in I_\nu).
+\end{equation}
+The finite cover, and hence $L$ and all constants derived from it,
+depend only on $J$ and the family $\phi_1,\ldots,\phi_N$, and not on
+the subsequent choice of $c\in\mathbb S^{N-1}$.
+
+Fix $c\in\mathbb S^{N-1}$ and let
+\[
+\mathcal N(c):=\set{\nu\in\{1,\ldots,L\}:c\in U_\nu}.
+\]
+Then the intervals $I_\nu$, $\nu\in\mathcal N(c)$, cover $J$ by their
+relative interiors. Put
+\[
+\eps_0:=\min\left\{\frac12,\frac{\eta}{4}\right\}.
+\]
+If $0<\eps<\eps_0$ and $k_\nu=0$, then
+\eqref{eq:local-large-jet-en} shows that the sublevel set does not meet
+$I_\nu$. If $1\leq k_\nu\leq N-1$, Lemma~\ref{lem:one-derivative-en},
+with $\lambda=\eta/2$, gives
+\[
+\left|\set{x\in I_\nu:\abs{G_c(x)}\leq\eps}\right|
+\leq
+2k_\nu(2k_\nu+1)
+\left(\frac{2\eps}{\eta}\right)^{1/k_\nu}.
+\]
+Since $0<\eps<1$ and $k_\nu\leq N-1$, this is at most
+\[
+C_*\eps^{1/(N-1)},
+\qquad
+C_*:=
+\max_{1\leq k\leq N-1}
+2k(2k+1)\left(\frac{2}{\eta}\right)^{1/k}.
+\]
+The same lemma shows that each such local sublevel set has at most
+$2N-1$ connected components.
+
+Since $\#\mathcal N(c)\leq L$, subadditivity of length now gives
+\[
+\left|\set{x\in J:\abs{G_c(x)}\leq\eps}\right|
+\leq
+LC_*\eps^{1/(N-1)}.
+\]
+Moreover, this set has at most $L(2N-1)$ connected components.
+Thus one may take
+\[
+C_{\mathrm{sub}}:=LC_*,
+\qquad
+R_{\mathrm{sub}}:=L(2N-1),
+\]
+and these constants, as well as $\eps_0$, depend only on $J$ and the
+family $\phi_1,\ldots,\phi_N$, and not on $c$.
+\end{proof}
+
+We specialize this result to the target-linear polynomials that arise
+from the determinant argument. For
+\[
+P(X,Y)=A(X)+B(X)Y
+=\sum_{i=0}^d c_{i0}X^i+\sum_{i=0}^d c_{i1}X^iY,
+\]
+write
+\[
+\norm{P}_2
+:=
+\left(\sum_{i=0}^d(c_{i0}^2+c_{i1}^2)\right)^{1/2}.
+\]
+
+\begin{corollary}[Uniform rational-relation sublevel estimate]
+\label{cor:polynomial-sublevel-en}
+Fix $d\geq0$ and a nondegenerate compact interval $J\Subset U$ on which $W_d$ does
+not vanish. Put $N=N_d=2(d+1)$. Then there exist constants
+\[
+C_{d,J}>0,
+\qquad
+R_{d,J}\in\Z_{>0},
+\qquad
+\eps_{d,J}>0
+\]
+such that, for every polynomial
+\[
+P(X,Y)=A(X)+B(X)Y,
+\qquad
+\deg A,\deg B\leq d,
+\qquad
+\norm{P}_2=1,
+\]
+and every $0<\eps<\eps_{d,J}$, the set
+\[
+\set{x\in J:\abs{P(x,f(x))}\leq\eps}
+\]
+is a union of at most $R_{d,J}$ intervals and satisfies
+\begin{equation}\label{eq:poly-sublevel-en}
+\left|\set{x\in J:\abs{P(x,f(x))}\leq\eps}\right|
+\leq C_{d,J}\eps^{1/(N-1)}.
+\end{equation}
+The constants depend only on $d$, $J$, and the restriction of $f$ to a
+neighborhood of $J$.
+\end{corollary}
+
+\begin{proof}
+Arrange the coefficients $(c_{i0},c_{i1})$ in the same order as the
+family used to define $W_d$. Then $P(x,f(x))$ is the corresponding
+linear combination of the members of $\mathcal F_d(f)$, and its
+coefficient vector has Euclidean norm one. Since $W_d$ is continuous,
+nonzero on the compact interval $J$, and hence bounded away from zero,
+Lemma~\ref{lem:uniform-sublevel-en} applies and gives the assertion.
+\end{proof}
+
+\section{Anisotropic determinant estimates}
+\label{sec:determinant}
+
+We compare determinants formed from rational points close to
+the graph of $f$. Smoothness bounds these determinants from
+above on short source intervals, while clearing the source and
+target denominators separately gives a lower bound for every
+nonzero determinant. Their comparison will force an auxiliary
+relation of degree one in the target variable.
+
+For vectors $v_1,\ldots,v_s\in\R^N$, we equip the exterior power
+$\bigwedge^s\R^N$ with its Euclidean norm. Thus
+\[
+\norm{v_1\wedge\cdots\wedge v_s}^2
+=
+\det\bigl(\langle v_i,v_j\rangle\bigr)_{1\leq i,j\leq s}.
+\]
+In particular, when $s=N$,
+\[
+\norm{v_1\wedge\cdots\wedge v_N}
+=
+\abs{\det(v_1,\ldots,v_N)}.
+\]
+We shall also use
+\[
+\norm{v\wedge\omega}\leq\norm{v}\,\norm{\omega}
+\]
+for $v\in\R^N$ and $\omega\in\bigwedge^s\R^N$.
+
+\subsection{Exterior decay along a smooth curve}
+
+Several values of a smooth one-dimensional curve taken in an interval
+of length $\rho$ become increasingly dependent as $\rho\to0$. The
+exponent below reflects the successive Taylor orders
+$0,1,\ldots,s-1$.
+
+\begin{lemma}\label{lem:wedge-curve-en}
+Let $J\subseteq\R$ be a nondegenerate compact interval, let
+$1\leq s\leq N$, and let
+\[
+\Phi:J\longrightarrow\R^N
+\]
+be the restriction to $J$ of a $C^s$ map defined on a neighborhood of
+$J$. There exists a constant $C_\Phi>0$ such that, whenever
+$0<\rho\leq1$ and $t_1,\ldots,t_s$ lie in a common subinterval of $J$
+of length at most $\rho$, one has
+\begin{equation}\label{eq:wedge-bound-en}
+\norm{\Phi(t_1)\wedge\cdots\wedge\Phi(t_s)}
+\leq C_\Phi\rho^{s(s-1)/2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+a:=\min_{1\leq i\leq s}t_i,
+\qquad
+\ell:=\max_{1\leq i\leq s}t_i-a.
+\]
+If $\ell=0$, the assertion is immediate: for $s\geq2$ the exterior
+product vanishes, while for $s=1$ it follows after taking
+$C_\Phi\geq\sup_J\norm{\Phi}$. Assume henceforth that
+$0<\ell\leq\rho$. Taylor's formula with integral remainder gives
+\begin{equation}\label{eq:vector-taylor-en}
+\Phi(t_i)
+=
+\sum_{r=0}^{s-1}(t_i-a)^rv_r+R_i,
+\qquad
+v_r:=\frac{\Phi^{(r)}(a)}{r!},
+\end{equation}
+where
+\[
+R_i
+=
+\frac{1}{(s-1)!}
+\int_a^{t_i}(t_i-u)^{s-1}\Phi^{(s)}(u)\,du.
+\]
+Since $\Phi^{(s)}$ is bounded on a neighborhood of $J$, there is a
+constant $C_0>0$, independent of $a$, $\ell$, and $i$, such that
+\begin{equation}\label{eq:remainder-bound-en}
+\norm{R_i}\leq C_0\abs{t_i-a}^s\leq C_0\ell^s.
+\end{equation}
+Also $\abs{t_i-a}^r\leq\ell^r$ for $0\leq r\leq s-1$.
+
+Expand the exterior product of the expressions in
+\eqref{eq:vector-taylor-en}. Consider a term containing exactly $k$
+remainder vectors. The remaining $s-k$ factors are chosen from
+$v_0,\ldots,v_{s-1}$. A term in which some $v_r$ occurs twice vanishes.
+Thus, in every nonzero term, the corresponding indices
+$r_1,\ldots,r_{s-k}$ are distinct and
+\[
+r_1+\cdots+r_{s-k}
+\geq
+0+1+\cdots+(s-k-1)
+=
+\frac{(s-k)(s-k-1)}{2}.
+\]
+Such a term is therefore bounded by a constant times
+\[
+\ell^{ks+(s-k)(s-k-1)/2}.
+\]
+The identity
+\[
+ks+\frac{(s-k)(s-k-1)}{2}
+=
+\frac{s(s-1)}{2}+\frac{k(k+1)}{2}
+\]
+shows that this is
+$O_\Phi(\ell^{s(s-1)/2})$. There are only finitely many terms, and the
+vectors $v_0,\ldots,v_{s-1}$ are uniformly bounded as $a$ ranges over
+$J$. Hence
+\[
+\norm{\Phi(t_1)\wedge\cdots\wedge\Phi(t_s)}
+\leq C_\Phi\ell^{s(s-1)/2}
+\leq C_\Phi\rho^{s(s-1)/2}.
+\]
+\end{proof}
+
+\subsection{The perturbed determinant}
+
+For $d\geq0$, put $N=2(d+1)$, order the pairs
+\[
+(i,j)\in\{0,\ldots,d\}\times\{0,1\}
+\]
+as in Section~\ref{sec:wronskians}, and define
+\begin{equation}\label{eq:Psi-d-en}
+\Psi_d(x,y):=\bigl(x^iy^j\bigr)_{
+\substack{0\leq i\leq d\\j\in\{0,1\}}}\in\R^N,
+\qquad
+\Phi_d(x):=\Psi_d(x,f(x)).
+\end{equation}
+
+\begin{lemma}[Perturbed target-linear determinant]
+\label{lem:perturbed-determinant-en}
+Let $d\geq0$, put $N=2(d+1)$, and let $J\Subset U$ be a nondegenerate compact
+interval. There exists a constant $C_{d,J}^{\mathrm{pert}}>0$, depending
+only on $d$, $J$, and the restriction of $f$ to a neighborhood of $J$,
+with the following property. Suppose that $0<\rho\leq1$, that
+$x_1,\ldots,x_N\in J$ lie in a common subinterval of $J$ of length at
+most $\rho$, and that $y_1,\ldots,y_N\in\R$ satisfy
+\begin{equation}\label{eq:vertical-error-en}
+\abs{y_k-f(x_k)}\leq\delta\leq\rho^N
+\qquad(1\leq k\leq N).
+\end{equation}
+Regarding the vectors $\Psi_d(x_k,y_k)$ as the rows of an
+$N\times N$ matrix, one has
+\begin{equation}\label{eq:perturbed-simple-en}
+\abs{\det\bigl(\Psi_d(x_k,y_k)\bigr)_{1\leq k\leq N}}
+\leq
+C_{d,J}^{\mathrm{pert}}\rho^{N(N-1)/2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Set
+\[
+E_k:=\Psi_d(x_k,y_k)-\Psi_d(x_k,f(x_k)).
+\]
+The coordinates of $E_k$ corresponding to $j=0$ vanish, whereas those
+corresponding to $j=1$ are
+\[
+x_k^i\bigl(y_k-f(x_k)\bigr),
+\qquad0\leq i\leq d.
+\]
+Since $x_k\in J$, there is a constant $C_0=C_0(d,J)$ such that
+\begin{equation}\label{eq:perturbation-vector-en}
+\norm{E_k}\leq C_0\delta
+\qquad(1\leq k\leq N).
+\end{equation}
+We have
+\[
+\Psi_d(x_k,y_k)=\Phi_d(x_k)+E_k.
+\]
+Expanding the exterior product of these $N$ vectors by multilinearity,
+consider a term containing exactly $r$ error vectors. If $r<N$, the
+exterior norm inequality, \eqref{eq:perturbation-vector-en}, and
+Lemma~\ref{lem:wedge-curve-en}, applied to the remaining $N-r$ curve
+vectors, bound this term by
+\[
+C_r\delta^r\rho^{(N-r)(N-r-1)/2}.
+\]
+For $r=N$, the same bound holds with the standard convention
+$\bigwedge^0\R^N=\R$ and $\norm{1}=1$. Absorbing the finitely many
+combinatorial factors, we obtain
+\begin{equation}\label{eq:perturbed-general-en}
+\abs{\det\bigl(\Psi_d(x_k,y_k)\bigr)_{1\leq k\leq N}}
+\leq
+C\sum_{r=0}^N
+\delta^r\rho^{(N-r)(N-r-1)/2}.
+\end{equation}
+By \eqref{eq:vertical-error-en}, the summand of index $r$ is at most
+\[
+\rho^{rN+(N-r)(N-r-1)/2}.
+\]
+The exact identity
+\begin{equation}\label{eq:exponent-identity-en}
+rN+\frac{(N-r)(N-r-1)}{2}
+=
+\frac{N(N-1)}{2}+\frac{r(r+1)}{2}
+\end{equation}
+shows that, since $0<\rho\leq1$, every summand is at most
+$\rho^{N(N-1)/2}$. Summing over $0\leq r\leq N$ proves
+\eqref{eq:perturbed-simple-en}.
+\end{proof}
+
+\subsection{The arithmetic lower bound}
+
+The preceding estimate is purely analytic. Rationality supplies the
+complementary fact that a nonzero target-linear determinant cannot be
+too small.
+
+\begin{lemma}\label{lem:det-lower-en}
+Fix $d\geq0$ and put $N=2(d+1)$. Let
+\[
+x_k=\frac{p_k}{q_k},
+\qquad
+y_k=\frac{a_k}{b_k},
+\qquad1\leq k\leq N,
+\]
+where $p_k,a_k\in\Z$ and $q_k,b_k\in\Z_{>0}$. The fractions need not be
+reduced. Define
+\[
+\Delta
+:=
+\det\bigl(x_k^iy_k^j\bigr)_{
+\substack{1\leq k\leq N\\0\leq i\leq d,\ j\in\{0,1\}}}.
+\]
+If $\Delta\neq0$, then
+\begin{equation}\label{eq:det-lower-product-en}
+\abs{\Delta}\geq\prod_{k=1}^Nq_k^{-d}b_k^{-1}.
+\end{equation}
+In particular, if $q_k<2Q$ and $b_k<2B$ for every $k$, then
+\begin{equation}\label{eq:det-lower-dyadic-en}
+\abs{\Delta}\geq(2Q)^{-dN}(2B)^{-N}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Multiply the $k$th row of the matrix defining $\Delta$ by $q_k^db_k$.
+The entry corresponding to $(i,j)$ becomes
+\[
+q_k^db_kx_k^iy_k^j
+=
+\begin{cases}
+ p_k^iq_k^{d-i}b_k,&j=0,\\
+ p_k^iq_k^{d-i}a_k,&j=1,
+\end{cases}
+\]
+and is therefore an integer. The determinant of the resulting integer
+matrix is
+\[
+\left(\prod_{k=1}^Nq_k^db_k\right)\Delta.
+\]
+If $\Delta\neq0$, this is a nonzero integer and hence has absolute
+value at least one, proving \eqref{eq:det-lower-product-en}. The final assertion follows from $q_k<2Q$ and $b_k<2B$.
+\end{proof}
+
+The next section combines the analytic upper bound
+\eqref{eq:perturbed-simple-en} with the arithmetic lower bound
+\eqref{eq:det-lower-dyadic-en}. The two estimates retain the source
+and target heights separately; their balance is achieved by adapting
+the source degree to the relative size of these two heights.
+
+\section{Two-height counting on analytic graphs}
+\label{sec:scarcity}
+
+We now establish the main counting estimate for the nonrational
+real-analytic function $f:U\to\R$ fixed in
+Section~\ref{sec:wronskians}. We count rational source points
+$p/q$, with $q\asymp Q$, whose images admit exceptionally good
+rational approximations, keeping the source and target denominator
+scales separate. The numerical parameters below are chosen to
+ensure the strict exponent inequalities needed in the proof;
+we make no attempt to optimize them.
+
+We fix
+\begin{equation}\label{eq:fixed-parameters-en}
+\gamma=10,
+\qquad
+\tau=100,
+\qquad
+v=\frac{2}{\gamma}=\frac15,
+\qquad
+\tau-3=97.
+\end{equation}
+The target degree is one throughout this section. The parameter
+$\gamma$ controls the source degree, $\tau$ is the approximation
+exponent that will eventually be excluded for the image, and $v$
+separates the elementary and determinant ranges of target
+denominators.
+
+For every integer $A\geq3$, define
+\begin{equation}\label{eq:D-A-en}
+D(A)
+:=
+\max\set{2,\left\lceil\frac{\gamma A}{\tau-3}\right\rceil}
+=
+\max\set{2,\left\lceil\frac{10A}{97}\right\rceil},
+\end{equation}
+and, for $Q\geq2$, put
+\begin{equation}\label{eq:T-Q-A-en}
+T(Q,A):=Q^{A/(\tau-3)}=Q^{A/97}.
+\end{equation}
+The quantity $A$ measures the required accuracy in the source
+variable, whereas $T(Q,A)$ is the largest target height treated at
+source scale $Q$. The exponent $\tau-3$ is chosen for the subsequent fusion: for fixed $A$,
+$T(Q,A)^{2-\tau}=o(Q^{-A})$ as $Q\to\infty$.
+Thus the contribution from the next lower target cutoff can
+be made small relative to the next source interval.
+
+Let $I_*\Subset U$ be a nondegenerate compact interval on which
+\begin{equation}\label{eq:derivative-bounds-en}
+0<m_*\leq\abs{f'(x)}\leq M_*
+\qquad(x\in I_*).
+\end{equation}
+Since $f'$ is continuous and does not vanish on $I_*$, it has constant
+sign there. Hence $f|_{I_*}$ is strictly monotone, and the mean-value
+theorem gives
+\begin{equation}\label{eq:inverse-lipschitz-en}
+\abs{x_2-x_1}
+\leq
+m_*^{-1}\abs{f(x_2)-f(x_1)}
+\qquad(x_1,x_2\in I_*).
+\end{equation}
+
+For a nondegenerate compact interval $J\subseteq I_*$, integers
+$A\geq3$ and $H\geq2$, and an integer $Q\geq2$, define the set of \textit{resonant source centers}
+\begin{equation}\label{eq:dangerous-set-en}
+\begin{split}
+\mathcal D(J;Q,A,H)
+:=
+\Bigl\{\frac pq\in J:\;&
+\gcd(p,q)=1,\quad Q\leq q<2Q,\\
+&\exists\,a\in\Z,\ b\in\Z_{>0}
+\text{ with }H\leq b<T(Q,A),\\
+&\abs{f(p/q)-a/b}
+\leq2b^{-\tau}+4M_*Q^{-A}
+\Bigr\}.
+\end{split}
+\end{equation}
+The source fractions are reduced, whereas the target fractions need not be.
+For $p/q\in\mathcal D(J;Q,A,H)$, any pair $(a,b)$ satisfying the
+conditions in \eqref{eq:dangerous-set-en} will be called a \emph{witness}
+for $p/q$.
+The term $Q^{-A}$ is a stability margin which will allow avoidance at a
+rational center to persist on the next source interval.
+
+\begin{proposition}[Two-height counting on analytic graphs]
+\label{prop:scarcity-en}
+There exists a constant $C_{\mathrm{low}}>0$, depending only on
+$f$, $I_*$, $m_*$, $M_*$ and the fixed parameters in
+\eqref{eq:fixed-parameters-en}, with the following property. Let
+$J\subseteq I_*$ be a nondegenerate compact interval and let $A\geq3$
+be an integer. Assume that
+\begin{equation}\label{eq:wronskians-on-J-en}
+W_d(x)\neq0
+\qquad(x\in J,\ 2\leq d\leq D(A)).
+\end{equation}
+Then there exist constants
+\[
+C(J,A)>0
+\qquad\text{and}\qquad
+Q_0(J,A)\in\Z_{>0}
+\]
+such that, for every integer $H\geq2$ and every integer
+$Q\geq Q_0(J,A)$,
+\begin{equation}\label{eq:scarcity-bound-en}
+\#\mathcal D(J;Q,A,H)
+\leq
+C_{\mathrm{low}}Q^2H^{-98}
++
+C(J,A)Q^{17/10}.
+\end{equation}
+In particular, the constants $C(J,A)$ and $Q_0(J,A)$ are uniform in
+$H$.
+\end{proposition}
+
+\begin{proof}
+Fix $J$ and $A$ as in the statement. Every lower bound imposed on $Q$
+below will depend at most on $J$ and $A$, and will be independent of
+$H$ and of the target block.
+
+If $T(Q,A)\leq H$, then
+$\mathcal D(J;Q,A,H)=\varnothing$. Assume henceforth that
+$T(Q,A)>H$. For every integer $k\geq0$ such that
+\[
+B_k:=2^kH<T(Q,A),
+\]
+put
+\begin{equation}\label{eq:dyadic-blocks-en}
+\mathcal B_k
+:=
+[B_k,\min\{2B_k,T(Q,A)\})\cap\Z_{>0}.
+\end{equation}
+These sets form a disjoint partition of
+$[H,T(Q,A))\cap\Z_{>0}$. Let $\mathcal D_k$ be the set of source centers
+admitting at least one
+witness $(a,b)$ with
+$b\in\mathcal B_k$. Then
+\begin{equation}\label{eq:D-covered-by-blocks-en}
+\mathcal D(J;Q,A,H)\subseteq\bigcup_k\mathcal D_k,
+\qquad
+\#\mathcal D(J;Q,A,H)\leq\sum_k\#\mathcal D_k.
+\end{equation}
+A center may occur in more than one $\mathcal D_k$, which only produces
+an admissible overcount.
+
+A block with left endpoint $B=B_k$ is called \emph{small} if
+$B<Q^v$ and \emph{large} if $B\geq Q^v$. A block beginning below
+$Q^v$ and crossing that threshold is assigned to the small range; the
+estimates there use only $B\leq b<2B$.
+
+\subsubsection*{Small target heights}
+
+Set
+\begin{equation}\label{eq:F-star-C-star-en}
+F_*:=\max_{x\in I_*}\abs{f(x)},
+\qquad
+C_*:=F_*+2^{1-\tau}+\frac{M_*}{2}.
+\end{equation}
+Suppose that $x\in I_*$, $b\geq2$, $A\geq3$, $Q\geq2$, and
+\[
+\abs{f(x)-a/b}\leq2b^{-\tau}+4M_*Q^{-A}.
+\]
+Since $Q^{-A}\leq2^{-3}$,
+\[
+\frac{|a|}{b}
+\leq
+F_*+2b^{-\tau}+4M_*Q^{-A}
+\leq C_*.
+\]
+Thus $|a|\leq C_*b$. For $B\leq b<2B$, there are therefore
+$O(B^2)$ pairs $(a,b)$ that can occur as witnesses, with an implied constant depending only on $C_*$.
+
+For each such pair, let
+\[
+E_{a,b}
+:=
+\set{x\in J:
+\abs{f(x)-a/b}\leq2b^{-\tau}+4M_*Q^{-A}}.
+\]
+Because $f$ is strictly monotone on $I_*$, the set $E_{a,b}$ is empty,
+a singleton, or an interval. If $x_1<x_2$ belong to $E_{a,b}$, then
+\eqref{eq:inverse-lipschitz-en} gives
+\[
+m_*(x_2-x_1)
+\leq
+\abs{f(x_2)-f(x_1)}
+\leq
+2\bigl(2b^{-\tau}+4M_*Q^{-A}\bigr).
+\]
+Consequently,
+\begin{equation}\label{eq:Eab-length-en}
+|E_{a,b}|
+\leq
+\frac{2}{m_*}\bigl(2b^{-\tau}+4M_*Q^{-A}\bigr).
+\end{equation}
+
+Let $E_B$ be the union of the sets $E_{a,b}$ over one small target
+block. It is a union of $O(B^2)$ intervals, and
+\begin{equation}\label{eq:low-target-length-en}
+|E_B|\ll B^{2-\tau}+B^2Q^{-A}.
+\end{equation}
+Every center in the corresponding $\mathcal D_k$ belongs to $E_B$.
+Applying Lemma~\ref{lem:rational-union} gives
+\begin{align}
+\#\mathcal D_k
+&\ll Q^2|E_B|+B^2\notag\\
+&\ll
+Q^2B^{2-\tau}
++Q^{2-A}B^2
++B^2.
+\label{eq:low-block-count-en}
+\end{align}
+
+We sum over the dyadic left endpoints $B=2^kH<Q^v$. Since
+$2-\tau<0$,
+\[
+\sum_{2^kH<Q^v}(2^kH)^{2-\tau}
+\ll H^{2-\tau},
+\]
+whereas
+\[
+\sum_{2^kH<Q^v}(2^kH)^2\ll Q^{2v}.
+\]
+It follows that
+\begin{equation}\label{eq:low-total-en}
+\sum_{B_k<Q^v}\#\mathcal D_k
+\leq
+C_{\mathrm{low}}Q^2H^{2-\tau}
++O\bigl(Q^{2-A+2v}+Q^{2v}\bigr).
+\end{equation}
+The coefficient $C_{\mathrm{low}}$ depends only on
+$f$, $I_*$, $m_*$, $M_*$ and the fixed parameters in
+\eqref{eq:fixed-parameters-en}. Since $A\geq3$ and $v=1/5$,
+\[
+2-A+2v\leq-\frac35,
+\qquad
+2v=\frac25.
+\]
+Thus
+\begin{equation}\label{eq:low-final-en}
+\sum_{B_k<Q^v}\#\mathcal D_k
+\leq
+C_{\mathrm{low}}Q^2H^{2-\tau}+O(Q^{2/5}).
+\end{equation}
+
+\subsubsection*{Large target heights}
+
+If there are no blocks with $B_k\geq Q^v$, there is nothing to prove. This is automatically the case when $A\leq 19$, since then
+\[
+T(Q,A)=Q^{A/97}<Q^{1/5}=Q^v.
+\]
+Hence, in the large-target range one necessarily has $A\geq 20$. Fix one such block, write $B=B_k$, and define
+\begin{equation}\label{eq:u-definition-en}
+u:=\frac{\log B}{\log Q},
+\qquad B=Q^u.
+\end{equation}
+Since $Q^v\leq B<T(Q,A)$,
+\begin{equation}\label{eq:u-range-en}
+\frac15=v\leq u<\frac{A}{97}.
+\end{equation}
+We shall show that each large target block contributes 
+$O_{J,A}(Q^{33/20})$ resonant centers: we partition $J$ into
+$O_J(Q^\kappa)$ short source cells and prove that each cell contains
+only $O_{J,A}(1)$ resonant centers.
+Set
+\begin{equation}\label{eq:d-N-kappa-en}
+d:=\lceil\gamma u\rceil=\lceil10u\rceil,
+\qquad
+N:=2(d+1),
+\qquad
+\kappa:=\frac{3(d+u)}{N-1},
+\end{equation}
+and put
+\begin{equation}\label{eq:rho-definition-en}
+\rho:=Q^{-\kappa}.
+\end{equation}
+The degree $d\asymp u$ adapts the source degree to the relative target
+height $B=Q^u$, while the choice of $\kappa$ gives
+\[
+\rho^{N(N-1)/2}=Q^{-\frac32N(d+u)},
+\]
+to be compared below with the arithmetic scale $Q^{-N(d+u)}$.
+Because $10u\geq2$, we have $d\geq2$. Moreover,
+$10u<10A/97$, and hence $d\leq D(A)$. Thus
+\eqref{eq:wronskians-on-J-en} applies to the chosen degree.
+
+Partition $J$ into half-open cells of length at most $\rho$, taking the
+final cell to be closed at its right endpoint. Every point of $J$ then
+belongs to exactly one cell, and the number of cells is at most
+\begin{equation}\label{eq:number-cells-en}
+1+|J|\rho^{-1}
+=1+|J|Q^\kappa
+\leq(1+|J|)Q^\kappa.
+\end{equation}
+
+Fix a cell $C$. For every center $x=p/q\in\mathcal D_k\cap C$, choose once and for all
+a witness $(a,b)$ with $b\in\mathcal B_k$, and put $y=a/b$. Define
+\begin{equation}\label{eq:s-definition-en}
+s:=\min\{u\tau,A\}.
+\end{equation}
+Since $b\geq B=Q^u$,
+\begin{align}
+\abs{y-f(x)}
+&\leq2B^{-\tau}+4M_*Q^{-A}\notag\\
+&\leq K_0Q^{-s},
+\qquad K_0:=2+4M_*.
+\label{eq:vertical-Q-s-en}
+\end{align}
+
+We record uniform exponent bounds. From $d=\lceil10u\rceil$ and
+$u\geq1/5$,
+\begin{equation}\label{eq:basic-d-bounds-en}
+10u\leq d\leq10u+1\leq15u,
+\qquad
+d+u\leq16u.
+\end{equation}
+Since $u\leq d/10$ and $N-1=2d+1$,
+\begin{equation}\label{eq:kappa-bound-en}
+\kappa
+=\frac{3(d+u)}{2d+1}
+\leq\frac{3(11d/10)}{2d}
+=\frac{33}{20}.
+\end{equation}
+The upper bound in \eqref{eq:u-range-en} gives $97u<A$, while
+$\tau u=100u$. Therefore
+\begin{equation}\label{eq:s-lower-en}
+s\geq97u.
+\end{equation}
+Also, using $N/(N-1)\leq2$ and
+\eqref{eq:basic-d-bounds-en},
+\begin{equation}\label{eq:kappaN-upper-en}
+\kappa N
+=3(d+u)\frac{N}{N-1}
+\leq6(d+u)
+\leq96u.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:s-kappa-gap-en}
+s-\kappa N\geq u\geq\frac{1}{5}.
+\end{equation}
+Finally,
+\begin{equation}\label{eq:N-upper-en}
+N-1=2d+1\leq30u+1\leq35u.
+\end{equation}
+Thus the three numerical inequalities driving the large-target
+argument are
+\[
+\kappa\leq\frac{33}{20},\qquad
+s-\kappa N\geq\frac15,\qquad
+\frac{s}{N-1}\geq\frac{97}{35}>2.
+\]
+They control, respectively, the number of source cells, the
+perturbation required in Lemma~\ref{lem:perturbed-determinant-en},
+and the Farey count within each cell.
+
+\emph{Determinant comparison.} For each integer $d$ with $2\leq d\leq D(A)$, let
+$C_{d,J}^{\mathrm{pert}}$ be the constant in
+Lemma~\ref{lem:perturbed-determinant-en}, and set
+\begin{equation}\label{eq:uniform-det-constant-en}
+K_{\det}(J,A)
+:=
+\max_{2\leq d\leq D(A)}C_{d,J}^{\mathrm{pert}}<\infty.
+\end{equation}
+Since $D(A)$ is fixed once $A$ is fixed, this maximum is taken over
+a finite set of constants determined before the choice of $Q$ and of
+the target block. In particular, $K_{\det}(J,A)$ is independent of
+$Q$, $u$, $B$, and $H$.
+
+By \eqref{eq:vertical-Q-s-en} and
+\eqref{eq:s-kappa-gap-en},
+\[
+K_0Q^{-s}\leq K_0Q^{-\kappa N-1/5}.
+\]
+Hence $Q\geq K_0^5$ implies
+\[
+K_0Q^{-s}\leq Q^{-\kappa N}=\rho^N.
+\]
+This restriction is simultaneous for all large target blocks and is
+independent of $u$, $B$, and $H$.
+
+Suppose first that $C$ contains at least $N$ resonant centers. Choose
+$N$ distinct centers and their fixed witnessing pairs, say
+$(x_r,y_r)$, $1\leq r\leq N$, and define
+\[
+\Delta
+:=
+\det\bigl(x_r^iy_r^j\bigr)_{
+\substack{1\leq r\leq N\\0\leq i\leq d,\ j\in\{0,1\}}}.
+\]
+All the $x_r$ lie in the closure of a cell of length at most $\rho$.
+Lemma~\ref{lem:perturbed-determinant-en} and the definition of
+$\kappa$ give
+\begin{equation}\label{eq:det-upper-high-en}
+|\Delta|
+\leq
+K_{\det}(J,A)\rho^{N(N-1)/2}
+=
+K_{\det}(J,A)Q^{-\frac32N(d+u)}.
+\end{equation}
+If $\Delta\neq0$, then $q_r<2Q$ and $b_r<2B$, so
+Lemma~\ref{lem:det-lower-en} gives
+\begin{equation}\label{eq:det-lower-high-en}
+|\Delta|
+\geq
+(2Q)^{-dN}(2B)^{-N}
+=
+2^{-N(d+1)}Q^{-N(d+u)}.
+\end{equation}
+The two bounds are incompatible whenever
+\begin{equation}\label{eq:det-incompatibility-en}
+Q^{N(d+u)/2}
+>
+K_{\det}(J,A)2^{N(d+1)}.
+\end{equation}
+This threshold is uniform in the target block. Indeed,
+$d\geq2$, $u\geq1/5$, and $N\geq6$, so
+\[
+\frac{N(d+u)}{2}
+\geq\frac{6(2+1/5)}{2}
+=\frac{33}{5}>6.
+\]
+Since $N(d+1)=2(d+1)^2$, it is enough to impose
+\[
+Q^6
+>
+K_{\det}(J,A)
+\max_{2\leq d\leq D(A)}2^{2(d+1)^2}.
+\]
+This condition depends only on $J$ and $A$. Thus, for all sufficiently
+large $Q$, the determinant associated with every choice of $N$
+distinct resonant centers in every cell is zero.
+
+Let $M_C$ be the number of resonant centers in $C$ for the present
+target block. If $M_C<N$, then
+\[
+M_C<N=2(d+1)\leq2(D(A)+1),
+\]
+so $M_C=O_A(1)$. Assume that $M_C\ge N$ and enumerate the centers together with their
+chosen witnesses as
+\[
+(x_r,y_r),\qquad 1\le r\le M_C,
+\]
+where $x_r=p_r/q_r$ and $y_r=a_r/b_r$. Consider the $M_C\times N$ evaluation matrix
+\begin{equation}\label{eq:evaluation-matrix-en}
+\mathcal M_C
+:=
+\bigl(x_r^iy_r^j\bigr)_{
+\substack{1\leq r\leq M_C\\0\leq i\leq d,\ j\in\{0,1\}}}.
+\end{equation}
+Since the preceding choice of $N$ distinct centers was arbitrary, every
+$N\times N$ minor of $\mathcal M_C$ vanishes. Hence
+$\rank\mathcal M_C\leq N-1$, so the right kernel of $\mathcal M_C$ in
+$\R^N$ is nontrivial. Choose a unit vector $(c_{i0},c_{i1})$ in this
+right kernel and define
+\begin{equation}\label{eq:auxiliary-polynomial-en}
+P_C(X,Y)
+:=
+A_C(X)+B_C(X)Y
+:=
+\sum_{i=0}^dc_{i0}X^i
++
+\sum_{i=0}^dc_{i1}X^iY,
+\qquad
+\norm{P_C}_2=1.
+\end{equation}
+Then
+\begin{equation}\label{eq:P-vanishes-pairs-en}
+P_C(x_r,y_r)=0
+\qquad(1\leq r\leq M_C).
+\end{equation}
+
+\emph{Counting in one cell.} Put
+\[
+X_*:=\max\set{1,\max_{x\in J}|x|}
+\]
+and
+\begin{equation}\label{eq:L-A-en}
+L_{J,A}
+:=
+\max_{2\leq d\leq D(A)}
+\left(\sum_{i=0}^dX_*^{2i}\right)^{1/2}<\infty.
+\end{equation}
+The coefficient normalization in
+\eqref{eq:auxiliary-polynomial-en} and Cauchy--Schwarz give
+$|B_C(x)|\leq L_{J,A}$ for $x\in J$. Since $P_C$ is linear in $Y$,
+\eqref{eq:P-vanishes-pairs-en} and
+\eqref{eq:vertical-Q-s-en} imply
+\begin{equation}\label{eq:P-small-graph-en}
+\abs{P_C(x_r,f(x_r))}
+=
+|B_C(x_r)|\abs{f(x_r)-y_r}
+\leq
+L_{J,A}K_0Q^{-s}.
+\end{equation}
+
+For $2\leq d\leq D(A)$, let
+$C_{d,J}$, $R_{d,J}$, and $\eps_{d,J}$ be supplied by
+Corollary~\ref{cor:polynomial-sublevel-en}, and set
+\begin{equation}\label{eq:uniform-sublevel-data-en}
+\begin{aligned}
+C_{J,A}^{\mathrm{sub}}
+&:=\max_{2\leq d\leq D(A)}C_{d,J},\\
+R_{J,A}^{\mathrm{sub}}
+&:=\max_{2\leq d\leq D(A)}R_{d,J},\\
+\eps_{J,A}^{\mathrm{sub}}
+&:=\min_{2\leq d\leq D(A)}\eps_{d,J}>0.
+\end{aligned}
+\end{equation}
+These extrema are finite. Since $s\geq97/5$,
+\[
+L_{J,A}K_0Q^{-s}\leq L_{J,A}K_0Q^{-97/5},
+\]
+so, after increasing the lower threshold for $Q$ depending only on
+$J$ and $A$, we have
+\begin{equation}\label{eq:sublevel-smallness-en}
+L_{J,A}K_0Q^{-s}<\eps_{J,A}^{\mathrm{sub}}.
+\end{equation}
+This threshold is again uniform over all large target blocks.
+Define
+\[
+S_C
+:=
+\set{x\in J:
+\abs{P_C(x,f(x))}\leq L_{J,A}K_0Q^{-s}}
+\cap\overline C.
+\]
+Intersecting the sublevel set from
+Corollary~\ref{cor:polynomial-sublevel-en} with the interval
+$\overline C$ does not increase its number of connected components.
+Every resonant center assigned to $C$ belongs to $S_C$. By
+Corollary~\ref{cor:polynomial-sublevel-en},
+\begin{equation}\label{eq:sublevel-length-high-en}
+|S_C|\ll_{J,A}Q^{-s/(N-1)},
+\end{equation}
+and $S_C$ is a union of at most
+$R_{J,A}^{\mathrm{sub}}$ intervals. From
+\eqref{eq:s-lower-en} and \eqref{eq:N-upper-en},
+\begin{equation}\label{eq:s-over-N-en}
+\frac{s}{N-1}\geq\frac{97}{35}>2.
+\end{equation}
+The resonant centers are distinct reduced fractions with denominators
+in $[Q,2Q)$. By \eqref{eq:sublevel-length-high-en} and
+\eqref{eq:s-over-N-en},
+\[
+Q^2|S_C|
+\ll_{J,A}
+Q^{2-s/(N-1)}
+\leq Q^{2-97/35}
+=Q^{-27/35}.
+\]
+Lemma~\ref{lem:rational-union} therefore gives
+\begin{align}
+M_C
+&\leq4Q^2|S_C|+R_{J,A}^{\mathrm{sub}}\notag\\
+&\ll_{J,A}Q^{-27/35}+1
+\ll_{J,A}1.
+\label{eq:centers-per-cell-en}
+\end{align}
+Together with the case $M_C<N$, this bound holds uniformly for every
+cell and every large target block.
+
+\emph{Summation over cells and target blocks.} By \eqref{eq:number-cells-en}, there are $O_J(Q^\kappa)$ source
+cells, and \eqref{eq:centers-per-cell-en} gives $O_{J,A}(1)$ resonant
+centers in each. Hence, by \eqref{eq:kappa-bound-en}, one large target
+block contributes
+\begin{equation}\label{eq:high-one-block-en}
+O_{J,A}(Q^\kappa)=O_{J,A}(Q^{33/20}).
+\end{equation}
+The total number of dyadic target blocks is at most
+\[
+1+\log_2\frac{T(Q,A)}{H}
+\leq
+1+\frac{A}{97}\log_2Q
+=O_A(\log Q).
+\]
+Since $\log Q\ll Q^{1/20}$ for $Q\geq2$, summing
+\eqref{eq:high-one-block-en} gives
+\begin{equation}\label{eq:high-all-blocks-en}
+\sum_{B_k\geq Q^v}\#\mathcal D_k
+=O_{J,A}(Q^{33/20}\log Q)
+=O_{J,A}(Q^{17/10}).
+\end{equation}
+
+Combining \eqref{eq:D-covered-by-blocks-en},
+\eqref{eq:low-final-en}, and \eqref{eq:high-all-blocks-en}, we obtain
+\eqref{eq:scarcity-bound-en}. We finally record the uniformity. For
+fixed $J$ and $A$, only the finite range $2\leq d\leq D(A)$ occurs,
+and the bounds $u\geq1/5$ and $s-\kappa N\geq1/5$ make all lower
+restrictions on $Q$ in the large-height argument uniform in the target
+block. Thus none depends on $H$, $u$, $B$, the cell, or the witnessing
+pairs. Taking their maximum defines $Q_0(J,A)$, and enlarging the final
+implied constant defines $C(J,A)$.
+\end{proof}
+
+%\begin{remark}\label{rem:anisotropy}
+%The target degree one is essential to the conclusion. The determinant
+%produces a relation $A_C(X)+B_C(X)Y=0$, while the Wronskian condition
+%asserts that the analytic graph is not itself rational. The sharp
+%counting input is Lemma~\ref{lem:rational-union}: Farey separation
+%removes the factor $Q$ per connected component that would otherwise
+%force a higher target degree. The source degree
+%$d=\lceil10\log B/\log Q\rceil$ balances the two independent heights.
+%For fixed $A$, only the finite range $2\leq d\leq D(A)$ occurs, so all
+%Wronskian, determinant, and sublevel constants are fixed before
+%$Q\to\infty$.
+%\end{remark}
+
+\section{From two-height counting to rigidity}
+\label{sec:fusion}
+
+\subsection{A safe center}
+
+The counting estimate becomes effective once its quadratic main term
+is smaller than the supply of reduced source fractions. For the
+deduction below, the precise exponent $17/10$ is not essential: what
+matters is that the second term in Proposition~5.1 is $o(Q^2)$ as
+$Q\to\infty$, uniformly in the lower target cutoff $H$, while
+$H^{2-\tau}\to0$ as $H\to\infty$. These two features produce safe
+rational centers at every sufficiently large source scale.
+
+\begin{lemma}[A safe center in one source block]
+\label{lem:safe-center-en}
+Assume the hypotheses and notation of
+Proposition~\ref{prop:scarcity-en}. Let $H\geq2$ be an integer and
+suppose in addition that
+\begin{equation}\label{eq:tail-smallness-en}
+C_{\mathrm{low}}H^{2-\tau}
+\leq
+\frac{c_{\mathrm F}}4|J|.
+\end{equation}
+Then, for every sufficiently large integer $Q$, there exists a reduced
+fraction
+\[
+r=\frac pq\in J,
+\qquad Q\leq q<2Q,
+\]
+such that
+\begin{equation}\label{eq:safe-center-en}
+\abs{f(r)-a/b}
+>
+2b^{-\tau}+4M_*Q^{-A}
+\end{equation}
+for every $a\in\Z$ and every integer $b$ satisfying
+\[
+H\leq b<T(Q,A).
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:farey-lower-en}, for every sufficiently large $Q$,
+the interval $J$ contains at least
+\[
+c_{\mathrm F}|J|Q^2
+\]
+reduced fractions with denominator in $[Q,2Q)$. On the other hand,
+Proposition~\ref{prop:scarcity-en} and
+\eqref{eq:tail-smallness-en} give
+\[
+\#\mathcal D(J;Q,A,H)
+\leq
+\frac{c_{\mathrm F}}4|J|Q^2+C(J,A)Q^{17/10}.
+\]
+Since $17/10<2$ and $J,A$ are fixed, there exists
+$Q_1(J,A)$ such that, for every $Q\geq Q_1(J,A)$,
+\[
+C(J,A)Q^{17/10}
+\leq
+\frac{c_{\mathrm F}}4|J|Q^2.
+\]
+Thus $\mathcal D(J;Q,A,H)$ does not exhaust the reduced fractions
+$p/q\in J$ with $Q\leq q<2Q$. Hence any such fraction outside
+$\mathcal D(J;Q,A,H)$ satisfies \eqref{eq:safe-center-en} by definition.
+\end{proof}
+
+\subsection{Fusion and proof of Theorem~\ref{thm:intro-local}}
+
+Fix a nonempty open interval $V\subseteq U$. Since $f$ is not rational, it is nonconstant, so $f'\not\equiv0$. As $f'$ is real-analytic, its zeros are isolated. We may therefore choose a
+nondegenerate compact interval
+\begin{equation}\label{eq:I-star-choice-en}
+I_*\Subset V
+\end{equation}
+on which $f'$ does not vanish. By continuity and compactness, there are
+constants $m_*,M_*>0$ such that
+\[
+0<m_*\leq\abs{f'(x)}\leq M_*
+\qquad(x\in I_*),
+\]
+as required in \eqref{eq:derivative-bounds-en}.
+
+For $n\geq0$, put
+\begin{equation}\label{eq:A-n-en}
+A_n:=n+3
+\end{equation}
+and define
+\begin{equation}\label{eq:Z-n-en}
+\mathcal Z_n
+:=
+\bigcup_{2\leq d\leq D(A_n)}
+\set{x\in I_*:W_d(x)=0}.
+\end{equation}
+Each $\mathcal Z_n$ is finite by
+Corollary~\ref{cor:wronskian-finite-en}. Since $D(A)$ is nondecreasing,
+\begin{equation}\label{eq:Z-n-nested-en}
+\mathcal Z_n\subseteq\mathcal Z_{n+1}.
+\end{equation}
+Choose a nondegenerate compact interval
+\begin{equation}\label{eq:I0-en}
+I_0\subseteq\Int(I_*)\setminus\mathcal Z_0.
+\end{equation}
+
+For a nondegenerate compact interval $I=[\alpha,\beta]$, let
+\begin{equation}\label{eq:middle-third-en}
+J(I)
+:=
+\left[
+\alpha+\frac{\beta-\alpha}{3},
+\beta-\frac{\beta-\alpha}{3}
+\right]
+\end{equation}
+be its middle third. Whenever $I_n$ is defined, write
+$J_n:=J(I_n)$. Then
+\begin{equation}\label{eq:middle-third-length-en}
+|J_n|=\frac13|I_n|,
+\qquad
+\dist(J_n,\R\setminus I_n)=\frac13|I_n|.
+\end{equation}
+
+Choose an integer $T_0\geq2$ such that
+\begin{equation}\label{eq:initial-tail-en}
+C_{\mathrm{low}}T_0^{2-\tau}
+\leq
+\frac{c_{\mathrm F}}4|J_0|.
+\end{equation}
+This is possible because $2-\tau=-98<0$.
+
+We construct nondegenerate compact intervals $I_n$, strictly
+increasing positive integers $T_n$, and reduced fractions
+$r_n=p_n/q_n$ satisfying the following properties whenever the objects
+involved are defined:
+\begin{enumerate}[label=\textup{(F\arabic*)},leftmargin=3em]
+\item $I_{n+1}\subset\Int(I_n)$;
+\item $I_n\cap\mathcal Z_n=\varnothing$;
+\item $T_{n+1}>T_n$;
+\item $q_n>2q_{n-1}$ for $n\geq1$;
+\item for every $x\in I_{n+1}$,
+\begin{equation}\label{eq:source-invariant-en}
+0<\abs{x-r_n}<q_n^{-A_n};
+\end{equation}
+\item for every $x\in I_{n+1}$, every $a\in\Z$, and every integer $b$
+with $T_n\leq b<T_{n+1}$,
+\begin{equation}\label{eq:target-invariant-en}
+\abs{f(x)-a/b}>b^{-\tau};
+\end{equation}
+\item
+\begin{equation}\label{eq:tail-invariant-en}
+C_{\mathrm{low}}T_n^{2-\tau}
+\leq
+\frac{c_{\mathrm F}}4|J_n|.
+\end{equation}
+\end{enumerate}
+Conditions (F5) and (F6) impose source approximation and target
+avoidance. Conditions (F2) and (F7) retain the hypotheses needed
+to choose the next safe center.
+
+For clarity, we write \textup{(F1)}$_n$, \textup{(F3)}$_n$,
+\textup{(F5)}$_n$, and \textup{(F6)}$_n$ for the corresponding
+properties linking stage $n$ to stage $n+1$, while
+\textup{(F2)}$_n$ and \textup{(F7)}$_n$ refer to the properties at
+stage $n$ itself; similarly, \textup{(F4)}$_n$ is understood for
+$n\geq1$.
+
+The initial choices $I_0$ and $T_0$ satisfy
+\textup{(F2)}$_0$ and \textup{(F7)}$_0$ by
+\eqref{eq:I0-en} and \eqref{eq:initial-tail-en}. Suppose that $I_0,\ldots,I_n$, $T_0,\ldots,T_n$, and, when
+$n\geq1$, $r_0,\ldots,r_{n-1}$ have been constructed and satisfy
+all applicable induction hypotheses. We choose
+$Q_n,r_n,T_{n+1},I_{n+1}$ in this order and verify the required
+conditions at the next stage.
+
+Since $J_n\subseteq I_n$ and
+\textup{(F2)}$_n$ gives $I_n\cap\mathcal Z_n=\varnothing$,
+\[
+W_d(x)\neq0
+\qquad(x\in J_n,\ 2\leq d\leq D(A_n)).
+\]
+Thus Proposition~\ref{prop:scarcity-en} applies on $J_n$ with
+$A=A_n$, and \textup{(F7)}$_n$ is precisely the additional hypothesis
+\eqref{eq:tail-smallness-en} of Lemma~\ref{lem:safe-center-en}, with
+$H=T_n$.
+
+Before choosing the source height, define
+\begin{equation}\label{eq:Lambda-next-en}
+\Lambda_{n+1}:=\#\mathcal Z_{n+1}+2.
+\end{equation}
+Notice that $\mathcal Z_{n+1}$, and hence $\Lambda_{n+1}$, is already
+fixed at this point, independently of all objects to be chosen at
+stage $n$.
+
+Choose an integer $Q_n$ sufficiently large that the conclusion of
+Lemma~\ref{lem:safe-center-en} holds and, simultaneously,
+\begin{enumerate}[label=\textup{(Q\arabic*)},leftmargin=3em]
+\item $Q_n>2q_{n-1}$ if $n\geq1$;
+\item
+\[
+(2Q_n)^{-A_n}<\frac{|I_n|}{3};
+\]
+\item
+\[
+Q_n^{A_n/97}\geq2T_n+2;
+\]
+\item
+\begin{equation}\label{eq:Q4-en}
+3C_{\mathrm{low}}\Lambda_{n+1}
+2^{A_n+\tau-2}Q_n^{-A_n/97}
+\leq
+\frac{c_{\mathrm F}}4.
+\end{equation}
+\end{enumerate}
+Such a choice is possible. Indeed, at this stage $J_n$, $A_n$,
+$T_n$, $\Lambda_{n+1}$, and, when $n\geq1$, $q_{n-1}$ are fixed, as
+are all constants and thresholds in
+Lemma~\ref{lem:safe-center-en}. Conditions
+\textup{(Q1)}--\textup{(Q3)} impose only finitely many lower bounds on
+$Q_n$, while the left-hand side of \eqref{eq:Q4-en} tends to zero as
+$Q_n\to\infty$.
+
+Choose a reduced safe fraction
+\begin{equation}\label{eq:r-n-choice-en}
+r_n=\frac{p_n}{q_n}\in J_n,
+\qquad Q_n\leq q_n<2Q_n.
+\end{equation}
+Set
+\begin{equation}\label{eq:R-T-next-en}
+R_n:=(2Q_n)^{-A_n},
+\qquad
+T_{n+1}:=\left\lfloor Q_n^{A_n/97}\right\rfloor,
+\end{equation}
+and define
+\begin{equation}\label{eq:K-next-en}
+K_{n+1}:=(r_n-R_n,r_n+R_n).
+\end{equation}
+Condition \textup{(Q3)} gives $T_{n+1}\geq2T_n+2>T_n$, proving
+\textup{(F3)}$_n$. Since $r_n\in J_n$ and
+$\dist(J_n,\R\setminus I_n)=|I_n|/3$, condition \textup{(Q2)} gives
+\[
+K_{n+1}\subset\Int(I_n).
+\]
+
+We transfer the safety of $r_n$ to $K_{n+1}$. If
+$T_n\leq b<T_{n+1}$, then
+\[
+b<T_{n+1}\leq Q_n^{A_n/97}=T(Q_n,A_n).
+\]
+Therefore the safety of $r_n$ gives, for every $a\in\Z$,
+\begin{equation}\label{eq:safe-at-center-en}
+\abs{f(r_n)-a/b}
+>
+2b^{-\tau}+4M_*Q_n^{-A_n}.
+\end{equation}
+For $x\in K_{n+1}$, the mean-value theorem and
+\eqref{eq:derivative-bounds-en} yield
+\[
+\abs{f(x)-f(r_n)}
+\leq M_*\abs{x-r_n}
+<M_*R_n
+\leq M_*Q_n^{-A_n}.
+\]
+Consequently,
+\begin{equation}\label{eq:avoidance-on-K-en}
+\abs{f(x)-a/b}
+>
+2b^{-\tau}+3M_*Q_n^{-A_n}
+>b^{-\tau}.
+\end{equation}
+
+It remains to choose $I_{n+1}$ inside $K_{n+1}$. For every $k<n$,
+property \textup{(F5)}$_k$ gives
+$r_k\notin I_{k+1}$, and repeated use of \textup{(F1)} gives
+$I_n\subseteq I_{k+1}$. Hence no previously chosen center $r_k$,
+$k<n$, lies in $K_{n+1}$. It is therefore enough to remove
+\begin{equation}\label{eq:forbidden-next-en}
+F_{n+1}:=\mathcal Z_{n+1}\cup\{r_n\}.
+\end{equation}
+The set $F_{n+1}\cap K_{n+1}$ has at most
+$\#\mathcal Z_{n+1}+1=\Lambda_{n+1}-1$ points. Hence
+$K_{n+1}\setminus F_{n+1}$ has at most $\Lambda_{n+1}$ connected
+components. Their total length is $2R_n$, so one component, say
+$(u_{n+1},v_{n+1})$, has length at least
+$2R_n/\Lambda_{n+1}$. Put
+\[
+s_n:=\frac{R_n}{\Lambda_{n+1}}
+\]
+and choose
+\begin{equation}\label{eq:I-next-choice-en}
+I_{n+1}
+:=
+\left[
+ u_{n+1}+\frac{s_n}{2},
+ u_{n+1}+\frac{3s_n}{2}
+\right].
+\end{equation}
+Then $I_{n+1}\Subset(u_{n+1},v_{n+1})$ and
+\begin{equation}\label{eq:I-next-length-en}
+|I_{n+1}|
+=s_n
+=\frac{R_n}{\Lambda_{n+1}}
+=\frac{(2Q_n)^{-A_n}}{\Lambda_{n+1}}.
+\end{equation}
+Thus \textup{(F1)}$_n$ and \textup{(F2)}$_{n+1}$ hold.
+Furthermore, $r_n\notin I_{n+1}$ and
+$I_{n+1}\subset K_{n+1}$, so for every $x\in I_{n+1}$,
+\[
+0<\abs{x-r_n}<R_n\leq q_n^{-A_n},
+\]
+where the last inequality follows from $q_n<2Q_n$. This proves
+\textup{(F5)}$_n$. Property \textup{(F6)}$_n$ follows from
+\eqref{eq:avoidance-on-K-en}. If $n\geq1$, then
+$q_n\geq Q_n>2q_{n-1}$ by \textup{(Q1)}, proving
+\textup{(F4)}$_n$.
+
+It remains to verify \textup{(F7)}$_{n+1}$. From
+\eqref{eq:I-next-length-en} and
+\eqref{eq:middle-third-length-en},
+\begin{equation}\label{eq:J-next-lower-en}
+|J_{n+1}|
+=\frac{(2Q_n)^{-A_n}}{3\Lambda_{n+1}}.
+\end{equation}
+Condition \textup{(Q3)} implies $Q_n^{A_n/97}\geq2$. Since
+$\lfloor X\rfloor\geq X/2$ for $X\geq2$,
+\[
+T_{n+1}\geq\frac12Q_n^{A_n/97}.
+\]
+Because $2-\tau<0$,
+\begin{equation}\label{eq:T-tail-upper-en}
+T_{n+1}^{2-\tau}
+\leq
+2^{\tau-2}Q_n^{-A_n(\tau-2)/97}.
+\end{equation}
+Combining \eqref{eq:J-next-lower-en} and \eqref{eq:T-tail-upper-en} gives
+\begin{align}
+\frac{C_{\mathrm{low}}T_{n+1}^{2-\tau}}{|J_{n+1}|}
+&\leq
+3C_{\mathrm{low}}\Lambda_{n+1}
+2^{A_n+\tau-2}
+Q_n^{A_n-A_n(\tau-2)/97}\notag\\
+&=
+3C_{\mathrm{low}}\Lambda_{n+1}
+2^{A_n+\tau-2}Q_n^{-A_n/97}\notag\\
+&\leq\frac{c_{\mathrm F}}4,
+\label{eq:tail-ratio-next-en}
+\end{align}
+where we used $97=\tau-3$ and \textup{(Q4)}. The negative exponent $-A_n/97$ ensures that the contribution
+of the next lower target cutoff becomes small relative to the
+length of the next source interval. This is
+\textup{(F7)}$_{n+1}$. We have therefore completed the inductive step,
+and hence the construction.
+
+By \textup{(F1)}, the intervals $I_n$ are nested, nonempty, and
+compact. Moreover, for $n\geq1$,
+\[
+Q_n>2q_{n-1}\geq2Q_{n-1},
+\]
+so $Q_n\to\infty$. Since $I_{n+1}\subset K_{n+1}$,
+\[
+\diam(I_{n+1})\leq2R_n=2(2Q_n)^{-A_n}\longrightarrow0.
+\]
+The nested-interval theorem therefore gives a unique point
+\begin{equation}\label{eq:xi-intersection-en}
+\set{\xi}=\bigcap_{n=0}^{\infty}I_n.
+\end{equation}
+Property \textup{(F5)} yields
+\begin{equation}\label{eq:xi-rn-en}
+0<\abs{\xi-r_n}<q_n^{-A_n}
+\qquad(n\geq0).
+\end{equation}
+The denominators $q_n$ tend to infinity. Given $M\geq1$, we have
+$A_n=n+3\geq M$ for all sufficiently large $n$, and hence
+\[
+0<\abs{\xi-r_n}<q_n^{-M}
+\]
+for infinitely many $n$. Thus $\xi\in\Lio$.
+
+By \textup{(F3)}, the positive integers $T_n$ are strictly increasing
+and tend to infinity. The half-open blocks
+$[T_n,T_{n+1})\cap\Z_{>0}$ therefore partition all integers $b\geq T_0$.
+For such a $b$, let $n$ be the unique index with
+$T_n\leq b<T_{n+1}$. Since $\xi\in I_{n+1}$, property \textup{(F6)}
+gives, for every $a\in\Z$,
+\begin{equation}\label{eq:image-lower-en}
+\abs{f(\xi)-a/b}>b^{-\tau}=b^{-100}.
+\end{equation}
+This is the asserted eventual lower bound.
+
+For every $\lambda>\tau$, the inequality
+$0<|f(\xi)-a/b|<b^{-\lambda}$ can hold only for $b<T_0$,
+and for each such $b$ there are only finitely many possible
+numerators. Hence $\mu(f(\xi))\leq\tau=100$. Finally, $\xi\in I_0\subseteq I_*\subseteq V$.
+\qed
+
+\begin{remark}\label{rem:escape-set}
+The escape set
+\[
+\mathcal E_\tau(f)
+:=
+\{\xi\in\Lio\cap U:\mu(f(\xi))\leq\tau\}
+\]
+contains a Cantor subset in every nonempty open subinterval
+of $U$. Indeed, the component $(u_{n+1},v_{n+1})$ used in the
+inductive step has length at least $2R_n/\Lambda_{n+1}$.
+Choose inside it two disjoint compact intervals, each of length
+$R_n/(2\Lambda_{n+1})$. Both inherit the approximation and
+exclusion estimates, and \textup{(F7)} holds for both after replacing
+the factor $3$ in \textup{(Q4)} by $6$. Repeating this choice at every
+node gives a nested binary construction whose interval
+diameters tend to zero. Every branch yields a point of the
+escape set, and the resulting set is a Cantor set.
+\end{remark}
+
+\subsection{Proof of Corollary~\ref{cor:intro-rigidity}}
+
+
+If the conclusion were false, then $f$ would not be the restriction to
+$U$ of any rational function in $\R(x)$. Theorem~\ref{thm:intro-local}
+would then produce a point $\xi\in\Lio\cap U$ for which
+$\mu(f(\xi))\leq100$. Hence $f(\xi)\notin\Lio$, contradicting
+$f(\Lio\cap U)\subseteq\Lio$.
+\qed
+
+
+\subsection{Proof of Theorem~\ref{thm:intro-mahler}}
+
+
+Let $F:\C\to\C$ be entire and suppose that
+$F(\Lio)\subseteq\Lio$. Since $\Lio$ is dense in $\R$, every
+$x\in\R$ is the limit of a sequence $(\xi_n)$ in $\Lio$. The values
+$F(\xi_n)$ are real, and continuity gives
+\[
+F(x)=\lim_{n\to\infty}F(\xi_n)\in\R.
+\]
+Thus $F(\R)\subseteq\R$.
+
+Apply Corollary~\ref{cor:intro-rigidity} to the real-analytic function
+$F|_{\R}$. There are polynomials $P,Q\in\R[z]$, with $Q\neq0$ and with no
+common zero in $\C$, such that
+\[
+F(x)=\frac{P(x)}{Q(x)}
+\qquad(x\in\R).
+\]
+The entire function
+\[
+z\longmapsto Q(z)F(z)-P(z)
+\]
+vanishes on $\R$ and hence vanishes identically on $\C$. If $Q$ were
+nonconstant, let $\zeta\in\C$ be a zero of $Q$. The identity
+$QF-P\equiv0$ would give $P(\zeta)=0$, contrary to the coprimality of
+$P$ and $Q$. Hence $Q$ is constant, and therefore $F\in\R[z]$.
+\qed
+
+\section{Arithmetic rigidity and nonlinear sharpness}
+\label{sec:arithmetic-boundary}
+
+Corollary~\ref{cor:intro-rigidity} leaves open the coefficient
+field of rational functions with Maillet's property. We show
+that a M\"obius transformation has this property exactly when
+it belongs to $\mathbb Q(x)$, whereas in every higher degree
+there are preserving polynomials with transcendental
+coefficients.
+
+\subsection{M\"obius rigidity}
+\label{subsec:mobius-rigidity}
+
+We prove Theorem~\ref{thm:intro-mobius}. Let
+\begin{equation}\label{eq:mobius-map}
+M(x)=\frac{ax+b}{cx+d},
+\qquad
+\Delta_M:=ad-bc\neq0,
+\end{equation}
+with real coefficients. Choose an index
+$\ell\in\{1,2,3,4\}$ for which the corresponding coordinate of
+\[
+\mathbf u:=(a,b,c,d)
+\]
+is nonzero, and rescale \(\mathbf u\) so that its \(\ell\)-th coordinate
+is equal to \(1\). We continue to denote the normalized coefficients by
+\(a,b,c,d\), and put \(\Delta_M=ad-bc\).
+Let \(\boldsymbol\theta\in\R^3\) be the vector of the remaining
+coordinates, in their inherited order. Then
+\begin{equation}\label{eq:mobius-rational-chart}
+M\in\Q(x)
+\quad\Longleftrightarrow\quad
+\boldsymbol\theta\in\Q^3.
+\end{equation}
+For \(h\in\Z_{>0}\), define
+\begin{equation}\label{eq:mobius-Delta}
+\Delta_h(\boldsymbol\theta)
+:=
+\min_{\mathbf r\in\Z^3}
+\left\|\boldsymbol\theta-\frac{\mathbf r}{h}\right\|_\infty.
+\end{equation}
+By \eqref{eq:mobius-rational-chart}, if \(M\notin\Q(x)\), then
+\(\Delta_h(\boldsymbol\theta)>0\) for every \(h\geq1\).
+
+The proof splits according to the approximation properties of this
+coefficient vector. Arbitrarily strong rational approximations lead to
+a Liouville point in a rational fiber. Otherwise, a Diophantine lower
+bound, combined with three-point reconstruction, yields a two-height
+counting estimate.
+
+\begin{lemma}[Simultaneous approximation dichotomy]
+\label{lem:mobius-dichotomy}
+Assume that \(M\notin\Q(x)\). Exactly one of the following alternatives
+holds:
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.7em]
+\item for every \(N,H\in\Z_{>0}\) there exists \(h\geq H\) such that
+\[
+\Delta_h(\boldsymbol\theta)<h^{-N};
+\]
+\item there exist an integer \(\nu\geq1\) and a constant \(\eta_0>0\)
+such that
+\begin{equation}\label{eq:mobius-barrier}
+\left\|\boldsymbol\theta-\frac{\mathbf r}{h}\right\|_\infty
+\geq \eta_0h^{-\nu}
+\end{equation}
+for every \(h\in\Z_{>0}\) and every \(\mathbf r\in\Z^3\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+If \textup{(a)} fails, there exist $N,H\in\Z_{>0}$ such that
+$\Delta_h(\boldsymbol\theta)\geq h^{-N}$ for every $h\geq H$.
+Increasing $H$ if necessary, we may assume that $H\geq2$.
+Since the finitely many numbers $\Delta_h(\boldsymbol\theta)$,
+$1\leq h<H$, are positive, one may take $\nu=N$ and
+\[
+\eta_0:=
+\min\left\{
+1,\min_{1\leq h<H}h^N\Delta_h(\boldsymbol\theta)
+\right\}>0.
+\]
+This gives \textup{(b)}. Conversely, \textup{(b)} plainly excludes
+\textup{(a)}.
+\end{proof}
+
+In alternative \textup{(a)}, rational approximation of the coefficient
+vector transfers to rational approximation of the inverse image of a
+fixed rational value.
+
+\begin{lemma}[Rational fibers in the projectively Liouville case]
+\label{lem:mobius-rational-fiber}
+Assume that \(M\notin\Q(x)\) and that alternative \textup{(a)} of
+Lemma~\ref{lem:mobius-dichotomy} holds. Then every nonempty open
+interval \(V\) on which \(M\) is defined contains a point \(\xi\in\Lio\)
+such that
+\[
+M(\xi)\in\Q.
+\]
+\end{lemma}
+
+\begin{proof}
+The image \(M(V)\) is a nonempty open interval. Choose
+\(\rho\in\Q\cap M(V)\) such that
+\begin{equation}\label{eq:mobius-fiber-xi}
+\xi:=M^{-1}(\rho)
+\end{equation}
+is irrational. Such a choice is possible. Indeed, if three distinct
+rational values had rational preimages, then \(M\) would send three
+distinct rational points to three distinct rational points. A M\"obius
+transformation is uniquely determined by its values at three distinct
+points, and the corresponding linear system has rational coefficients;
+hence its projective coefficient vector would belong to
+\(\mathbb P^3(\Q)\), contrary to
+\eqref{eq:mobius-rational-chart}. By construction, \(\xi\in V\).
+
+Using alternative \textup{(a)} recursively, choose strictly increasing
+integers \(h_n\) and vectors \(\mathbf r_n\in\Z^3\) such that
+\begin{equation}\label{eq:mobius-simultaneous-approximants}
+\left\|\boldsymbol\theta-\frac{\mathbf r_n}{h_n}\right\|_\infty
+<h_n^{-n}
+\qquad(n\geq1).
+\end{equation}
+Insert the three coordinates of \(\mathbf r_n/h_n\) into the fixed
+chart, keeping the \(\ell\)-th coordinate equal to \(1\), and write the
+resulting coefficient vector as
+\[
+\mathbf u_n=(a^{(n)},b^{(n)},c^{(n)},d^{(n)}).
+\]
+Since \(\mathbf u_n\to\mathbf u\), we have
+\(a^{(n)}d^{(n)}-b^{(n)}c^{(n)}\neq0\) for all sufficiently large \(n\).
+Let \(M_n\in\Q(x)\) be the corresponding M\"obius transformation.
+Since \(a-\rho c\neq0\), the map sending a coefficient vector near
+\(\mathbf u\) to the finite preimage of \(\rho\) is smooth. Hence
+\[
+\xi_n:=M_n^{-1}(\rho)\in\Q,
+\qquad
+|\xi-\xi_n|\leq C_1h_n^{-n}
+\]
+for some \(C_1>0\) and all sufficiently large \(n\).
+
+After multiplying \(\mathbf u_n\) by \(h_n\), all four coefficients are
+integers of size \(O(h_n)\). Writing \(\rho=r/s\) in lowest terms and
+using
+\[
+M_n^{-1}(\rho)=
+\frac{\rho d^{(n)}-b^{(n)}}{a^{(n)}-\rho c^{(n)}},
+\]
+we see that the positive denominator \(q_n'\) of \(\xi_n\) in lowest
+terms satisfies
+\begin{equation}\label{eq:mobius-fiber-denominator}
+q_n'\leq C_2h_n
+\end{equation}
+for some \(C_2>0\). Moreover, \(\xi_n\to\xi\), and \(\xi\) is
+irrational, so \(q_n'\to\infty\).
+
+Fix \(A\geq1\). For all sufficiently large \(n>A\),
+\[
+0<|\xi-\xi_n|
+\leq C_1h_n^{-n}
+<C_2^{-A}h_n^{-A}
+\leq(q_n')^{-A}.
+\]
+Thus \(\xi\in\Lio\), while \(M(\xi)=\rho\in\Q\).
+\end{proof}
+
+We now turn to the Diophantine case. The following reconstruction
+lemma replaces the determinant step in Section~\ref{sec:scarcity}:
+three rational points sufficiently close to the graph of \(M\)
+determine a rational M\"obius transformation with nearby coefficients
+and controlled height.
+
+\begin{lemma}[Three-point rational reconstruction]
+\label{lem:mobius-reconstruction}
+Fix the M\"obius transformation \(M\) in \eqref{eq:mobius-map}, with the
+normalization above, and a nondegenerate compact interval \(I_*\) on
+which \(M\) is defined. There exist constants \(c_0,C_0>0\), depending
+only on \(M\) and \(I_*\), with the following property.
+
+Let \(x_1,x_2,x_3\in I_*\) be distinct, let \(y_1,y_2,y_3\in\R\), and
+put
+\[
+\varepsilon:=\max_{1\leq i\leq3}|y_i-M(x_i)|,
+\qquad
+V(x_1,x_2,x_3):=\prod_{1\leq i<j\leq3}|x_i-x_j|.
+\]
+If
+\begin{equation}\label{eq:mobius-reconstruction-smallness}
+\varepsilon\leq c_0V(x_1,x_2,x_3),
+\end{equation}
+then there is a coefficient vector \(\widehat{\mathbf u}\), normalized
+in the same chart as \(\mathbf u\), such that
+\begin{equation}\label{eq:mobius-reconstruction-distance}
+\|\widehat{\mathbf u}-\mathbf u\|_\infty
+\leq
+C_0\frac{\varepsilon}{V(x_1,x_2,x_3)}.
+\end{equation}
+It represents a nonconstant M\"obius transformation
+\(\widehat M\) satisfying \(\widehat M(x_i)=y_i\) for \(1\leq i\leq3\).
+
+If, in addition, for some positive real numbers $Q,B$,
+\[
+x_i=\frac{p_i}{q_i},
+\qquad
+y_i=\frac{r_i}{b_i},
+\qquad
+q_i<2Q,
+\qquad
+b_i<2B,
+\]
+with \(p_i,r_i\in\Z\) and \(q_i,b_i\in\Z_{>0}\), then the three free
+coordinates of \(\widehat{\mathbf u}\) can be written with a common
+positive denominator \(h\) satisfying
+\begin{equation}\label{eq:mobius-reconstruction-height}
+1\leq h\leq C_0Q^3B^3.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For \(x,y\in\R\), put
+\[
+v(x,y):=(x,1,-xy,-y)\in\R^4.
+\]
+Let \(\mathcal A_0\) be the \(3\times4\) matrix with rows
+\(v(x_i,M(x_i))\), and let \(\mathcal A\) have rows \(v(x_i,y_i)\).
+For a \(3\times4\) matrix \(\mathcal B\), let
+\(w_j(\mathcal B):=(-1)^{j+1}\det\mathcal B^{(j)}\), where
+\(\mathcal B^{(j)}\) is obtained by deleting column \(j\). Then
+\(\mathcal B\mathbf w(\mathcal B)^{\mathsf T}=0\). A direct
+calculation gives
+\begin{equation}\label{eq:mobius-cofactor-formula}
+\mathbf w(\mathcal A_0)
+=\Lambda(x_1,x_2,x_3)\mathbf u,
+\end{equation}
+where
+\[
+\Lambda(x_1,x_2,x_3)
+=
+\frac{\Delta_M
+(x_1-x_2)(x_1-x_3)(x_2-x_3)}
+{(cx_1+d)(cx_2+d)(cx_3+d)}.
+\]
+Since \(I_*\) is compact and contains no pole of \(M\),
+\begin{equation}\label{eq:mobius-Lambda-lower}
+|\Lambda(x_1,x_2,x_3)|
+\geq c_1V(x_1,x_2,x_3)
+\end{equation}
+for some \(c_1>0\).
+
+First restrict \(c_0\leq1\). All entries of \(\mathcal A_0\) and,
+under \eqref{eq:mobius-reconstruction-smallness}, of \(\mathcal A\)
+then lie in a fixed compact set. The maximal minors, being polynomial
+in the matrix entries, satisfy
+\begin{equation}\label{eq:mobius-cofactor-perturbation}
+\|\mathbf w(\mathcal A)-\mathbf w(\mathcal A_0)\|_\infty
+\leq C_1\varepsilon,
+\end{equation}
+with \(C_1\) independent of any subsequent decrease in \(c_0\).
+Choose \(c_0\) so small that the right-hand side is at most
+\(|\Lambda|/2\). Since \(u_\ell=1\), we have
+\(w_\ell(\mathcal A_0)=\Lambda\), and hence
+\(|w_\ell(\mathcal A)|\geq|\Lambda|/2>0\). Define
+\[
+\widehat{\mathbf u}:=
+\frac{\mathbf w(\mathcal A)}{w_\ell(\mathcal A)}.
+\]
+Equations \eqref{eq:mobius-cofactor-formula}--\eqref{eq:mobius-cofactor-perturbation}
+give
+\[
+\|\widehat{\mathbf u}-\mathbf u\|_\infty
+\leq
+\frac{2C_1(1+\|\mathbf u\|_\infty)\varepsilon}{|\Lambda|},
+\]
+which proves \eqref{eq:mobius-reconstruction-distance}.
+Since \(ad-bc\neq0\) is an open condition on the coefficient vector,
+decreasing \(c_0\) if necessary ensures that \(\widehat{\mathbf u}\)
+represents a nonconstant M\"obius transformation.
+Its denominator cannot vanish at any \(x_i\), since the kernel
+relation would then force its numerator to vanish there as well,
+contradicting its nonzero determinant. Thus the kernel relation gives
+\(\widehat M(x_i)=y_i\).
+
+For the height assertion, multiply the \(i\)-th row of \(\mathcal A\)
+by \(q_ib_i\). The resulting integer row is
+\[
+(p_ib_i,q_ib_i,-p_ir_i,-q_ir_i).
+\]
+The numbers \(x_i\) lie in \(I_*\), and
+\eqref{eq:mobius-reconstruction-smallness} bounds the \(y_i\)
+uniformly in terms of \(M\) and \(I_*\). Thus every entry of this
+integer matrix is \(O_{M,I_*}(QB)\). Its cofactor vector
+\(\mathbf k\in\Z^4\) spans the same one-dimensional kernel as
+\(\mathbf w(\mathcal A)\), and each of its coordinates is
+\(O_{M,I_*}(Q^3B^3)\). Since \(k_\ell\neq0\), the normalized
+coordinates are \(k_j/k_\ell\); taking \(h=|k_\ell|\) proves
+\eqref{eq:mobius-reconstruction-height}, after enlarging \(C_0\) if
+necessary. No reduction of this common denominator is needed.
+\end{proof}
+
+For the Diophantine branch, assume that alternative \textup{(b)} of
+Lemma~\ref{lem:mobius-dichotomy} holds, and fix
+\(\nu,\eta_0\) as in \eqref{eq:mobius-barrier} for this \(M\).
+Fix a nondegenerate compact interval \(I_*\) on which \(M\) is defined.
+Let \(m_*\) and \(M_*\) be the minimum and maximum of \(|M'|\) on
+\(I_*\), so that
+\begin{equation}\label{eq:mobius-derivative-bounds}
+0<m_*\leq|M'(x)|\leq M_*
+\qquad(x\in I_*).
+\end{equation}
+Choose an integer
+\begin{equation}\label{eq:mobius-tau-choice}
+\tau_1\geq9\nu+18
+\end{equation}
+and, for integers \(A\geq3\) and \(Q\geq2\), put
+\begin{equation}\label{eq:mobius-T}
+T_1(Q,A):=Q^{A/(\tau_1-3)}.
+\end{equation}
+For a nondegenerate compact interval \(J\subseteq I_*\) and integers
+\(H,Q\geq2\), define
+\begin{equation}\label{eq:mobius-dangerous-set}
+\begin{split}
+\mathcal D_M(J;Q,A,H)
+:=
+\Bigl\{\frac pq\in J:\;&\gcd(p,q)=1,\quad Q\leq q<2Q,\\
+&\exists\,r\in\Z,\ b\in\Z_{>0}
+\text{ with }H\leq b<T_1(Q,A),\\
+&\abs{M(p/q)-r/b}
+\leq2b^{-\tau_1}+4M_*Q^{-A}
+\Bigr\}.
+\end{split}
+\end{equation}
+As in Section~\ref{sec:scarcity}, the source fractions are reduced,
+whereas the target fractions need not be.
+
+\begin{proposition}[M\"obius two-height counting estimate]
+\label{prop:mobius-scarcity}
+There exists a constant \(C_{\mathrm{mob}}>0\), depending only on
+\(M\), \(I_*\), and \(\tau_1\), with the following property. For every
+integer \(A\geq3\), there exist constants \(C_A>0\) and \(Q_A\in\Z_{>0}\)
+such that
+\begin{equation}\label{eq:mobius-scarcity}
+\#\mathcal D_M(J;Q,A,H)
+\leq
+C_{\mathrm{mob}}Q^2H^{2-\tau_1}+C_AQ
+\end{equation}
+for every nondegenerate compact interval \(J\subseteq I_*\), every
+integer \(H\geq2\), and every integer \(Q\geq Q_A\). The constants
+\(C_A\) and \(Q_A\) are uniform in \(J\) and \(H\).
+\end{proposition}
+
+\begin{proof}
+Fix \(A\geq3\). All implied constants below may depend on the fixed
+data \(M,I_*,\nu,\eta_0,\tau_1\), but not on \(J,H,Q\) or the target
+block; any additional dependence on \(A\) is indicated.
+If \(T_1(Q,A)\leq H\), then
+\[
+\mathcal D_M(J;Q,A,H)=\varnothing.
+\]
+Otherwise, decompose \([H,T_1(Q,A))\cap\Z_{>0}\) into the dyadic blocks
+\[
+\mathcal B_k
+:=[B_k,\min\{2B_k,T_1(Q,A)\})\cap\Z_{>0},
+\qquad B_k:=2^kH,
+\]
+with \(B_k<T_1(Q,A)\), and let \(\mathcal D_k\) be the source
+centers admitting a witness with denominator in \(\mathcal B_k\).
+Then \(\#\mathcal D_M(J;Q,A,H)\leq\sum_k\#\mathcal D_k\).
+We call a block small if \(B_k<Q^{1/2}\) and large otherwise.
+
+\smallskip
+\noindent\textit{Small target heights.}
+For a small block with left endpoint \(B\), the approximation condition
+and the boundedness of \(M\) on \(I_*\) show that there are \(O(B^2)\)
+pairs \((r,b)\) that can occur as witnesses. For each such pair,
+monotonicity and \eqref{eq:mobius-derivative-bounds} show that
+\[
+E_{r,b}
+:=
+\set{x\in J:
+\abs{M(x)-r/b}\leq2b^{-\tau_1}+4M_*Q^{-A}}
+\]
+is empty, a singleton, or an interval of length
+\[
+|E_{r,b}|\ll b^{-\tau_1}+Q^{-A}.
+\]
+Consequently, their union \(E_B\) has \(O(B^2)\) components and
+\[
+|E_B|\ll B^{2-\tau_1}+B^2Q^{-A}.
+\]
+Lemma~\ref{lem:rational-union} gives
+\[
+\#\mathcal D_k
+\ll
+Q^2B^{2-\tau_1}+Q^{2-A}B^2+B^2.
+\]
+Summing over \(B=2^kH<Q^{1/2}\), we obtain
+\begin{equation}\label{eq:mobius-small-total}
+\sum_{B_k<Q^{1/2}}\#\mathcal D_k
+\leq
+C_{\mathrm{mob}}Q^2H^{2-\tau_1}+O_A(Q),
+\end{equation}
+with \(C_{\mathrm{mob}}\) independent of \(J,A,H,Q\).
+
+\smallskip
+\noindent\textit{Large target heights.}
+Fix a large block with left endpoint \(B=Q^u\). Then
+\begin{equation}\label{eq:mobius-u-range}
+u\geq\frac12,
+\qquad
+u<\frac{A}{\tau_1-3}.
+\end{equation}
+We shall show that, for all sufficiently large \(Q\), this block
+contains at most two resonant centers. Indeed, three such centers
+would determine, via Lemma~\ref{lem:mobius-reconstruction}, a rational
+M\"obius transformation sufficiently close to \(M\) to contradict the
+Diophantine barrier \eqref{eq:mobius-barrier}. Suppose therefore that
+the block contains three distinct resonant centers
+\[
+x_i=\frac{p_i}{q_i},
+\qquad Q\leq q_i<2Q,
+\qquad1\leq i\leq3,
+\]
+with witnesses
+\[
+y_i=\frac{r_i}{b_i},
+\qquad B\leq b_i<2B.
+\]
+Put
+\[
+\delta:=2B^{-\tau_1}+4M_*Q^{-A},
+\qquad
+s:=\min\{\tau_1u,A\}.
+\]
+Then \(|y_i-M(x_i)|\leq\delta\ll Q^{-s}\), and
+\begin{equation}\label{eq:mobius-s-lower}
+s\geq(\tau_1-3)u.
+\end{equation}
+Since the source fractions are distinct and reduced,
+\[
+V(x_1,x_2,x_3)
+=\prod_{i<j}|x_i-x_j|
+>\frac{1}{64Q^6}.
+\]
+The choice \eqref{eq:mobius-tau-choice} implies
+\(Q^6\delta\to0\), uniformly in the block. Hence
+Lemma~\ref{lem:mobius-reconstruction} applies for all sufficiently
+large \(Q\), and produces a rational coefficient vector in the fixed
+chart satisfying
+\begin{equation}\label{eq:mobius-coefficient-upper}
+\|\widehat{\mathbf u}-\mathbf u\|_\infty
+\ll Q^6\delta
+\ll Q^{6-s}.
+\end{equation}
+Its free coordinates have a common positive denominator \(h\) with
+\[
+1\leq h\ll Q^3B^3=Q^{3(1+u)}.
+\]
+Applying \eqref{eq:mobius-barrier} to these coordinates gives
+\begin{equation}\label{eq:mobius-coefficient-lower}
+\|\widehat{\mathbf u}-\mathbf u\|_\infty
+\gg Q^{-3\nu(1+u)}.
+\end{equation}
+The exponent gap between \eqref{eq:mobius-coefficient-upper} and
+\eqref{eq:mobius-coefficient-lower} satisfies
+\begin{align}
+ s-6-3\nu(1+u)
+&\geq
+(\tau_1-3-3\nu)u-(3\nu+6)\notag\\
+&\geq
+\frac{\tau_1-3-3\nu}{2}-(3\nu+6)
+\geq\frac32,
+\label{eq:mobius-exponent-gap}
+\end{align}
+where we used \(u\geq1/2\) and \eqref{eq:mobius-tau-choice}.
+Thus the reconstructed coefficient vector would violate the
+Diophantine barrier for all sufficiently large \(Q\), uniformly in the
+block, in \(J\), and in \(H\). Each large block therefore contains at
+most two resonant centers; no subdivision into short source cells is
+needed.
+
+There are at most
+\[
+1+\log_2\frac{T_1(Q,A)}H
+\leq1+\frac{A}{\tau_1-3}\log_2Q
+\]
+large blocks, so their total contribution is \(O_A(\log Q)=O_A(Q)\).
+Together with \eqref{eq:mobius-small-total}, this proves
+\eqref{eq:mobius-scarcity}. Every lower threshold imposed on \(Q\)
+depends only on the fixed data and \(A\), not on \(J\) or \(H\).
+\end{proof}
+
+The preceding counting estimate supplies safe rational centers at every
+sufficiently large source scale. A nested-interval construction now
+turns these centers into the required Liouville point.
+
+\begin{lemma}[Finite-exponent escape in the Diophantine case]
+\label{lem:mobius-finite-escape}
+Assume that alternative \textup{(b)} of
+Lemma~\ref{lem:mobius-dichotomy} holds. Then every nonempty open
+interval \(V\) on which \(M\) is defined contains a point
+\(\xi\in\Lio\) such that
+\[
+\mu(M(\xi))\leq\tau_1.
+\]
+\end{lemma}
+
+\begin{proof}
+We follow the fusion argument of Section~\ref{sec:fusion}, with
+Proposition~\ref{prop:mobius-scarcity} supplying the counting estimate.
+There are no Wronskian zero sets to avoid, so the choice of the next
+interval is simpler.
+
+Choose a nondegenerate compact interval \(I_0\Subset V\), and use it as
+\(I_*\) in Proposition~\ref{prop:mobius-scarcity}. Write \(J(I)\) for
+the middle third of \(I\), as in Section~\ref{sec:fusion}.
+We construct nested nondegenerate compact intervals \(I_n\), strictly
+increasing positive integers \(T_n\), and reduced fractions
+\(r_n=p_n/q_n\).
+
+Put \(A_n:=n+3\) and \(J_n:=J(I_n)\). Choose \(T_0\geq2\) so large
+that
+\begin{equation}\label{eq:mobius-initial-tail}
+C_{\mathrm{mob}}T_0^{2-\tau_1}
+\leq\frac{c_{\mathrm F}}4|J_0|.
+\end{equation}
+Suppose that \(I_n\) and \(T_n\) have been chosen and satisfy
+\begin{equation}\label{eq:mobius-tail-invariant}
+C_{\mathrm{mob}}T_n^{2-\tau_1}
+\leq\frac{c_{\mathrm F}}4|J_n|.
+\end{equation}
+Proposition~\ref{prop:mobius-scarcity},
+Lemma~\ref{lem:farey-lower-en}, and
+\eqref{eq:mobius-tail-invariant} imply that every sufficiently large
+\(Q\) admits a reduced fraction
+\[
+r=\frac pq\in J_n,
+\qquad Q\leq q<2Q,
+\]
+satisfying
+\begin{equation}\label{eq:mobius-safe-center}
+\abs{M(r)-a/b}
+>
+2b^{-\tau_1}+4M_*Q^{-A_n}
+\end{equation}
+for every \(a\in\Z\) and every integer \(b\) with
+\(T_n\leq b<T_1(Q,A_n)\).
+
+Choose an integer \(Q_n\geq2\) large enough for this conclusion and,
+simultaneously,
+\begin{align}
+Q_n&>2q_{n-1}\quad(n\geq1),
+\label{eq:mobius-Q1}\\
+(2Q_n)^{-A_n}&<\frac{|I_n|}{3},
+\label{eq:mobius-Q2}\\
+Q_n^{A_n/(\tau_1-3)}&\geq2T_n+2,
+\label{eq:mobius-Q3}\\
+12C_{\mathrm{mob}}2^{A_n+\tau_1-2}
+Q_n^{-A_n/(\tau_1-3)}
+&\leq\frac{c_{\mathrm F}}4.
+\label{eq:mobius-Q4}
+\end{align}
+All quantities other than \(Q_n\) have already been fixed, and the
+left-hand side of \eqref{eq:mobius-Q4} tends to zero. Select a safe
+center
+\[
+r_n=\frac{p_n}{q_n}\in J_n,
+\qquad Q_n\leq q_n<2Q_n,
+\]
+and put
+\[
+R_n:=(2Q_n)^{-A_n},
+\qquad
+T_{n+1}:=
+\left\lfloor Q_n^{A_n/(\tau_1-3)}\right\rfloor.
+\]
+Condition \eqref{eq:mobius-Q3} gives \(T_{n+1}>T_n\).
+Define
+\begin{equation}\label{eq:mobius-next-interval}
+I_{n+1}:=
+\left[r_n+\frac{R_n}{4},r_n+\frac{R_n}{2}\right].
+\end{equation}
+Since \(r_n\in J_n\), condition \eqref{eq:mobius-Q2} gives
+\(I_{n+1}\subset\operatorname{int}(I_n)\). For every \(x\in I_{n+1}\),
+\begin{equation}\label{eq:mobius-source-approximation}
+0<|x-r_n|<R_n<q_n^{-A_n}.
+\end{equation}
+Moreover, if \(T_n\leq b<T_{n+1}\), then
+\(b<T_1(Q_n,A_n)\), and \eqref{eq:mobius-safe-center} together with
+\(|M(x)-M(r_n)|\leq M_*|x-r_n|\) gives
+\begin{equation}\label{eq:mobius-target-avoidance}
+\abs{M(x)-a/b}>b^{-\tau_1}
+\qquad(a\in\Z,\ x\in I_{n+1}).
+\end{equation}
+
+The interval \(I_{n+1}\) has length \(R_n/4\), so
+\(|J_{n+1}|=R_n/12\). Since
+\(T_{n+1}\geq\frac12Q_n^{A_n/(\tau_1-3)}\), condition
+\eqref{eq:mobius-Q4} gives
+\[
+\frac{C_{\mathrm{mob}}T_{n+1}^{2-\tau_1}}{|J_{n+1}|}
+\leq
+12C_{\mathrm{mob}}2^{A_n+\tau_1-2}
+Q_n^{-A_n/(\tau_1-3)}
+\leq\frac{c_{\mathrm F}}4.
+\]
+This is \eqref{eq:mobius-tail-invariant} at stage \(n+1\), completing
+the inductive step.
+
+The nested intervals have diameters tending to zero, and hence
+\(\bigcap_{n\geq0}I_n=\{\xi\}\) for some \(\xi\in V\). From
+\eqref{eq:mobius-Q1} and \eqref{eq:mobius-source-approximation},
+\(q_n\to\infty\) and
+\[
+0<|\xi-r_n|<q_n^{-A_n}.
+\]
+Since \(A_n\to\infty\), we have \(\xi\in\Lio\). Finally, the blocks
+\([T_n,T_{n+1})\cap\Z_{>0}\) cover all sufficiently large denominators, and
+\eqref{eq:mobius-target-avoidance} gives
+\[
+\abs{M(\xi)-a/b}>b^{-\tau_1}
+\qquad(a\in\Z,\ b\geq T_0).
+\]
+Therefore \(\mu(M(\xi))\leq\tau_1\).
+\end{proof}
+
+Together with Lemma~\ref{lem:mobius-rational-fiber}, this treats both
+alternatives in Lemma~\ref{lem:mobius-dichotomy} and yields the
+degree-one classification.
+
+\begin{proof}[Proof of Theorem~\ref{thm:intro-mobius}]
+If \(M\in\Q(x)\), then Maillet's theorem gives Maillet's property.
+Conversely, suppose that \(M\notin\Q(x)\). By
+Lemma~\ref{lem:mobius-dichotomy}, either alternative \textup{(a)} or
+alternative \textup{(b)} holds. In the first case,
+Lemma~\ref{lem:mobius-rational-fiber} produces, in every open interval
+on which \(M\) is defined, a Liouville number whose image is rational.
+In the second case, Lemma~\ref{lem:mobius-finite-escape} produces a
+Liouville number whose image has finite irrationality exponent. In
+either case Maillet's property fails. This proves both assertions.
+\end{proof}
+
+\subsection{Nonlinear sharpness}
+\label{subsec:nonlinear-sharpness}
+
+M\"obius rigidity cannot be extended to higher degree. Recall that a
+Liouville number \(\sigma\), with continued-fraction convergents
+\(p_n/q_n\), is called \emph{strong Liouville} if
+\[
+\abs{\sigma-p_n/q_n}<q_n^{-\omega_n}
+\]
+for some sequence \(\omega_n\to\infty\).
+Equivalently (see \cite{Petruska1992}),
+\begin{equation}\label{eq:strong-convergent-criterion}
+\frac{\log q_{n+1}}{\log q_n}\longrightarrow\infty.
+\end{equation}
+
+We shall use the following consequence of Petruska's theorem
+\cite[Theorem~1]{Petruska1992}: if $\sigma$ is strong Liouville
+and $y\in\Lio$, then
+\begin{equation}\label{eq:Petruska-product}
+\sigma y\in\Q\cup\Lio.
+\end{equation}
+The rational alternative in \eqref{eq:Petruska-product} is essential.
+To exclude it for the monomials constructed below, we shall place their
+nonzero rational fibers in Mahler's classes \(U_m\), with \(m\geq2\).
+
+Here $\mathrm h(\alpha)$ denotes the \emph{absolute logarithmic Weil
+height} of an algebraic number $\alpha$. We use the following
+sequential height formulation: a transcendental number $\kappa$
+belongs to $U_m$ if $m$ is the least positive integer for which there
+exist algebraic numbers $\beta_n$ of degree $m$ and positive real
+numbers $w_n$ such that
+\[
+\mathrm h(\beta_n)\to\infty,\qquad
+w_n\to\infty,\qquad
+|\kappa-\beta_n|
+\leq e^{-w_n\mathrm h(\beta_n)}.
+\]
+
+The preceding formulation is the absolute-logarithmic-height version
+of LeVeque's definition of $U_m$-numbers
+\cite[Remark~2.6]{BiluMarquesMoreira2026} and, by the equivalence of
+Mahler's and Koksma's classifications
+\cite[Theorem~3.6]{Bugeaud2004}, defines the usual $U_m$-classes. In
+particular, $U_1=\Lio$, and the classes $U_m$ are pairwise disjoint. We shall use the following gap principle in the form of
+\cite[Theorem~3.1 and Corollary~3.3]{BiluMarques2026}.
+
+\begin{lemma}[$U_m$ gap principle]
+\label{lem:Um-gap-principle}
+Let \(m\geq1\), let \(\kappa\in\C\) be transcendental, and let
+\((\beta_n)\) be algebraic numbers of degree at most \(m\). Put
+\(H_n:=\mathrm h(\beta_n)\), and let \((w_n)\) be a sequence of
+positive real numbers. Suppose that
+\[
+H_n\to\infty,
+\qquad
+w_n\to\infty,
+\qquad
+|\kappa-\beta_n|\leq Ce^{-w_nH_n},
+\qquad
+H_{n+1}\leq Bw_nH_n
+\]
+for fixed constants \(B,C>0\). If \(\beta_n\) has degree exactly
+\(m\) for all sufficiently large \(n\), then \(\kappa\in U_m\).
+\end{lemma}
+
+We now construct strong Liouville numbers for which the preceding gap
+principle applies simultaneously to every nonzero rational fiber and
+every degree \(m\geq2\). The denominator congruences enforce
+irreducibility in every degree, while rapid growth ensures strong
+Liouville approximation.
+
+\begin{theorem}[Nonlinear sharpness]
+\label{thm:strong-nonlinear-preservers}
+There exist continuum many positive strong Liouville numbers \(\sigma\)
+with the following property: for every integer \(m\geq2\) and every
+\(r\in\Q^\times\), each root of
+\begin{equation}\label{eq:nonlinear-fiber-equation}
+X^m-\frac r\sigma
+\end{equation}
+is a \(U_m\)-number. Consequently, for every such \(\sigma\),
+\begin{equation}\label{eq:nonlinear-preservation}
+\sigma\xi^m\in\Lio
+\qquad(\xi\in\Lio,\ m\geq2).
+\end{equation}
+In particular, in every degree \(m\geq2\) there are
+Liouville-preserving polynomials in
+\(\R[X]\setminus\overline{\Q}[X]\).
+\end{theorem}
+
+\begin{proof}
+Enumerate
+\[
+\Q^\times=\set{r_1,r_2,\ldots},
+\qquad
+r_j=\frac{A_j}{B_j},
+\]
+where \(A_j\in\Z\setminus\{0\}\), \(B_j\in\Z_{>0}\), and
+\(\gcd(A_j,B_j)=1\). We construct
+\[
+\sigma=[1;a_1,a_2,\ldots],
+\qquad
+\frac{p_n}{q_n}=[1;a_1,\ldots,a_n],
+\]
+with \(q_{-1}=0\) and \(q_0=1\). Suppose that
+\(a_1,\ldots,a_{n-1}\) have been chosen. Select a prime
+\(\ell_n\) such that
+\begin{equation}\label{eq:ell-avoidance}
+\ell_n\nmid q_{n-1}\prod_{j=1}^nA_jB_j.
+\end{equation}
+Because \(q_{n-1}\) is invertible modulo \(\ell_n^2\), one may choose a
+positive integer \(a_n\), arbitrarily large, such that
+\begin{equation}\label{eq:ell-valuation}
+q_n=a_nq_{n-1}+q_{n-2}
+\equiv\ell_n\pmod{\ell_n^2}
+\end{equation}
+and
+\begin{equation}\label{eq:q-strong-growth}
+q_n>q_{n-1}^{n+1}.
+\end{equation}
+Thus \(\ord_{\ell_n}(q_n)=1\), while
+\(\ell_n\nmid p_n\) because \(\gcd(p_n,q_n)=1\). Condition
+\eqref{eq:q-strong-growth} implies
+\eqref{eq:strong-convergent-criterion}; hence \(\sigma\) is strong
+Liouville, and \(1<\sigma<2\).
+
+Fix \(j\geq1\), \(m\geq2\), and write
+\(\sigma_n=p_n/q_n\). For \(n\geq j\), the polynomial
+\begin{equation}\label{eq:Eisenstein-polynomial}
+G_{j,m,n}(X):=B_jp_nX^m-A_jq_n
+\end{equation}
+is Eisenstein at \(\ell_n\). Indeed, \(\ell_n\) divides the constant
+coefficient exactly once and does not divide the leading coefficient;
+the intermediate coefficients vanish. Hence every root of
+\[
+X^m-\frac{r_j}{\sigma_n}
+\]
+has degree exactly \(m\) over \(\Q\).
+
+Fix a root \(\beta\in\C\) satisfying \(\beta^m=r_j/\sigma\).
+Since \(\sigma\) is transcendental, so is \(\beta\).
+The holomorphic implicit-function theorem, applied to
+\(zw^m-r_j=0\) at \((\sigma,\beta)\), supplies a local branch
+\(u(z)\) with \(u(\sigma)=\beta\) and \(u(z)^m=r_j/z\). For all
+sufficiently large \(n\), put \(\beta_n:=u(\sigma_n)\). Then
+\([\Q(\beta_n):\Q]=m\), and, since \(1<\sigma,\sigma_n<2\),
+\begin{equation}\label{eq:beta-approximation}
+|\beta-\beta_n|
+\ll_{j,m}\abs{\sigma-\sigma_n}
+<\frac{C_{j,m}}{q_nq_{n+1}}.
+\end{equation}
+Moreover,
+\[
+m\,\mathrm h(\beta_n)
+=
+\mathrm h\left(\frac{A_jq_n}{B_jp_n}\right).
+\]
+The greatest common divisor of \(A_jq_n\) and \(B_jp_n\) divides
+\(|A_jB_j|\), while \(1<p_n/q_n<2\). Therefore, with
+\(H_n:=\mathrm h(\beta_n)\),
+\begin{equation}\label{eq:beta-height-asymptotic}
+H_n=\frac1m\log q_n+O_{j,m}(1).
+\end{equation}
+For sufficiently large \(n\), we have \(H_n>0\); set
+\[
+w_n:=\frac{\log q_{n+1}}{2H_n}.
+\]
+Then \(w_n\to\infty\), and \eqref{eq:beta-approximation} gives
+\[
+|\beta-\beta_n|\leq C_{j,m}e^{-w_nH_n}.
+\]
+Since \(m\geq2\), equation \eqref{eq:beta-height-asymptotic} also gives
+\[
+H_{n+1}\leq\log q_{n+1}=2w_nH_n
+\]
+for all sufficiently large \(n\). After discarding finitely many
+terms, Lemma~\ref{lem:Um-gap-principle} therefore yields
+\(\beta\in U_m\). Since \(j,m\), and the chosen root were arbitrary,
+the asserted fiber property follows.
+
+Now let \(\xi\in\Lio\) and \(m\geq2\). Maillet's theorem gives
+\(\xi^m\in\Lio\), and \eqref{eq:Petruska-product} gives
+\[
+\sigma\xi^m\in\Q\cup\Lio.
+\]
+If \(\sigma\xi^m=r\in\Q\), then \(r\neq0\) and \(\xi\) is a root of
+\(X^m-r/\sigma\); hence \(\xi\in U_m\), contrary to
+\(\xi\in U_1\). Thus \eqref{eq:nonlinear-preservation} holds.
+
+Finally, at every stage the prescribed congruence class modulo
+\(\ell_n^2\) contains infinitely many positive integers satisfying
+\eqref{eq:q-strong-growth}. Retaining two choices at each stage gives
+a binary tree of continuum many continued fractions, every one of which
+satisfies the preceding argument.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:intro-nonlinear}]
+Apply Theorem~\ref{thm:strong-nonlinear-preservers} and retain
+\eqref{eq:nonlinear-preservation}.
+\end{proof}
+
+Theorems~\ref{thm:intro-mobius} and
+\ref{thm:strong-nonlinear-preservers} show that coefficient rigidity
+has a sharp break between degree one and higher degree. They do not
+classify all rational preservers, but they show that the real
+coefficient field in Theorem~\ref{thm:intro-mahler} is unavoidable:
+the conclusion \(F\in\R[z]\) cannot be strengthened to
+\(F\in\overline{\Q}[z]\).
+
+\section*{Acknowledgments}
+
+%This problem has accompanied me for more than one decade, and I am grateful to the many colleagues with whom I have had the opportunity to discuss it over that period. Their questions, comments, and perspectives have been valuable at various stages of this work. 
+
+The author would like to thank Yuri Bilu, Carlos Gustavo Moreira, Michel Waldschmidt, Johannes Schleischitz and Jean Lelis for generous and stimulating discussions on this problem over the last decade. This work was supported by the Brazilian National Council for Scientific and Technological Development (CNPq), Grant No.~304467/2023-5.
+
+
+\section*{Use of artificial intelligence tools}
+
+OpenAI's ChatGPT was used solely for English-language editing and stylistic corrections. The author assumes full responsibility for the manuscript.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{AlniacikSaias1994}
+K.~Alnia\c{c}{\i}k and E.~Saias,
+Une remarque sur les $G_\delta$-denses,
+\emph{Arch. Math. (Basel)} \textbf{62} (1994), no.~5, 425--426.
+
+\bibitem{Apostol1976}
+T.~M. Apostol,
+\emph{Introduction to Analytic Number Theory},
+Undergraduate Texts in Mathematics,
+Springer-Verlag, New York--Heidelberg, 1976.
+
+\bibitem{BeresnevichDickinsonVelani2007}
+V.~Beresnevich, D.~Dickinson, and S.~Velani,
+Diophantine approximation on planar curves and the distribution of rational points,
+\emph{Ann. of Math. (2)} \textbf{166} (2007), no.~2, 367--426,
+with an appendix by R.~C. Vaughan.
+
+\bibitem{BiluMarques2026}
+Y.~Bilu and D.~Marques,
+Values of algebraic functions at Liouville numbers,
+\emph{Bull. Braz. Math. Soc. (N.S.)} \textbf{57} (2026), article no.~29.
+
+\bibitem{BiluMarquesMoreira2026}
+Y.~Bilu, D.~Marques, and C.~G.~Moreira,
+Values of generalized Liouville power series at algebraic numbers,
+\emph{Funct. Approx. Comment. Math.} \textbf{75} (2026), no.~1,
+95--110.
+
+\bibitem{Bocher1900}
+M.~B{\^o}cher,
+The theory of linear dependence,
+\emph{Ann. of Math. (2)} \textbf{2} (1900--1901), no.~1/4, 81--96.
+
+\bibitem{BombieriPila1989}
+E.~Bombieri and J.~Pila,
+The number of integral points on arcs and ovals,
+\emph{Duke Math. J.} \textbf{59} (1989), no.~2, 337--357.
+
+\bibitem{BostanDumas2010}
+A.~Bostan and P.~Dumas,
+Wronskians and linear independence,
+\emph{Amer. Math. Monthly} \textbf{117} (2010), no.~8, 722--727.
+
+\bibitem{BoxallJones2015}
+G.~J. Boxall and G.~O. Jones,
+Algebraic values of certain analytic functions,
+\emph{Int. Math. Res. Not. IMRN} 2015, no.~4, 1141--1158.
+
+\bibitem{Bugeaud2004}
+Y.~Bugeaud,
+\emph{Approximation by Algebraic Numbers},
+Cambridge Tracts in Mathematics, vol.~160,
+Cambridge University Press, Cambridge, 2004.
+
+\bibitem{ComteYomdin2018}
+G.~Comte and Y.~Yomdin,
+Zeroes and rational points of analytic functions,
+\emph{Ann. Inst. Fourier (Grenoble)} \textbf{68} (2018), no.~6, 2445--2476.
+
+%\bibitem{Erdos1962}
+%P.~Erd\H{o}s,
+%Representations of real numbers as sums and products of %Liouville numbers,
+%\emph{Michigan Math. J.} \textbf{9} (1962), 59--60.
+
+\bibitem{FischlerRivoal2024}
+S.~Fischler and T.~Rivoal,
+Values of $E$-functions are not Liouville numbers,
+\emph{J. \'{E}c. polytech. Math.} \textbf{11} (2024), 1--18.
+
+\bibitem{Habegger2018}
+P.~Habegger,
+Diophantine approximations on definable sets,
+\emph{Selecta Math. (N.S.)} \textbf{24} (2018), no.~2, 1633--1675.
+
+\bibitem{Huang2015}
+J.-J.~Huang,
+Rational points near planar curves and Diophantine approximation,
+\emph{Adv. Math.} \textbf{274} (2015), 490--515.
+
+\bibitem{Huxley1994}
+M.~N. Huxley,
+The rational points close to a curve,
+\emph{Ann. Scuola Norm. Sup. Pisa Cl. Sci. (4)} \textbf{21} (1994), no.~3, 357--375.
+
+\bibitem{KleinbockMargulis1998}
+D.~Y. Kleinbock and G.~A. Margulis,
+Flows on homogeneous spaces and Diophantine approximation on manifolds,
+\emph{Ann. of Math. (2)} \textbf{148} (1998), no.~1, 339--360.
+
+%\bibitem{LelisMarques2020}
+%J.~Lelis and D.~Marques,
+%On transcendental entire functions mapping $\Q$ into itself,
+%\emph{J. Number Theory} \textbf{206} (2020), 310--319.
+
+\bibitem{LelisMoreiraSilva2026}
+J.~Lelis, C.~G. Moreira, and E.~Silva,
+On $C^k$-functions mapping $\Q$ into itself and Mahler's problem on Liouville numbers,
+preprint, arXiv:2607.24427, 2026.
+
+\bibitem{Liouville1844}
+J.~Liouville,
+Communication du 13 mai 1844,
+\emph{C. R. Acad. Sci.} \textbf{18} (1844), 883--885, 910--911.
+
+\bibitem{Liouville1851}
+J.~Liouville,
+Sur des classes tr\`es-\'etendues de quantit\'es dont la valeur
+n'est ni alg\'ebrique, ni m\^eme r\'eductible \`a des
+irrationnelles alg\'ebriques,
+\emph{J. Math. Pures Appl. (1)} \textbf{16} (1851), 133--142.
+
+\bibitem{Lombardo2017}
+D.~Lombardo,
+On the analytic bijections of the rationals in $[0,1]$,
+\emph{Atti Accad. Naz. Lincei Rend. Lincei Mat. Appl.} \textbf{28} (2017),
+no.~1, 65--83.
+
+\bibitem{Mahler1984}
+K.~Mahler,
+Some suggestions for further research,
+\emph{Bull. Aust. Math. Soc.} \textbf{29} (1984), no.~1, 101--108.
+
+\bibitem{Maillet1906}
+E.~Maillet,
+\emph{Introduction \`a la th\'eorie des nombres transcendants et des propri\'et\'es
+arithm\'etiques des fonctions},
+Gauthier--Villars, Paris, 1906.
+
+\bibitem{MarquesMoreira2015}
+D.~Marques and C.~G. Moreira,
+On a variant of a question proposed by K.~Mahler concerning Liouville numbers,
+\emph{Bull. Aust. Math. Soc.} \textbf{91} (2015), no.~1, 29--33.
+
+\bibitem{MarquesSchleischitz2016}
+D.~Marques and J.~Schleischitz,
+On a problem posed by Mahler,
+\emph{J. Aust. Math. Soc.} \textbf{100} (2016), no.~1, 86--107.
+
+\bibitem{MarquesSmooth2026}
+D.~Marques,
+Smooth diffeomorphisms and Mahler's problem on Liouville numbers,
+preprint, arXiv:2609.00376, 2026.
+
+\bibitem{Petruska1992}
+G.~Petruska,
+On strong Liouville numbers (a problem of P.~Erd\H{o}s),
+\emph{Indag. Math. (N.S.)} \textbf{3} (1992), no.~2, 211--218.
+
+\bibitem{Pila1991}
+J.~Pila,
+Geometric postulation of a smooth function and the number of rational points,
+\emph{Duke Math. J.} \textbf{63} (1991), no.~2, 449--463.
+
+\bibitem{Pila2005}
+J.~Pila,
+Rational points on a subanalytic surface,
+\emph{Ann. Inst. Fourier (Grenoble)} \textbf{55} (2005), no.~5, 1501--1516.
+
+\bibitem{PilaWilkie2006}
+J.~Pila and A.~J. Wilkie,
+The rational points of a definable set,
+\emph{Duke Math. J.} \textbf{133} (2006), no.~3, 591--616.
+
+%\bibitem{Schleischitz2025}
+%J.~Schleischitz,
+%Maillet's property and Mahler's conjecture on Liouville numbers fail for matrices,
+%\emph{J. Aust. Math. Soc.} \textbf{119} (2025), no.~1, 106--127.
+
+\bibitem{Stackel1895}
+P.~St\"ackel,
+Ueber arithmetische Eigenschaften analytischer Functionen,
+\emph{Math. Ann.} \textbf{46} (1895), 513--520.
+
+\bibitem{Stackel1902}
+P.~St\"ackel,
+Arithmetische Eigenschaften analytischer Functionen,
+\emph{Acta Math.} \textbf{25} (1902), 371--383.
+
+\bibitem{Surroca2006}
+A.~Surroca,
+Valeurs alg\'ebriques de fonctions transcendantes,
+\emph{Int. Math. Res. Not.} 2006, Art. ID 16834, 31 pp.
+
+\bibitem{VanderPoorten1968}
+A.~J. van der Poorten,
+Transcendental entire functions mapping every algebraic number field into itself,
+\emph{J. Austral. Math. Soc.} \textbf{8} (1968), no.~2, 192--193.
+
+\bibitem{VaughanVelani2006}
+R.~C. Vaughan and S.~Velani,
+Diophantine approximation on planar curves: the convergence theory,
+\emph{Invent. Math.} \textbf{166} (2006), no.~1, 103--124.
+
+\bibitem{Waldschmidt2003}
+M.~Waldschmidt,
+Algebraic values of analytic functions,
+\emph{J. Comput. Appl. Math.} \textbf{160} (2003), no.~1--2, 323--333.
+
+\bibitem{Waldschmidt2004}
+M.~Waldschmidt,
+Open Diophantine problems,
+\emph{Mosc. Math. J.} \textbf{4} (2004), no.~1, 245--305.
+
+\bibitem{Weierstrass1923}
+K.~Weierstrass,
+Briefe von K.~Weierstrass an L.~Koenigsberger,
+\emph{Acta Math.} \textbf{39} (1923), 226--239.
+
+\end{thebibliography}
+
+\end{document}

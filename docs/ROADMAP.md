@@ -1,0 +1,88 @@
+# Mathematical roadmap
+
+Reference: Mahler_Question_18SEPT.pdf. Keep this version fixed while matching
+statements, and record any later change of the manuscript explicitly.
+
+## Stage 0: reproducible environment
+
+Install VS Code, Lean 4 extension, Elan, and Git. Open the project root;
+obtain the matching mathlib cache; build; inspect the nine initial statements.
+Make a first commit and run the GitHub workflow.
+
+## Stage 1: source and target definitions
+
+Inspect mathlib's existing `Liouville` definitions and prove the equivalence
+with the convention used in the paper. Do not silently replace the paper's
+strict nonzero approximation condition with a weaker definition.
+
+In the pinned v4.24.0 source, this definition is in
+`Mathlib/NumberTheory/Transcendental/Liouville/Basic.lean`:
+`∀ n : ℕ, ∃ a b : ℤ, 1 < b ∧ x ≠ a / b ∧ |x - a / b| < 1 / (b : ℝ)^n`.
+It uses existence at every exponent, while the manuscript states infinitely
+many pairs at every exponent. Their equivalence must be explicitly checked.
+
+Specify source fractions in lowest terms, their denominator block [Q, 2Q),
+and target witnesses with unreduced denominator allowed. Count distinct
+source rationals, not source-target witness pairs. Establish finiteness on
+a bounded source interval before using finite cardinalities.
+
+Define the avoidance property for every integer numerator and all sufficiently
+large positive target denominators. At first, this explicit inequality can be
+used instead of formalizing the irrationality exponent itself.
+
+## Stage 2: abstract fusion, then its application
+
+State all earlier results used by fusion as explicit hypotheses of a
+conditional theorem. Do not introduce an axiom asserting Proposition 5.1.
+
+Formalize:
+
+1. Selection of a safe center from supply and exclusion estimates.
+2. Stability under movement away from the center.
+3. Extraction of an interval of controlled length after deleting finitely
+   many Wronskian zeros and the current center.
+4. The full simultaneous induction (F1)--(F7), with Q chosen after all
+   quantities on which its lower threshold depends.
+5. Existence and uniqueness of the point in nested nonempty compact intervals.
+6. Unbounded reduced source denominators and arbitrarily strong nonzero
+   rational approximations.
+7. Coverage of every sufficiently large target denominator by consecutive
+   integer blocks [T_n, T_(n+1)).
+8. The eventual lower bound for target approximation.
+
+The counting-to-fusion interface must retain both uniformities:
+`C_low` independent of the shrinking source interval, and
+`C(J,A), Q0(J,A)` independent of H. Include the separate rational supply
+and Wronskian localization hypotheses; the numeric inequality alone is not
+the full interface.
+
+## Stage 3: Proposition 5.1 and dependencies
+
+The statements to formalize include Farey separation and supply, analytic
+independence, localized Wronskian nondegeneracy, uniform sublevel length
+and component bounds, determinant perturbation, rational denominator
+clearing, rank deficiency and coefficient normalization.
+
+In the large-target range track:
+
+- A >= 20, u >= 1/5, d = ceil(10u), N = 2(d+1).
+- kappa <= 33/20, s - kappa*N >= 1/5, s/(N-1) >= 97/35.
+- Constants chosen over the finite degree range before Q and target blocks.
+- One target witness per source center, all maximal minors, then a relation
+  valid for every selected center in the cell.
+- Uniformity in normalized polynomial coefficients and number of components.
+- Summation of O(log Q) blocks with the exponent loss 1/20.
+
+An obstacle can be missing Lean infrastructure or a mathematical gap.
+Record which one it is. Never weaken the final statement just to compile.
+
+## Stage 4: main conclusions and public release
+
+Combine the unconditional estimate with fusion, prove the local rigidity
+corollary, and then the entire-function consequence. Audit the exact
+formal statements against Theorems 1.2 and 1.1. The independent Section 7
+results are a separate milestone.
+
+Only after verification, create a tagged release and describe its precise
+scope in the paper. A public blueprint site and an archival DOI can be added
+then. A Markdown dependency plan is not itself a machine-checked proof.
