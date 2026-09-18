@@ -56,8 +56,7 @@ theorem jetApply_continuousOn {N : ℕ} (φ : Fin N → ℝ → ℝ) {K : Set �
     ContinuousOn (fun p : EuclideanSpace ℝ (Fin N) × ℝ => jetApply φ p.1 k p.2)
       (Set.univ ×ˢ K) := by
   unfold jetApply
-  apply Finset.continuousOn_sum
-  intro j hj
+  refine continuousOn_finset_sum Finset.univ fun j hj => ?_
   have hc : Continuous (fun p : EuclideanSpace ℝ (Fin N) × ℝ => p.1 j) := by
     fun_prop
   have hd : ContinuousOn
@@ -74,12 +73,11 @@ theorem jetL1_continuousOn {N : ℕ} (φ : Fin N → ℝ → ℝ) {K : Set ℝ}
     ContinuousOn (fun p : EuclideanSpace ℝ (Fin N) × ℝ => jetL1 φ p.1 p.2)
       (Set.univ ×ˢ K) := by
   unfold jetL1
-  apply Finset.continuousOn_sum
-  intro k hk
+  refine continuousOn_finset_sum Finset.univ fun k hk => ?_
   exact (jetApply_continuousOn φ hφ k).abs
 
 /-- If the Wronskian is nonzero and c is a unit vector, then its N-jet is nonzero. -/
-theorem jetL1_pos_of_wronskian_ne_zero {N : ℕ} (hN : 0 < N)
+theorem jetL1_pos_of_wronskian_ne_zero {N : ℕ}
     (φ : Fin N → ℝ → ℝ) (c : EuclideanSpace ℝ (Fin N)) (x : ℝ)
     (hc : ‖c‖ = 1) (hW : wronskian φ x ≠ 0) :
     0 < jetL1 φ c x := by
@@ -137,7 +135,7 @@ theorem exists_uniform_jetL1_lower_bound {N : ℕ} (hN : 0 < N)
     have hpunit : ‖p.1‖ = 1 := by
       simpa [P, S, Metric.mem_sphere] using hp.1
     have hpos : 0 < jetL1 φ p.1 p.2 :=
-      jetL1_pos_of_wronskian_ne_zero hN φ p.1 p.2 hpunit (hW p.2 hp.2)
+      jetL1_pos_of_wronskian_ne_zero φ p.1 p.2 hpunit (hW p.2 hp.2)
     refine ⟨jetL1 φ p.1 p.2, hpos, ?_⟩
     intro c hc x hx
     apply hmin
