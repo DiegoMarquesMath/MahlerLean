@@ -1,5 +1,9 @@
 # Etapa 4 — Uma etapa da construção de fusão
 
+Registro da etapa 4. A etapa 5 acrescenta a inicialização, a sequência
+infinita e a conclusão a partir das hipóteses de contagem. Veja
+[STEP5_PT.md](STEP5_PT.md) para o estado atual.
+
 Referência: o mesmo `paper/main.tex` das etapas anteriores, enviado em
 18 de setembro de 2026, SHA-256
 `4ac94b1f36e6a48103b25344e8e736657cef2cb5944c600c5afe098119f8b995`.

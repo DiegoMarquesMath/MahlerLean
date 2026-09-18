@@ -123,3 +123,37 @@ moved to a separate backup folder; the final screenshot shows a clean
 working tree. This step-4 update was checked here on Linux; the supplied
 commands repeat the checks on the Mac before committing. No GitHub
 publication or Actions run was performed.
+
+
+# Step 5 — infinite fusion and escape from counting inputs
+
+Validated on 18 September 2026 in Linux x86_64 with the same pinned
+Lean 4.24.0 and mathlib v4.24.0 revisions. No dependency update was made.
+The reference manuscript and its SHA-256 remain as recorded in step 2.
+
+- `lake build`: passed, 2177 jobs.
+- All eleven source modules passed with `warningAsError=true`.
+- `bash scripts/check.sh`: exit code 0.
+- The audit includes all 46 explicitly declared project theorems,
+  including the nine new results.
+- Every new theorem depends only on `propext`, `Classical.choice`,
+  and `Quot.sound`.
+- No listed theorem depends on `sorryAx` or an additional project axiom.
+
+New modules: `FusionRecursion.lean`, `FusionEscape.lean`.
+The first initializes the interval and cutoff and builds an infinite
+sequence satisfying the seven fusion invariants. The second proves
+uniqueness of the common point, divergence of the reduced source
+denominators, and the escape conclusion from `FusionInputs`.
+
+The existence of `FusionData` is now proved from the explicit supply,
+counting, derivative and finite-forbidden-set interface. That interface
+is not an axiom and does not assert the desired conclusion. Its analytic
+derivation, including Lemma 2.2, Proposition 5.1 and the Wronskian-zero
+arguments, remains pending. Theorems 1.1 and 1.2 are not fully formalized.
+
+The user's screenshots confirm that step 4 passed on the Mac and was
+committed locally as `9ee09bc`, with a clean working tree. This step-5
+update was checked here on Linux; the supplied commands repeat its
+checks on the Mac before committing. No GitHub publication or Actions
+run was performed.

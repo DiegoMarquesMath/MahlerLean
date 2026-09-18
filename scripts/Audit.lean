@@ -40,3 +40,13 @@ import MahlerLean
 #print axioms MahlerLean.exists_large_fusion_scale
 #print axioms MahlerLean.successor_from_safe_center
 #print axioms MahlerLean.successor_from_counting
+
+#print axioms MahlerLean.exists_initial_tail_cutoff
+#print axioms MahlerLean.exists_initial_fusion_stage
+#print axioms MahlerLean.exists_fusion_transition
+#print axioms MahlerLean.fusionStages_succ
+#print axioms MahlerLean.exists_fusion_construction
+#print axioms MahlerLean.fusion_intersection_subsingleton
+#print axioms MahlerLean.exists_unique_fusion_point
+#print axioms MahlerLean.fusion_denominators_tendsto
+#print axioms MahlerLean.exists_escape_of_counting

@@ -21,11 +21,17 @@ one successor step from the counting hypotheses on the middle third.
 The finite forbidden set and all scale thresholds are fixed before Q is
 chosen. See [STEP4_PT.md](STEP4_PT.md).
 
-The next fusion task is initialization and recursive assembly of these
-successors into `FusionData`, with a suitable stagewise interface for the
-analytic assumptions and forbidden sets. Source supply, Proposition 5.1,
-Wronskian localization and their dependencies remain pending. The full
-fusion construction and the main results are not formalized.
+Step 5 initializes the interval and target cutoff, constructs the infinite
+sequence by recursion, and proves all seven fusion invariants from the
+explicit `FusionInputs` interface. It also proves uniqueness of the common
+point, unbounded source denominators and the counting-to-escape theorem.
+See [STEP5_PT.md](STEP5_PT.md).
+
+The abstract infinite fusion argument is now formalized conditionally.
+The next mathematical tasks are source supply (Lemma 2.2), the analytic
+Wronskian-zero interface, and Proposition 5.1 with its dependencies. These
+must provide `FusionInputs` from the hypotheses of the manuscript before
+the main theorems can be claimed as fully formalized.
 
 ## Stage 0: reproducible environment
 
@@ -59,7 +65,8 @@ used instead of formalizing the irrationality exponent itself.
 State all earlier results used by fusion as explicit hypotheses of a
 conditional theorem. Do not introduce an axiom asserting Proposition 5.1.
 
-Formalize:
+The following parts are now proved under the explicit `FusionInputs`
+interface (steps 2--5):
 
 1. Selection of a safe center from supply and exclusion estimates.
 2. Stability under movement away from the center.

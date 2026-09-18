@@ -7,3 +7,5 @@ import MahlerLean.FusionConclusion
 import MahlerLean.FiniteAvoidance
 import MahlerLean.FusionScale
 import MahlerLean.FusionStep
+import MahlerLean.FusionRecursion
+import MahlerLean.FusionEscape

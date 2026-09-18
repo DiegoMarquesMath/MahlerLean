@@ -3,21 +3,19 @@
 Initial Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 37 listed theorems. They cover supporting
-lemmas, rational source sets, conditional safe-center selection, the
-Liouville-definition bridge, the conditional conclusion of fusion, and
-one local successor step. The theorem `successor_from_counting` now
-chooses a scale, safe rational center and next closed interval from
-explicit counting, derivative and tail hypotheses and a fixed finite
-forbidden set. It preserves the quantitative condition for the next
-stage. The theorem `exists_escape_of_fusion_data` derives a Liouville
-escape point from a full infinite sequence of intervals and invariants;
-constructing that sequence is still pending.
+**Scope:** the project contains 46 listed theorems. It now formalizes the
+infinite fusion construction and its escape conclusion **conditional on
+explicit source-supply, counting, derivative and finite-forbidden-set
+inputs**. The theorem `exists_escape_of_counting` starts from those inputs,
+constructs the sequence, and proves the existence of a Liouville point
+whose image satisfies an eventual approximation lower bound with exponent
+100 and is not Liouville. The common point of the constructed intervals
+is unique, and the reduced source denominators tend to infinity.
 
-The source supply (Lemma 2.2) and Proposition 5.1 remain explicit hypotheses
-of the safe-center selection theorem. The project does **not** prove those two estimates,
-the complete fusion construction, or Theorems 1.1 and 1.2. None of these
-pending results is installed as an axiom or an unproved placeholder.
+The source supply (Lemma 2.2), Proposition 5.1 and the analytic construction
+of the Wronskian zero sets remain unproved inputs. Theorems 1.1 and 1.2
+are **not** fully formalized. No pending result is installed as an axiom
+or an unproved placeholder.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
@@ -25,6 +23,7 @@ For the actual validation record, open [VALIDATION.md](VALIDATION.md).
 For the safe-center implication, open [docs/STEP2_PT.md](docs/STEP2_PT.md).
 For the conditional fusion conclusion, open [docs/STEP3_PT.md](docs/STEP3_PT.md).
 For one local successor step, open [docs/STEP4_PT.md](docs/STEP4_PT.md).
+For the infinite construction, open [docs/STEP5_PT.md](docs/STEP5_PT.md).
 
 ## Reproduce
 
@@ -88,10 +87,12 @@ power estimates. The rational supply and Proposition 5.1 still need proofs.
 | `exists_escape_of_fusion_data` | Nested intervals with explicit source/target invariants yield an escape point |
 | `safeCenter_avoidance_of_deriv_bound` | Mean-value theorem supplies the movement bound near a safe center |
 
-`FusionData f` is an explicit hypothesis package. No theorem currently
-constructs it from the analytic assumptions of the paper. The new
-conclusion gives the inequality with exponent 100; no definition of the
-irrationality exponent or theorem about its supremum is installed yet.
+`FusionData f` records the geometric and arithmetic invariants needed for
+the conclusion. Step 5 constructs it from the explicit `FusionInputs f`
+interface; deriving those inputs from the analytic assumptions of the
+paper remains pending. The conclusion gives the inequality with exponent
+100; no definition of the irrationality exponent or theorem about its
+supremum is installed yet.
 
 ## One successor step of fusion
 
@@ -113,15 +114,42 @@ irrationality exponent or theorem about its supremum is installed yet.
 | `successor_from_counting` | One local successor step from the two counting hypotheses |
 
 `SuccessorInterval` records the data and proofs produced by the last two
-theorems. Unlike `FusionData`, its existence is now proved from the stated
-local assumptions. The arbitrary finite set `Z` is fixed before choosing Q;
+theorems. Its existence follows from the stated local assumptions and is
+used by the infinite recursion. The finite set `Z` is fixed before choosing Q;
 the analytic argument identifying and controlling the Wronskian zeros
-has not been formalized. Choosing `Qmin > 2*q_previous` would enforce
-the source denominator growth required in a future recursive construction.
+has not been formalized. Step 5 uses `Qmin = 2*q_previous+1` to enforce
+source denominator growth during recursion.
 
 The geometric proof uses separated closed intervals and finite cardinality
 instead of connected components, with the same exact length as the paper.
 No change to the manuscript is needed for this alternative proof.
+
+## Infinite fusion from explicit counting inputs
+
+| Declaration | Manuscript connection |
+| --- | --- |
+| `exists_initial_tail_cutoff` | Initial H >= 2 with sufficiently small H^(-98) |
+| `exists_initial_fusion_stage` | Initial interval avoiding Z_0 and initial cutoff |
+| `exists_fusion_transition` | The local step applies to every valid stage |
+| `fusionStages_succ` | Exact recursion equation for the sequence |
+| `exists_fusion_construction` | Infinite construction satisfying (F1)--(F7) |
+| `fusion_intersection_subsingleton` | Source errors force two common points to coincide |
+| `exists_unique_fusion_point` | Exactly one point lies in all fusion intervals |
+| `fusion_denominators_tendsto` | Reduced source denominators tend to infinity |
+| `exists_escape_of_counting` | Counting inputs imply a Liouville escape point in the ambient interior |
+
+`FusionInputs f` fixes an ambient interval, M, Clow, cF, and a sequence of
+finite sets Z_n. It requires supply on every compact subinterval and the
+uniform counting estimate at exponent n+3 on subintervals avoiding Z_n.
+Clow is fixed throughout the recursion. The remainder constant and
+threshold can vary with the interval and stage, but are independent of H.
+
+`fusionConstruction` builds `FusionConstruction`, which extends
+`FusionData` with strict interval nesting, avoidance of Z_n, source
+denominator growth and the tail invariant at every stage. No sequence of
+intervals or safe centers is assumed in the counting-to-escape theorem.
+The function is noncomputable in Lean because it uses classical choice;
+this concerns extracting executable numerical data, not missing proofs.
 
 ## Verification policy
 
