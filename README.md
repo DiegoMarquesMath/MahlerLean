@@ -3,21 +3,26 @@
 Initial Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains the nine initial supporting lemmas and seven
-additional theorems for exact rational source sets and the deduction of a
-safe center from explicit counting hypotheses. The new theorem
+**Scope:** the project contains 23 listed theorems: the nine initial
+supporting lemmas, seven results for rational source sets and safe-center
+selection, and seven results for the conclusion of fusion and the
+Liouville-definition bridge. The new theorem
 `safe_center_of_counting_estimates` proves the counting-to-selection
-implication of Lemma 6.1, including a threshold uniform in H.
+implication of Lemma 6.1, including a threshold uniform in H. The theorem
+`exists_escape_of_fusion_data` derives a Liouville escape point from
+explicit nested-interval and approximation data; constructing those data
+is still pending.
 
 The source supply (Lemma 2.2) and Proposition 5.1 remain explicit hypotheses
-of this implication. The project does **not** prove those two estimates,
+of the safe-center selection theorem. The project does **not** prove those two estimates,
 the complete fusion construction, or Theorems 1.1 and 1.2. None of these
 pending results is installed as an axiom or an unproved placeholder.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
 For the actual validation record, open [VALIDATION.md](VALIDATION.md).
-For the new statement and its precise scope, open [docs/STEP2_PT.md](docs/STEP2_PT.md).
+For the safe-center implication, open [docs/STEP2_PT.md](docs/STEP2_PT.md).
+For the conditional fusion conclusion, open [docs/STEP3_PT.md](docs/STEP3_PT.md).
 
 ## Reproduce
 
@@ -68,6 +73,23 @@ The next step adds:
 In particular, `exists_safe_center` alone is only a finite-set principle.
 The new conditional theorem connects it to the actual rational sets and
 power estimates. The rational supply and Proposition 5.1 still need proofs.
+
+## Fusion conclusion and Liouville conventions
+
+| Declaration | Manuscript connection |
+| --- | --- |
+| `liouville_iff_paperLiouville` | Library definition equals infinitely many pairs at every positive exponent |
+| `liouville_of_source_approximations` | Nonzero source approximation with orders n+3 implies Liouville |
+| `not_liouville_of_eventual_target_avoidance` | A fixed eventual approximation lower bound excludes Liouville |
+| `exists_target_block` | Consecutive increasing integer blocks cover all denominators above T_0 |
+| `target_avoidance_from_blocks` | Blockwise exclusion implies eventual target avoidance |
+| `exists_escape_of_fusion_data` | Nested intervals with explicit source/target invariants yield an escape point |
+| `safeCenter_avoidance_of_deriv_bound` | Mean-value theorem supplies the movement bound near a safe center |
+
+`FusionData f` is an explicit hypothesis package. No theorem currently
+constructs it from the analytic assumptions of the paper. The new
+conclusion gives the inequality with exponent 100; no definition of the
+irrationality exponent or theorem about its supremum is installed yet.
 
 ## Verification policy
 

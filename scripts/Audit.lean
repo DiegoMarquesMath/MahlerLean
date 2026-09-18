@@ -17,3 +17,11 @@ import MahlerLean
 #print axioms MahlerLean.exists_safeCenter_of_quarter_bounds
 #print axioms MahlerLean.safe_center_of_counting_estimates
 #print axioms MahlerLean.safeCenter_avoidance_of_movement
+
+#print axioms MahlerLean.liouville_iff_paperLiouville
+#print axioms MahlerLean.liouville_of_source_approximations
+#print axioms MahlerLean.not_liouville_of_eventual_target_avoidance
+#print axioms MahlerLean.exists_target_block
+#print axioms MahlerLean.target_avoidance_from_blocks
+#print axioms MahlerLean.exists_escape_of_fusion_data
+#print axioms MahlerLean.safeCenter_avoidance_of_deriv_bound

@@ -5,14 +5,19 @@ statements, and record any later change of the manuscript explicitly.
 
 ## Current verified milestone
 
-The step-2 update defines the exact finite rational source and dangerous
-sets and proves Lemma 6.1 conditional on the source supply and the uniform
-counting estimate. See [STEP2_PT.md](STEP2_PT.md). The common source threshold
-is chosen before H. A transfer theorem covers all admissible targets under
-an explicit bound on the change in function value.
+Step 2 proves safe-center selection conditional on the source supply and
+the uniform counting estimate, with a source threshold independent of H.
+See [STEP2_PT.md](STEP2_PT.md).
 
-The source supply, Proposition 5.1, and the full fusion construction remain
-pending. The Liouville-definition work in Stage 1 is also pending.
+Step 3 proves equivalence between the library and manuscript Liouville
+conventions, coverage by the target blocks, and the existence of a
+Liouville escape point conditional on the explicit invariants in
+`FusionData`. It also derives the movement bound from a derivative bound
+using the mean-value theorem. See [STEP3_PT.md](STEP3_PT.md).
+
+The construction of `FusionData`, source supply, Proposition 5.1 and its
+dependencies remain pending. The full fusion construction and the main
+results are not formalized.
 
 ## Stage 0: reproducible environment
 

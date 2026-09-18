@@ -62,3 +62,34 @@ The user's screenshot confirms that the initial package built and its
 first local commit was created on the Mac. This step-2 update was tested
 here on Linux; the supplied terminal commands repeat its checks on the
 Mac before committing. No GitHub publication or Actions run was performed.
+
+
+# Step 3 — conclusion of fusion from explicit invariants
+
+Validated on 18 September 2026 in Linux x86_64 with the same pinned
+Lean 4.24.0 and mathlib v4.24.0 revisions. No dependency update was made.
+
+- `lake build`: passed, 2172 jobs.
+- All six source modules passed with `warningAsError=true`.
+- `bash scripts/check.sh`: exit code 0.
+- The audit includes all 23 explicitly declared project theorems.
+- Every new theorem depends only on `propext`, `Classical.choice`,
+  and `Quot.sound`; no listed theorem depends on `sorryAx` or an
+  additional project axiom.
+
+New modules: `LiouvilleBridge.lean` and `FusionConclusion.lean`.
+The first proves the definition equivalence and pointwise consequences.
+The second proves block coverage, the conditional fusion conclusion,
+and the mean-value step used near a safe center.
+
+`FusionData f` is explicit input data with hypotheses. Its existence
+under the analytic assumptions of the manuscript is not proved.
+No theorem about a separately defined irrationality-exponent supremum
+is claimed; the quantitative conclusion is the explicit approximation
+lower bound from Theorem 1.2.
+
+The user's screenshot confirms that step 2 passed on the Mac and was
+committed locally as `66492fb`, with a clean working tree. The present
+step-3 update was checked here on Linux; the supplied commands repeat
+the checks on the Mac before its next commit. No GitHub publication or
+Actions run was performed.

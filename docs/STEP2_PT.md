@@ -1,5 +1,8 @@
 # Etapa 2 — Da contagem ao centro seguro
 
+Registro desta etapa. Para os avanços seguintes e as pendências atuais,
+consulte [STEP3_PT.md](STEP3_PT.md) e o README do projeto.
+
 Referência: `paper/main.tex` enviado em 18 de setembro de 2026.
 SHA-256 do arquivo de referência:
 `4ac94b1f36e6a48103b25344e8e736657cef2cb5944c600c5afe098119f8b995`.
