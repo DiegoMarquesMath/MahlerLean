@@ -187,7 +187,8 @@ theorem exists_uniform_jet_coordinate_lower_bound {N : ℕ} (hN : 0 < N)
               exact Finset.sum_lt_sum_of_nonempty Finset.univ_nonempty
                 (fun k hk => hlarge k)
       _ = η₀ := by
-        simp [η, Nat.nsmul_eq_mul, (ne_of_gt hNreal)]
+        dsimp [η]
+        field_simp [ne_of_gt hNreal]
   exact (not_lt_of_ge (hbound c hc x hx)) hsumlt
 
 /-- Analytic specialization of the coordinatewise uniform jet bound. -/
