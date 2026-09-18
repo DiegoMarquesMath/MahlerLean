@@ -122,3 +122,13 @@ import MahlerLean
 #print axioms MahlerLean.largeTargetFareyExponent
 #print axioms MahlerLean.largeTargetFareyExponent_gt_two
 #print axioms MahlerLean.largeTargetParameterBundle
+
+#print axioms MahlerLean.jetMatrix_det
+#print axioms MahlerLean.jetApply_eq_mulVec
+#print axioms MahlerLean.jetL1_nonneg
+#print axioms MahlerLean.jetApply_continuousOn
+#print axioms MahlerLean.jetL1_continuousOn
+#print axioms MahlerLean.jetL1_pos_of_wronskian_ne_zero
+#print axioms MahlerLean.exists_uniform_jetL1_lower_bound
+#print axioms MahlerLean.exists_uniform_jetL1_lower_bound_of_analytic
+#print axioms MahlerLean.exists_rationalFamily_uniform_jetL1_lower_bound
