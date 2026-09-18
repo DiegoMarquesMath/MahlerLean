@@ -104,6 +104,16 @@ theorem jetL1_pos_of_wronskian_ne_zero {N : ℕ}
     simpa [jetL1] using hz.symm
   exact abs_eq_zero.mp (hall k (by simp))
 
+/-- A continuous strictly positive real function on a nonempty compact set
+has a uniform positive lower bound. -/
+theorem exists_pos_lower_bound_on_compact
+    {α : Type*} [TopologicalSpace α] {K : Set α} {g : α → ℝ}
+    (hK : IsCompact K) (hKne : K.Nonempty)
+    (hg : ContinuousOn g K) (hpos : ∀ x ∈ K, 0 < g x) :
+    ∃ η : ℝ, 0 < η ∧ ∀ x ∈ K, η ≤ g x := by
+  obtain ⟨x, hx, hmin⟩ := hK.exists_isMinOn hKne hg
+  exact ⟨g x, hpos x hx, fun y hy => hmin hy⟩
+
 /-- Compactness upgrades pointwise jet nonvanishing to a uniform positive lower bound. -/
 theorem exists_uniform_jetL1_lower_bound {N : ℕ} (hN : 0 < N)
     (φ : Fin N → ℝ → ℝ) {K : Set ℝ}
@@ -116,31 +126,33 @@ theorem exists_uniform_jetL1_lower_bound {N : ℕ} (hN : 0 < N)
   by_cases hKne : K.Nonempty
   · let S : Set (EuclideanSpace ℝ (Fin N)) := Metric.sphere 0 1
     let P : Set (EuclideanSpace ℝ (Fin N) × ℝ) := S ×ˢ K
-    have hS : IsCompact S := by
-      exact isCompact_sphere 0 1
+    have hS : IsCompact S := isCompact_sphere 0 1
     have hP : IsCompact P := hS.prod hK
     let i0 : Fin N := ⟨0, hN⟩
     let c0 : EuclideanSpace ℝ (Fin N) := EuclideanSpace.single i0 1
     have hc0 : ‖c0‖ = 1 := by simp [c0]
-    have hc0S : c0 ∈ S := by
-      simpa [S, Metric.mem_sphere] using hc0
     obtain ⟨x0, hx0⟩ := hKne
-    have hPne : P.Nonempty := ⟨(c0, x0), hc0S, hx0⟩
+    have hPne : P.Nonempty := by
+      refine ⟨(c0, x0), ?_, hx0⟩
+      simpa [S, Metric.mem_sphere] using hc0
     have hcont : ContinuousOn
-        (fun p : EuclideanSpace ℝ (Fin N) × ℝ => jetL1 φ p.1 p.2) P := by
-      exact (jetL1_continuousOn φ hφ).mono (by
+        (fun p : EuclideanSpace ℝ (Fin N) × ℝ => jetL1 φ p.1 p.2) P :=
+      (jetL1_continuousOn φ hφ).mono (by
         intro p hp
         exact ⟨Set.mem_univ p.1, hp.2⟩)
-    obtain ⟨p, hp, hmin⟩ := hP.exists_isMinOn hPne hcont
-    have hpunit : ‖p.1‖ = 1 := by
-      simpa [P, S, Metric.mem_sphere] using hp.1
-    have hpos : 0 < jetL1 φ p.1 p.2 :=
-      jetL1_pos_of_wronskian_ne_zero φ p.1 p.2 hpunit (hW p.2 hp.2)
-    refine ⟨jetL1 φ p.1 p.2, hpos, ?_⟩
+    have hpositive :
+        ∀ p ∈ P, 0 < jetL1 φ p.1 p.2 := by
+      intro p hp
+      have hpunit : ‖p.1‖ = 1 := by
+        simpa [P, S, Metric.mem_sphere] using hp.1
+      exact jetL1_pos_of_wronskian_ne_zero φ p.1 p.2 hpunit (hW p.2 hp.2)
+    obtain ⟨η, hη, hbound⟩ :=
+      exists_pos_lower_bound_on_compact hP hPne hcont hpositive
+    refine ⟨η, hη, ?_⟩
     intro c hc x hx
-    apply hmin
+    apply hbound (c, x)
     refine ⟨?_, hx⟩
-    simpa [S, Metric.mem_sphere] using hc
+    simpa [P, S, Metric.mem_sphere] using hc
   · refine ⟨1, zero_lt_one, ?_⟩
     intro c hc x hx
     exact (hKne ⟨x, hx⟩).elim
