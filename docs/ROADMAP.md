@@ -38,8 +38,14 @@ elementary totient/divisor estimates. The new `UniformCountingInputs`
 interface removes source supply as an assumption in the escape theorem.
 See [STEP7_PT.md](STEP7_PT.md).
 
+Step 8 proves compact finiteness of analytic zeros, analyticity of the exact
+Wronskians, simultaneous localization, and the finite nested sets Z_n used
+in fusion, conditional on Wronskian nontriviality. The new
+`WronskianCountingInputs` adapter constructs those sets instead of taking
+an arbitrary finite-set sequence as input. See [STEP8_PT.md](STEP8_PT.md).
+
 The abstract infinite fusion argument is formalized conditionally.
-Remaining tasks include the analytic Wronskian-zero interface,
+Remaining tasks include deriving Wronskian nontriviality from nonrationality,
 sublevel interval decompositions, and
 Proposition 5.1 with its dependencies. These must provide `FusionInputs`
 from the hypotheses of the manuscript before the main theorems can be
@@ -103,8 +109,9 @@ the full interface.
 
 Farey separation, the upper estimate from a disjoint interval
 decomposition, and rational supply with cF = 1/4 are now proved.
-Remaining statements include analytic independence, localized Wronskian nondegeneracy, uniform
-sublevel length and component bounds, determinant perturbation, rational
+Localized Wronskian separation is now proved given nontriviality.
+Remaining statements include rationality versus linear dependence, the analytic
+Wronskian criterion, uniform sublevel length and component bounds, determinant perturbation, rational
 denominator clearing, rank deficiency and coefficient normalization.
 
 In the large-target range track:

@@ -248,3 +248,47 @@ The current session's GitHub connection remains authenticated as DiegoNash
 and a repository metadata request returned 404. This step has therefore
 been checked locally and packaged for application, commit and push from
 the user's Mac. Its remote build is still to be confirmed after the push.
+
+# Step 8 — analytic zeros and Wronskian localization
+
+Validated on 18 September 2026 in Linux x86_64 with the same pinned
+Lean 4.24.0 and mathlib v4.24.0 revisions. No dependency update was made.
+The manuscript SHA-256 remains
+`4ac94b1f36e6a48103b25344e8e736657cef2cb5944c600c5afe098119f8b995`.
+
+- `lake build`: passed, 2430 jobs.
+- All 20 project modules passed with `warningAsError=true`.
+- `bash scripts/check.sh`: exit code 0.
+- All 96 named project theorems have exactly one entry in the audit.
+- All 96 printed dependency lists contain only `propext`,
+  `Classical.choice`, and `Quot.sound`; no `sorryAx` or project axiom.
+- The 15 new theorem statements were reviewed for their explicit
+  analyticity, compactness, domain and nontriviality hypotheses.
+- The Wronskian has derivative orders 0,...,N-1 as rows, and the
+  rational family has precisely 2(d+1) entries in lexicographic order.
+- The compact zero set has an exact membership equivalence. The fusion
+  set uses degrees 2<=d<=max(2,ceil(10(n+3)/97)), and is nested.
+- The new adapter supplies finite forbidden sets and differentiability;
+  it preserves the original uniform dangerous-source counting interface.
+- No manuscript text, existing theorem statement or pinned dependency
+  revision was changed.
+
+The three new modules are `AnalyticLocalization.lean`,
+`WronskianLocalization.lean`, and `FusionFromWronskians.lean`.
+The proof of analytic zero finiteness uses mathlib's identity theorem
+and compact accumulation. Separation follows from the finite-avoidance
+lemma and the extreme value theorem. Wronskian analyticity follows from
+analytic derivatives and the finite determinant expansion.
+
+**Remaining hypotheses:** W_d is not identically zero (for each relevant
+degree), and Proposition 5.1's counting estimate. This step does not prove
+these hypotheses from nonrationality, or prove uniform sublevel bounds.
+It does not complete Theorems 1.1 or 1.2.
+
+The user confirmed commit `58e6a52` pushed to `origin/main` and GitHub
+Actions run 35386107578 completed with success:
+https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35386107578
+This confirms step 7. The step-8 patch is locally verified; its Mac check,
+commit, push and remote verification remain to be run. The connected
+GitHub account was checked again: DiegoNash, with a 404 response for the
+private DiegoMarquesMath/MahlerLean repository. No remote write occurred.

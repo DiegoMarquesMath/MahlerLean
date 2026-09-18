@@ -3,7 +3,7 @@
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 81 listed theorems. It proves the rational
+**Scope:** the project contains 96 listed theorems. It proves the rational
 source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
 formalizes the infinite fusion construction and its escape conclusion
 **conditional on explicit counting, derivative and finite-forbidden-set
@@ -18,8 +18,10 @@ The project also proves rational separation and the upper counting bound
 decomposition into at most R disjoint intervals. This is the component
 form of Lemma 2.1, proved without any counting estimate as a hypothesis.
 
-Proposition 5.1 and the analytic construction of the Wronskian zero sets
-remain unproved inputs. Rational source supply is now discharged by a theorem. Theorems 1.1 and 1.2
+Step 8 constructs the finite Wronskian zero sets from analyticity and explicit
+nontriviality hypotheses, and proves their nesting. Proposition 5.1 and
+the implication from nonrationality to Wronskian nontriviality remain unproved.
+Rational source supply is discharged by a theorem. Theorems 1.1 and 1.2
 are **not** fully formalized. No pending result is installed as an axiom
 or an unproved placeholder.
 
@@ -32,6 +34,8 @@ For one local successor step, open [docs/STEP4_PT.md](docs/STEP4_PT.md).
 For the infinite construction, open [docs/STEP5_PT.md](docs/STEP5_PT.md).
 For Farey separation and upper counting, open [docs/STEP6_PT.md](docs/STEP6_PT.md).
 For the proved rational supply and its fusion application, open [docs/STEP7_PT.md](docs/STEP7_PT.md).
+
+For analytic zero sets and Wronskian localization, open [docs/STEP8_PT.md](docs/STEP8_PT.md).
 
 ## Reproduce
 
@@ -81,7 +85,7 @@ Step 2 adds:
 
 In particular, `exists_safe_center` alone is only a finite-set principle.
 The conditional theorem connects it to the actual rational sets and
-power estimates. The rational supply and Proposition 5.1 still need proofs.
+power estimates. Rational supply was subsequently proved in step 7; Proposition 5.1 remains pending.
 
 ## Fusion conclusion and Liouville conventions
 
@@ -124,8 +128,8 @@ supremum is installed yet.
 `SuccessorInterval` records the data and proofs produced by the last two
 theorems. Its existence follows from the stated local assumptions and is
 used by the infinite recursion. The finite set `Z` is fixed before choosing Q;
-the analytic argument identifying and controlling the Wronskian zeros
-has not been formalized. Step 5 uses `Qmin = 2*q_previous+1` to enforce
+step 8 identifies it with the analytic Wronskian zero set, conditional
+on Wronskian nontriviality. Step 5 uses `Qmin = 2*q_previous+1` to enforce
 source denominator growth during recursion.
 
 The geometric proof uses separated closed intervals and finite cardinality
@@ -236,6 +240,43 @@ finite forbidden sets and uniform dangerous-source estimate, but has no
 source-supply field. Its `toFusionInputs` inserts the proved estimate at
 cF = 1/4. The older general `FusionInputs` interface remains available.
 No part of this step proves the dangerous-source estimate of Proposition 5.1.
+
+## Analytic zero sets and Wronskian localization
+
+Step 8 adds 15 theorems in three modules. The analytic Wronskian criterion
+is **not** assumed as a library theorem or installed as an axiom.
+Nontriviality of each relevant Wronskian is an explicit hypothesis.
+
+| Declaration | Role |
+| --- | --- |
+| `analytic_zeros_finite_on_compact` | Identity theorem and compactness imply finitely many zeros |
+| `exists_analytic_zero_finset` | Exact finite union of zeros from a finite analytic family |
+| `exists_pos_abs_lower_bound` | Continuous nonvanishing function has a positive compact lower bound |
+| `exists_uniform_pos_abs_lower_bound` | One lower bound for a finite family |
+| `exists_interval_analytic_family_separated` | Smaller closed interval with simultaneous separation |
+| `wronskian_analytic` | Determinant of analytic derivatives is analytic |
+| `rationalFamily_analytic` | Analyticity of x^i f(x)^j in lexicographic order |
+| `rationalWronskian_analytic` | Analyticity of W_d |
+| `rationalWronskian_zeros_finite` | Compact finiteness, conditional on W_d not identically zero |
+| `exists_rationalWronskian_zero_finset` | Exact union for the specified finite degree set |
+| `exists_interval_rationalWronskians_separated` | Simultaneous positive separation of those W_d |
+| `wronskianDegreeCutoff_monotone` | D(A)=max(2,ceil(10A/97)) is nondecreasing |
+| `mem_wronskian_zeroSet` | Exact membership in the manuscript's Z_n |
+| `wronskian_zeroSet_mono` | Z_n is contained in Z_m for n <= m |
+| `exists_escape_of_wronskian_counting` | Escape with analytic finite zero sets constructed |
+
+`WronskianCountingInputs` requires analyticity on a preconnected domain,
+a compact ambient interval in that domain, an upper derivative bound,
+nontriviality of W_d for d>=2, and the uniform dangerous-source estimate
+on intervals avoiding those Wronskian zeros. Its adapter proves
+differentiability and supplies the finite sets `Z_n` to the existing fusion.
+The remainder coefficient and threshold retain independence of H.
+
+The simultaneous lower bound can depend on the chosen finite degree set
+and interval. No uniform bound over all degrees or all shrinking intervals
+is claimed. Uniform sublevel estimates, the determinant counting argument,
+and the derivation of Wronskian nontriviality from nonrationality remain open
+formalization tasks. The main theorems are still not fully formalized.
 
 ## Verification policy
 
