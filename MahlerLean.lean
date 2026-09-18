@@ -4,3 +4,6 @@ import MahlerLean.RationalBlocks
 import MahlerLean.CountingToSafeCenter
 import MahlerLean.LiouvilleBridge
 import MahlerLean.FusionConclusion
+import MahlerLean.FiniteAvoidance
+import MahlerLean.FusionScale
+import MahlerLean.FusionStep

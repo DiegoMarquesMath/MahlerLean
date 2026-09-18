@@ -93,3 +93,33 @@ committed locally as `66492fb`, with a clean working tree. The present
 step-3 update was checked here on Linux; the supplied commands repeat
 the checks on the Mac before its next commit. No GitHub publication or
 Actions run was performed.
+
+
+# Step 4 — one successor step from counting hypotheses
+
+Validated on 18 September 2026 in Linux x86_64 with the same pinned
+Lean 4.24.0 and mathlib v4.24.0 revisions. No dependency update was made.
+The reference manuscript and its SHA-256 remain as recorded in step 2.
+
+- `lake build`: passed, 2175 jobs.
+- All nine project source modules passed with `warningAsError=true`.
+- `bash scripts/check.sh`: exit code 0.
+- The audit includes all 37 explicitly declared project theorems,
+  including the 14 new results.
+- Every new theorem depends only on `propext`, `Classical.choice`,
+  and `Quot.sound`.
+- No listed theorem depends on `sorryAx` or an additional project axiom.
+
+New modules: `FiniteAvoidance.lean`, `FusionScale.lean`, `FusionStep.lean`.
+They prove quantitative finite-set avoidance, floor-cutoff and tail
+estimates, simultaneous scale selection, and one successor step under
+explicit local counting, derivative and tail assumptions. The analytic
+interpretation of the finite forbidden set, initialization and infinite
+recursion, source supply, and Proposition 5.1 remain pending.
+
+The user's screenshots confirm that step 3 passed on the Mac and was
+committed locally as `6eb5acf`. Three untracked copies were subsequently
+moved to a separate backup folder; the final screenshot shows a clean
+working tree. This step-4 update was checked here on Linux; the supplied
+commands repeat the checks on the Mac before committing. No GitHub
+publication or Actions run was performed.

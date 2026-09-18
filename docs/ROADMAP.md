@@ -15,9 +15,17 @@ Liouville escape point conditional on the explicit invariants in
 `FusionData`. It also derives the movement bound from a derivative bound
 using the mean-value theorem. See [STEP3_PT.md](STEP3_PT.md).
 
-The construction of `FusionData`, source supply, Proposition 5.1 and its
-dependencies remain pending. The full fusion construction and the main
-results are not formalized.
+Step 4 proves quantitative avoidance of a finite set, simultaneous scale
+selection, the floor-cutoff estimates, propagation of the tail bound, and
+one successor step from the counting hypotheses on the middle third.
+The finite forbidden set and all scale thresholds are fixed before Q is
+chosen. See [STEP4_PT.md](STEP4_PT.md).
+
+The next fusion task is initialization and recursive assembly of these
+successors into `FusionData`, with a suitable stagewise interface for the
+analytic assumptions and forbidden sets. Source supply, Proposition 5.1,
+Wronskian localization and their dependencies remain pending. The full
+fusion construction and the main results are not formalized.
 
 ## Stage 0: reproducible environment
 

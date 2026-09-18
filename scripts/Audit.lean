@@ -25,3 +25,18 @@ import MahlerLean
 #print axioms MahlerLean.target_avoidance_from_blocks
 #print axioms MahlerLean.exists_escape_of_fusion_data
 #print axioms MahlerLean.safeCenter_avoidance_of_deriv_bound
+
+#print axioms MahlerLean.exists_interval_avoiding_finset
+#print axioms MahlerLean.exists_interval_avoiding_zeros_and_center
+#print axioms MahlerLean.exists_next_interval_in_parent
+#print axioms MahlerLean.middle_third_length
+#print axioms MahlerLean.targetCutoff_pow97
+#print axioms MahlerLean.half_le_nat_floor
+#print axioms MahlerLean.nextCutoff_le_targetCutoff
+#print axioms MahlerLean.nextCutoff_gt
+#print axioms MahlerLean.fusionRadius_le_source_accuracy
+#print axioms MahlerLean.nextCutoff_tail_le
+#print axioms MahlerLean.tail_smallness_next
+#print axioms MahlerLean.exists_large_fusion_scale
+#print axioms MahlerLean.successor_from_safe_center
+#print axioms MahlerLean.successor_from_counting

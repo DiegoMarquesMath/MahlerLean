@@ -1,5 +1,9 @@
 # Etapa 3 — Conclusão da fusão a partir dos invariantes
 
+Registro da etapa 3. A etapa 4 acrescenta a escolha quantitativa do próximo
+intervalo e a preservação da condição de cauda; veja [STEP4_PT.md](STEP4_PT.md)
+para o estado atual. A montagem da sequência infinita continua pendente.
+
 Referência: o mesmo `paper/main.tex` da etapa 2, enviado em 18 de setembro
 de 2026, SHA-256
 `4ac94b1f36e6a48103b25344e8e736657cef2cb5944c600c5afe098119f8b995`.

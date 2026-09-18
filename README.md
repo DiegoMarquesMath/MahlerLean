@@ -3,15 +3,16 @@
 Initial Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 23 listed theorems: the nine initial
-supporting lemmas, seven results for rational source sets and safe-center
-selection, and seven results for the conclusion of fusion and the
-Liouville-definition bridge. The new theorem
-`safe_center_of_counting_estimates` proves the counting-to-selection
-implication of Lemma 6.1, including a threshold uniform in H. The theorem
-`exists_escape_of_fusion_data` derives a Liouville escape point from
-explicit nested-interval and approximation data; constructing those data
-is still pending.
+**Scope:** the project contains 37 listed theorems. They cover supporting
+lemmas, rational source sets, conditional safe-center selection, the
+Liouville-definition bridge, the conditional conclusion of fusion, and
+one local successor step. The theorem `successor_from_counting` now
+chooses a scale, safe rational center and next closed interval from
+explicit counting, derivative and tail hypotheses and a fixed finite
+forbidden set. It preserves the quantitative condition for the next
+stage. The theorem `exists_escape_of_fusion_data` derives a Liouville
+escape point from a full infinite sequence of intervals and invariants;
+constructing that sequence is still pending.
 
 The source supply (Lemma 2.2) and Proposition 5.1 remain explicit hypotheses
 of the safe-center selection theorem. The project does **not** prove those two estimates,
@@ -23,6 +24,7 @@ For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
 For the actual validation record, open [VALIDATION.md](VALIDATION.md).
 For the safe-center implication, open [docs/STEP2_PT.md](docs/STEP2_PT.md).
 For the conditional fusion conclusion, open [docs/STEP3_PT.md](docs/STEP3_PT.md).
+For one local successor step, open [docs/STEP4_PT.md](docs/STEP4_PT.md).
 
 ## Reproduce
 
@@ -58,7 +60,7 @@ After a manifest exists, ordinary daily checks need only `lake build` and
 | `safety_transfer` | Abstract triangle-inequality step (6.19)--(6.20) |
 
 The nine initial results above are small components of the proof.
-The next step adds:
+Step 2 adds:
 
 | Declaration | Manuscript connection |
 | --- | --- |
@@ -71,7 +73,7 @@ The next step adds:
 | `safeCenter_avoidance_of_movement` | Target avoidance after a controlled change in function value |
 
 In particular, `exists_safe_center` alone is only a finite-set principle.
-The new conditional theorem connects it to the actual rational sets and
+The conditional theorem connects it to the actual rational sets and
 power estimates. The rational supply and Proposition 5.1 still need proofs.
 
 ## Fusion conclusion and Liouville conventions
@@ -90,6 +92,36 @@ power estimates. The rational supply and Proposition 5.1 still need proofs.
 constructs it from the analytic assumptions of the paper. The new
 conclusion gives the inequality with exponent 100; no definition of the
 irrationality exponent or theorem about its supremum is installed yet.
+
+## One successor step of fusion
+
+| Declaration | Manuscript connection |
+| --- | --- |
+| `exists_interval_avoiding_finset` | Quantitative interval selection after removing finitely many points |
+| `exists_interval_avoiding_zeros_and_center` | Length R/(#Z+2), avoiding Z and the current center |
+| `exists_next_interval_in_parent` | The next closed interval lies in the parent's interior |
+| `middle_third_length` | Exact length of the next middle third |
+| `targetCutoff_pow97` | X^97 = Q^A for X = Q^(A/97) |
+| `half_le_nat_floor` | floor(X) >= X/2 for X >= 2 |
+| `nextCutoff_le_targetCutoff` | The integer target block stays below the real cutoff |
+| `nextCutoff_gt` | Condition (Q3) gives a strictly larger cutoff |
+| `fusionRadius_le_source_accuracy` | (2Q)^(-A) <= q^(-A) when q <= 2Q |
+| `nextCutoff_tail_le` | Effect of taking the integer part on the exponent -98 |
+| `tail_smallness_next` | Condition (Q4) implies the next tail invariant (F7) |
+| `exists_large_fusion_scale` | Simultaneous choice of Q above any prescribed minimum |
+| `successor_from_safe_center` | Interval, source/target approximation and tail from a safe center |
+| `successor_from_counting` | One local successor step from the two counting hypotheses |
+
+`SuccessorInterval` records the data and proofs produced by the last two
+theorems. Unlike `FusionData`, its existence is now proved from the stated
+local assumptions. The arbitrary finite set `Z` is fixed before choosing Q;
+the analytic argument identifying and controlling the Wronskian zeros
+has not been formalized. Choosing `Qmin > 2*q_previous` would enforce
+the source denominator growth required in a future recursive construction.
+
+The geometric proof uses separated closed intervals and finite cardinality
+instead of connected components, with the same exact length as the paper.
+No change to the manuscript is needed for this alternative proof.
 
 ## Verification policy
 
