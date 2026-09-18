@@ -157,6 +157,56 @@ theorem exists_uniform_jetL1_lower_bound {N : ℕ} (hN : 0 < N)
     intro c hc x hx
     exact (hKne ⟨x, hx⟩).elim
 
+/-- From a uniform L1 lower bound for the N-jet, one jet coordinate
+is uniformly large.  The loss is the harmless factor N. -/
+theorem exists_uniform_jet_coordinate_lower_bound {N : ℕ} (hN : 0 < N)
+    (φ : Fin N → ℝ → ℝ) {K : Set ℝ}
+    (hK : IsCompact K)
+    (hφ : ∀ k j : Fin N, ContinuousOn (iteratedDeriv k.val (φ j)) K)
+    (hW : ∀ x ∈ K, wronskian φ x ≠ 0) :
+    ∃ η : ℝ, 0 < η ∧
+      ∀ c : EuclideanSpace ℝ (Fin N), ‖c‖ = 1 →
+      ∀ x ∈ K, ∃ k : Fin N, η ≤ |jetApply φ c k x| := by
+  obtain ⟨η₀, hη₀, hbound⟩ :=
+    exists_uniform_jetL1_lower_bound hN φ hK hφ hW
+  let η : ℝ := η₀ / N
+  have hNreal : (0 : ℝ) < N := by exact_mod_cast hN
+  have hη : 0 < η := by
+    dsimp [η]
+    exact div_pos hη₀ hNreal
+  refine ⟨η, hη, ?_⟩
+  intro c hc x hx
+  haveI : Nonempty (Fin N) := ⟨⟨0, hN⟩⟩
+  by_contra hlarge
+  push_neg at hlarge
+  have hsumlt : jetL1 φ c x < η₀ := by
+    unfold jetL1
+    calc
+      (∑ k : Fin N, |jetApply φ c k x|)
+          < ∑ _k : Fin N, η := by
+              exact Finset.sum_lt_sum_of_nonempty Finset.univ_nonempty
+                (fun k hk => hlarge k)
+      _ = η₀ := by
+        simp [η, Nat.nsmul_eq_mul, (ne_of_gt hNreal)]
+  exact (not_lt_of_ge (hbound c hc x hx)) hsumlt
+
+/-- Analytic specialization of the coordinatewise uniform jet bound. -/
+theorem exists_uniform_jet_coordinate_lower_bound_of_analytic
+    {N : ℕ} (hN : 0 < N) (φ : Fin N → ℝ → ℝ) {U K : Set ℝ}
+    (hφ : ∀ j, AnalyticOnNhd ℝ (φ j) U)
+    (hK : IsCompact K) (hKU : K ⊆ U)
+    (hW : ∀ x ∈ K, wronskian φ x ≠ 0) :
+    ∃ η : ℝ, 0 < η ∧
+      ∀ c : EuclideanSpace ℝ (Fin N), ‖c‖ = 1 →
+      ∀ x ∈ K, ∃ k : Fin N, η ≤ |jetApply φ c k x| := by
+  apply exists_uniform_jet_coordinate_lower_bound hN φ hK
+  · intro k j
+    have ha : AnalyticOnNhd ℝ (iteratedDeriv k.val (φ j)) U := by
+      rw [iteratedDeriv_eq_iterate]
+      exact (hφ j).iterated_deriv k.val
+    exact ha.continuousOn.mono hKU
+  · exact hW
+
 /-- Analytic families satisfy the continuity hypothesis automatically. -/
 theorem exists_uniform_jetL1_lower_bound_of_analytic {N : ℕ} (hN : 0 < N)
     (φ : Fin N → ℝ → ℝ) {U K : Set ℝ}
