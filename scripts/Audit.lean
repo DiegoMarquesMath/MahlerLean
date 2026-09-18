@@ -102,3 +102,23 @@ import MahlerLean
 #print axioms MahlerLean.mem_wronskian_zeroSet
 #print axioms MahlerLean.wronskian_zeroSet_mono
 #print axioms MahlerLean.exists_escape_of_wronskian_counting
+
+#print axioms MahlerLean.largeTargetDegree_lower
+#print axioms MahlerLean.largeTargetDegree_upper
+#print axioms MahlerLean.largeTargetDegree_ge_two
+#print axioms MahlerLean.largeTargetDegree_add_u_le
+#print axioms MahlerLean.largeTargetDegree_le_wronskianCutoff
+#print axioms MahlerLean.largeTargetN_cast
+#print axioms MahlerLean.largeTargetDen_eq_N_minus_one
+#print axioms MahlerLean.largeTargetDen_pos
+#print axioms MahlerLean.largeTargetDen_le_35u
+#print axioms MahlerLean.largeTargetKappa_le
+#print axioms MahlerLean.largeTargetN_ratio_nonneg
+#print axioms MahlerLean.largeTargetN_ratio_le_two
+#print axioms MahlerLean.largeTargetKappa_mul_N_le_96u
+#print axioms MahlerLean.largeTargetS_ge_97u
+#print axioms MahlerLean.largeTargetPerturbationGap
+#print axioms MahlerLean.largeTargetPerturbationGap_one_fifth
+#print axioms MahlerLean.largeTargetFareyExponent
+#print axioms MahlerLean.largeTargetFareyExponent_gt_two
+#print axioms MahlerLean.largeTargetParameterBundle
