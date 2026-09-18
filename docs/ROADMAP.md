@@ -3,11 +3,22 @@
 Reference: Mahler_Question_18SEPT.pdf. Keep this version fixed while matching
 statements, and record any later change of the manuscript explicitly.
 
+## Current verified milestone
+
+The step-2 update defines the exact finite rational source and dangerous
+sets and proves Lemma 6.1 conditional on the source supply and the uniform
+counting estimate. See [STEP2_PT.md](STEP2_PT.md). The common source threshold
+is chosen before H. A transfer theorem covers all admissible targets under
+an explicit bound on the change in function value.
+
+The source supply, Proposition 5.1, and the full fusion construction remain
+pending. The Liouville-definition work in Stage 1 is also pending.
+
 ## Stage 0: reproducible environment
 
 Install VS Code, Lean 4 extension, Elan, and Git. Open the project root;
 obtain the matching mathlib cache; build; inspect the nine initial statements.
-Make a first commit and run the GitHub workflow.
+Make a first local commit. Run the GitHub workflow when the project is published.
 
 ## Stage 1: source and target definitions
 
