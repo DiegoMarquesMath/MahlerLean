@@ -132,3 +132,8 @@ import MahlerLean
 #print axioms MahlerLean.exists_uniform_jetL1_lower_bound
 #print axioms MahlerLean.exists_uniform_jetL1_lower_bound_of_analytic
 #print axioms MahlerLean.exists_rationalFamily_uniform_jetL1_lower_bound
+
+#print axioms MahlerLean.exists_pos_lower_bound_on_compact
+#print axioms MahlerLean.exists_uniform_jet_coordinate_lower_bound
+#print axioms MahlerLean.exists_uniform_jet_coordinate_lower_bound_of_analytic
+#print axioms MahlerLean.exists_rationalFamily_uniform_jet_coordinate_lower_bound
