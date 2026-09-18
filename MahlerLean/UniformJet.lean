@@ -1,6 +1,6 @@
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Topology.MetricSpace.ProperSpace
-import Mathlib.LinearAlgebra.Matrix.Nonsingular
+import Mathlib.LinearAlgebra.Matrix.ToLin
 import Mathlib.Tactic
 import MahlerLean.WronskianLocalization
 
@@ -87,9 +87,8 @@ theorem jetL1_pos_of_wronskian_ne_zero {N : ℕ} (hN : 0 < N)
     intro hz
     simp [hz] at hc
   have hinj : Function.Injective (jetMatrix φ x).mulVec := by
-    rw [Matrix.mulVec_injective_iff, Matrix.linearIndependent_col_iff,
-      Matrix.nonsingular_iff_det_ne_zero]
-    simpa using hW
+    rw [Matrix.mulVec_injective_iff]
+    exact Matrix.linearIndependent_cols_of_det_ne_zero (by simpa using hW)
   have hvne : (jetMatrix φ x).mulVec (fun j => c j) ≠ 0 := by
     intro hz
     have hfun : (fun j => c j) = 0 := hinj (by simpa using hz)
