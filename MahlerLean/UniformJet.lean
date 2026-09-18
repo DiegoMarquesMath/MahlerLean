@@ -236,4 +236,19 @@ theorem exists_rationalFamily_uniform_jetL1_lower_bound
     (rationalFamily f d) (fun j => rationalFamily_analytic hf d j) hK hKU
   simpa [rationalWronskian] using hW
 
+/-- Coordinatewise jet lower bound for the manuscript's rational family. -/
+theorem exists_rationalFamily_uniform_jet_coordinate_lower_bound
+    {f : ℝ → ℝ} {U K : Set ℝ} (hf : AnalyticOnNhd ℝ f U)
+    (d : ℕ) (hK : IsCompact K) (hKU : K ⊆ U)
+    (hW : ∀ x ∈ K, rationalWronskian f d x ≠ 0) :
+    ∃ η : ℝ, 0 < η ∧
+      ∀ c : EuclideanSpace ℝ (Fin (2 * (d + 1))), ‖c‖ = 1 →
+      ∀ x ∈ K, ∃ k : Fin (2 * (d + 1)),
+        η ≤ |jetApply (rationalFamily f d) c k x| := by
+  apply exists_uniform_jet_coordinate_lower_bound_of_analytic
+    (N := 2 * (d + 1)) (by omega) (rationalFamily f d)
+    (fun j => rationalFamily_analytic hf d j) hK hKU
+  simpa [rationalWronskian] using hW
+
+
 end MahlerLean
