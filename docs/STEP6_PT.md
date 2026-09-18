@@ -1,5 +1,8 @@
 # Etapa 6 — Separação de Farey e contagem superior
 
+Registro histórico: o Lema 2.2, ainda pendente nesta etapa, foi
+demonstrado na [etapa 7](STEP7_PT.md), que também o incorpora à fusão.
+
 Referência: o mesmo `paper/main.tex` das etapas anteriores, enviado em
 18 de setembro de 2026, SHA-256
 `4ac94b1f36e6a48103b25344e8e736657cef2cb5944c600c5afe098119f8b995`.

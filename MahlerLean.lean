@@ -11,3 +11,7 @@ import MahlerLean.FusionRecursion
 import MahlerLean.FusionEscape
 import MahlerLean.FareySeparation
 import MahlerLean.FareyCounting
+import MahlerLean.FareyNumerators
+import MahlerLean.TotientBlock
+import MahlerLean.FareySupply
+import MahlerLean.FusionFromCounting

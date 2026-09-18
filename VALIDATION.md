@@ -199,3 +199,52 @@ Mac as `87baa5a`, with a clean working tree; the preceding screenshot
 confirms its successful check. This step-6 update was tested here on
 Linux; the supplied commands repeat its checks on the Mac before
 committing. No GitHub publication or Actions run was performed.
+
+
+# Step 7 — unconditional Farey source supply
+
+Validated on 18 September 2026 in Linux x86_64 with the same pinned
+Lean 4.24.0 and mathlib v4.24.0 revisions. The manuscript SHA-256 remains
+`4ac94b1f36e6a48103b25344e8e736657cef2cb5944c600c5afe098119f8b995`.
+
+- `lake build`: passed, 2422 jobs.
+- All 17 project source modules passed with `warningAsError=true`.
+- `bash scripts/check.sh`: exit code 0.
+- All 81 named theorems have exactly one entry in `scripts/Audit.lean`.
+- The audit for all 81 theorems uses only `propext`, `Classical.choice`,
+  and `Quot.sound`; no `sorryAx` or additional project axiom occurs.
+- The 26 new declarations are unconditional finite arithmetic results,
+  the source-supply theorem, and an escape theorem conditional on the
+  remaining explicit analytic/counting inputs.
+- The four new modules contain no `sorry`, `admit`, custom axiom, or
+  `native_decide`.
+- `sourceFractions_quarter_supply` and `exists_source_supply_threshold`
+  match Lemma 2.2: all real l<u, exact reduced denominator block [Q,2Q),
+  absolute constant 1/4, and an interval-dependent natural threshold.
+- `UniformCountingInputs.toFusionInputs` installs the proved supply;
+  `exists_escape_of_uniform_counting` no longer assumes rational supply.
+
+Additional mathlib cache modules were fetched with:
+
+```bash
+lake exe cache get Mathlib.NumberTheory.ArithmeticFunction Mathlib.Data.Nat.Totient
+```
+
+The proof replaces the manuscript's classical summatory asymptotics with
+explicit elementary bounds. It does not claim the asymptotic 9/pi^2,
+and does not prove Proposition 5.1 or the main analytic theorems.
+See `docs/STEP7_PT.md` for the estimates and exact remaining hypotheses.
+
+## GitHub state at preparation of this patch
+
+The user confirmed step 6 as commit `c47dc2c`. The private repository
+`DiegoMarquesMath/MahlerLean` was then created from the Mac with all six
+commits. The user supplied the successful GitHub Actions output for run
+35382425028, including build and audit (7m55s):
+https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35382425028
+
+That remote success applies to step 6, not to this step-7 update.
+The current session's GitHub connection remains authenticated as DiegoNash
+and a repository metadata request returned 404. This step has therefore
+been checked locally and packaged for application, commit and push from
+the user's Mac. Its remote build is still to be confirmed after the push.

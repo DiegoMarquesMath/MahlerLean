@@ -1,12 +1,13 @@
 # MahlerLean
 
-Initial Lean 4 project for work towards formalizing results in Diego Marques,
+Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 55 listed theorems. It formalizes the
-infinite fusion construction and its escape conclusion **conditional on
-explicit source-supply, counting, derivative and finite-forbidden-set
-inputs**. The theorem `exists_escape_of_counting` starts from those inputs,
+**Scope:** the project contains 81 listed theorems. It proves the rational
+source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
+formalizes the infinite fusion construction and its escape conclusion
+**conditional on explicit counting, derivative and finite-forbidden-set
+inputs**. The theorem `exists_escape_of_uniform_counting` starts from those inputs,
 constructs the sequence, and proves the existence of a Liouville point
 whose image satisfies an eventual approximation lower bound with exponent
 100 and is not Liouville. The common point of the constructed intervals
@@ -17,8 +18,8 @@ The project also proves rational separation and the upper counting bound
 decomposition into at most R disjoint intervals. This is the component
 form of Lemma 2.1, proved without any counting estimate as a hypothesis.
 
-The source supply (Lemma 2.2), Proposition 5.1 and the analytic construction
-of the Wronskian zero sets remain unproved inputs. Theorems 1.1 and 1.2
+Proposition 5.1 and the analytic construction of the Wronskian zero sets
+remain unproved inputs. Rational source supply is now discharged by a theorem. Theorems 1.1 and 1.2
 are **not** fully formalized. No pending result is installed as an axiom
 or an unproved placeholder.
 
@@ -30,6 +31,7 @@ For the conditional fusion conclusion, open [docs/STEP3_PT.md](docs/STEP3_PT.md)
 For one local successor step, open [docs/STEP4_PT.md](docs/STEP4_PT.md).
 For the infinite construction, open [docs/STEP5_PT.md](docs/STEP5_PT.md).
 For Farey separation and upper counting, open [docs/STEP6_PT.md](docs/STEP6_PT.md).
+For the proved rational supply and its fusion application, open [docs/STEP7_PT.md](docs/STEP7_PT.md).
 
 ## Reproduce
 
@@ -178,7 +180,62 @@ disjoint real sets, a covering of the rational set by that family, and
 the denominator bound. It handles open, closed, half-open, singleton and
 empty intervals. It does not produce components from an overlapping
 interval cover or prove the analytic sublevel-component bound. The
-complementary source-supply estimate of Lemma 2.2 remains pending.
+complementary source-supply estimate of Lemma 2.2 is now proved below.
+
+## Rational supply and its fusion application
+
+`sourceFractions_quarter_supply` proves `HasSourceSupply l u (1/4)` for
+arbitrary real endpoints l < u. `exists_source_supply_threshold` gives the
+same statement with a strictly positive natural threshold. The source set
+and the denominator block [Q,2Q) are exactly those already used by fusion.
+
+The Lean proof uses elementary finite estimates in place of the manuscript's
+summatory asymptotics. It first proves the uniform discrepancy
+`|N_q(J) - |J| phi(q)| <= #divisors(q)` by Möbius inversion, then proves
+
+```text
+sum_{Q <= q < 2Q} phi(q) >= (5/18) Q^2 - (5/2) Q,
+sum_{Q <= q < 2Q} #divisors(q) <= 2 Q floor(sqrt(2Q)).
+```
+
+The gap 5/18 - 1/4 = 1/36 absorbs the error for each fixed positive
+interval length. The original manuscript is unchanged. Its sharper
+asymptotic coefficient 9/pi^2 is not claimed as a formalized result.
+
+| Declaration | Role |
+| --- | --- |
+| `mem_reducedNumerators` | Signed numerator convention, including zero |
+| `integer_interval_card_discrepancy` | Integer count differs from length by at most one |
+| `multiples_interval_card` | Exact rescaling of a multiple count |
+| `multiples_interval_discrepancy` | Uniform error one for multiples |
+| `coprime_indicator_moebius` | Coprimality indicator as a common-divisor sum |
+| `reducedNumerators_card_moebius` | Exact Möbius formula for N_q(J) |
+| `totient_eq_moebius_sum` | Totient divisor identity with real division |
+| `reducedNumerators_card_discrepancy` | Error at most the number of divisors |
+| `sourceFractions_card_eq_sum_numerators` | Exact denominator fibers, without duplicate fractions |
+| `sourceFractions_totient_discrepancy` | Summed error for the project source set |
+| `sourceFractions_card_ge_totient_sub_divisors` | Lower bound before arithmetic estimates |
+| `reciprocal_squares_except_four_le` | Reciprocal-square sum at most 11/18 |
+| `positive_multiples_card` | Positive multiples counted by floor division |
+| `noncoprime_pairs_card_le` | Union bound for pairs with a common prime factor |
+| `coprime_triangle_card` | Triangular coprime count is the totient sum |
+| `coprime_pairs_card_le_twice_totient_sum` | Reflection reduces the square to two triangles |
+| `totient_sum_lower` | Summatory lower bound (7/36) N^2 |
+| `totient_sum_upper` | Summatory upper bound N(N+1)/2 |
+| `totient_sum_range_succ` | Passage between the two sum conventions |
+| `totient_block_lower` | Block lower bound (5/18) Q^2 - (5/2) Q |
+| `divisors_card_le_twice_sqrt` | Pairing divisors around the square root |
+| `block_divisors_card_le` | Block error at most 2 Q floor(sqrt(2Q)) |
+| `sourceFractions_card_lower_explicit` | Explicit finite lower estimate for any interval |
+| `sourceFractions_quarter_supply` | Lemma 2.2 with cF = 1/4 |
+| `exists_source_supply_threshold` | Same lemma with a positive natural threshold |
+| `exists_escape_of_uniform_counting` | Fusion and escape with source supply proved |
+
+`UniformCountingInputs` retains the ambient interval, derivative bound,
+finite forbidden sets and uniform dangerous-source estimate, but has no
+source-supply field. Its `toFusionInputs` inserts the proved estimate at
+cF = 1/4. The older general `FusionInputs` interface remains available.
+No part of this step proves the dangerous-source estimate of Proposition 5.1.
 
 ## Verification policy
 
