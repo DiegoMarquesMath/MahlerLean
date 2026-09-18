@@ -157,3 +157,45 @@ committed locally as `9ee09bc`, with a clean working tree. This step-5
 update was checked here on Linux; the supplied commands repeat its
 checks on the Mac before committing. No GitHub publication or Actions
 run was performed.
+
+
+# Step 6 — Farey separation and upper counting
+
+Validated on 18 September 2026 in Linux x86_64 with the same pinned
+Lean 4.24.0 and mathlib v4.24.0 revisions. No dependency update was made.
+The reference manuscript and its SHA-256 remain as recorded in step 2.
+
+- `lake build`: passed, 2408 jobs.
+- All thirteen source modules passed with `warningAsError=true`.
+- `bash scripts/check.sh`: exit code 0.
+- The audit includes all 55 explicitly declared project theorems,
+  including the nine new results.
+- Every new theorem depends only on `propext`, `Classical.choice`,
+  and `Quot.sound`.
+- No listed theorem depends on `sorryAx` or an additional project axiom.
+
+New modules: `FareySeparation.lean`, `FareyCounting.lean`.
+They prove the strict spacing for rationals with denominators below 2Q,
+the one-interval packing bound, the one-source-per-short-cell corollary,
+and the Lebesgue-volume bound 4Q^2 |E| + R for a finite rational set
+covered by at most R supplied disjoint intervals. The real-valued bound
+requires finite volume; its extended-real version also covers unbounded
+intervals. An interval decomposition is an explicit input, not constructed
+from an overlapping cover or from analytic sublevel data.
+
+The extra precompiled measure-theory dependencies were obtained with:
+
+```bash
+lake exe cache get Mathlib.MeasureTheory.Measure.Lebesgue.Basic
+```
+
+These are upper estimates proved without any counting hypothesis.
+They do not prove the lower source-supply estimate of Lemma 2.2 and
+do not yet supply `HasUniformDangerBound` for Proposition 5.1.
+Theorems 1.1 and 1.2 are not fully formalized.
+
+The user's terminal output confirms that step 5 was committed on the
+Mac as `87baa5a`, with a clean working tree; the preceding screenshot
+confirms its successful check. This step-6 update was tested here on
+Linux; the supplied commands repeat its checks on the Mac before
+committing. No GitHub publication or Actions run was performed.

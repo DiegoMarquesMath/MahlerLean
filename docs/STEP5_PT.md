@@ -1,5 +1,10 @@
 # Etapa 5 — Construção infinita e conclusão a partir da contagem
 
+Registro da etapa 5. A etapa 6 acrescenta a separação de Farey e as cotas
+superiores por intervalo e por componentes disjuntas. Veja
+[STEP6_PT.md](STEP6_PT.md) para esses resultados; a oferta de racionais
+e a Proposição 5.1 continuam pendentes.
+
 Referência: o mesmo `paper/main.tex` das etapas anteriores, enviado em
 18 de setembro de 2026, SHA-256
 `4ac94b1f36e6a48103b25344e8e736657cef2cb5944c600c5afe098119f8b995`.

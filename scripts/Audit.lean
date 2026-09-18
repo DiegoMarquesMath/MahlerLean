@@ -50,3 +50,13 @@ import MahlerLean
 #print axioms MahlerLean.exists_unique_fusion_point
 #print axioms MahlerLean.fusion_denominators_tendsto
 #print axioms MahlerLean.exists_escape_of_counting
+
+#print axioms MahlerLean.rational_separation
+#print axioms MahlerLean.denominator_block_separation
+#print axioms MahlerLean.card_le_of_separated_values
+#print axioms MahlerLean.rational_interval_card_le
+#print axioms MahlerLean.sourceFractions_card_le
+#print axioms MahlerLean.sourceFractions_card_le_one
+#print axioms MahlerLean.rational_ordConnected_card_le_volume
+#print axioms MahlerLean.rational_union_card_le_volume
+#print axioms MahlerLean.rational_union_card_le

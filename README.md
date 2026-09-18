@@ -3,7 +3,7 @@
 Initial Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 46 listed theorems. It now formalizes the
+**Scope:** the project contains 55 listed theorems. It formalizes the
 infinite fusion construction and its escape conclusion **conditional on
 explicit source-supply, counting, derivative and finite-forbidden-set
 inputs**. The theorem `exists_escape_of_counting` starts from those inputs,
@@ -11,6 +11,11 @@ constructs the sequence, and proves the existence of a Liouville point
 whose image satisfies an eventual approximation lower bound with exponent
 100 and is not Liouville. The common point of the constructed intervals
 is unique, and the reduced source denominators tend to infinity.
+
+The project also proves rational separation and the upper counting bound
+`4 Q^2 |E| + R` for a finite rational set covered by an explicitly supplied
+decomposition into at most R disjoint intervals. This is the component
+form of Lemma 2.1, proved without any counting estimate as a hypothesis.
 
 The source supply (Lemma 2.2), Proposition 5.1 and the analytic construction
 of the Wronskian zero sets remain unproved inputs. Theorems 1.1 and 1.2
@@ -24,6 +29,7 @@ For the safe-center implication, open [docs/STEP2_PT.md](docs/STEP2_PT.md).
 For the conditional fusion conclusion, open [docs/STEP3_PT.md](docs/STEP3_PT.md).
 For one local successor step, open [docs/STEP4_PT.md](docs/STEP4_PT.md).
 For the infinite construction, open [docs/STEP5_PT.md](docs/STEP5_PT.md).
+For Farey separation and upper counting, open [docs/STEP6_PT.md](docs/STEP6_PT.md).
 
 ## Reproduce
 
@@ -150,6 +156,29 @@ denominator growth and the tail invariant at every stage. No sequence of
 intervals or safe centers is assumed in the counting-to-escape theorem.
 The function is noncomputable in Lean because it uses classical choice;
 this concerns extracting executable numerical data, not missing proofs.
+
+## Farey separation and upper counting
+
+The upper-counting results are:
+
+| Declaration | Manuscript connection |
+| --- | --- |
+| `rational_separation` | Distinct reduced fractions differ by at least 1/(qq') |
+| `denominator_block_separation` | Strict spacing greater than 1/(4Q^2) |
+| `card_le_of_separated_values` | Packing in an interval: cardinality <= length/delta + 1 |
+| `rational_interval_card_le` | Upper bound 4Q^2 length + 1 for one interval |
+| `sourceFractions_card_le` | The upper bound for the exact project source set |
+| `sourceFractions_card_le_one` | A cell of length <= 1/(4Q^2) contains at most one source fraction |
+| `rational_ordConnected_card_le_volume` | Upper bound on an interval in terms of Lebesgue volume |
+| `rational_union_card_le_volume` | Extended-real bound on a disjoint finite interval union |
+| `rational_union_card_le` | Real bound 4Q^2 |E| + R for finite-volume unions with supplied components |
+
+The last theorem takes a finite family of order-connected, pairwise
+disjoint real sets, a covering of the rational set by that family, and
+the denominator bound. It handles open, closed, half-open, singleton and
+empty intervals. It does not produce components from an overlapping
+interval cover or prove the analytic sublevel-component bound. The
+complementary source-supply estimate of Lemma 2.2 remains pending.
 
 ## Verification policy
 

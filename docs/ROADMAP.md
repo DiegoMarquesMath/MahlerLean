@@ -27,11 +27,18 @@ explicit `FusionInputs` interface. It also proves uniqueness of the common
 point, unbounded source denominators and the counting-to-escape theorem.
 See [STEP5_PT.md](STEP5_PT.md).
 
-The abstract infinite fusion argument is now formalized conditionally.
-The next mathematical tasks are source supply (Lemma 2.2), the analytic
-Wronskian-zero interface, and Proposition 5.1 with its dependencies. These
-must provide `FusionInputs` from the hypotheses of the manuscript before
-the main theorems can be claimed as fully formalized.
+Step 6 proves rational separation and the upper bound in the component
+form of Lemma 2.1: a finite set of rationals in a supplied decomposition
+into at most R disjoint intervals has cardinality at most 4Q^2 |E| + R.
+The volume is Lebesgue measure; the component term has no factor Q.
+See [STEP6_PT.md](STEP6_PT.md).
+
+The abstract infinite fusion argument is formalized conditionally.
+Remaining tasks include source supply (Lemma 2.2), the analytic
+Wronskian-zero interface, sublevel interval decompositions, and
+Proposition 5.1 with its dependencies. These must provide `FusionInputs`
+from the hypotheses of the manuscript before the main theorems can be
+claimed as fully formalized.
 
 ## Stage 0: reproducible environment
 
@@ -89,10 +96,11 @@ the full interface.
 
 ## Stage 3: Proposition 5.1 and dependencies
 
-The statements to formalize include Farey separation and supply, analytic
-independence, localized Wronskian nondegeneracy, uniform sublevel length
-and component bounds, determinant perturbation, rational denominator
-clearing, rank deficiency and coefficient normalization.
+Farey separation and the upper estimate from a disjoint interval
+decomposition are now proved. Remaining statements include rational
+supply, analytic independence, localized Wronskian nondegeneracy, uniform
+sublevel length and component bounds, determinant perturbation, rational
+denominator clearing, rank deficiency and coefficient normalization.
 
 In the large-target range track:
 
