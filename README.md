@@ -1,4 +1,4 @@
-# MahlerLean
+# Mahler's Question on Liouville Numbers
 
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
