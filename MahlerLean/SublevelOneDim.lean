@@ -1,4 +1,5 @@
 import Mathlib.Analysis.Calculus.LocalExtr.Rolle
+import Mathlib.Algebra.Group.ForwardDiff
 import Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
 import Mathlib.Order.Fin.Basic
 import MahlerLean.UniformJet
@@ -289,5 +290,63 @@ theorem not_exists_many_level_hits_of_iteratedDeriv_abs_lower_bound
         ∀ i, g (x i) = t := by
   apply not_exists_many_level_hits_of_iteratedDeriv_ne_zero hk hcont
   exact iteratedDeriv_ne_zero_of_abs_lower_bound hlam hlow
+
+
+/-- If a function is bounded by `eps` at `k+1` equally spaced points,
+then its kth forward difference is bounded by `2^k * eps`. -/
+theorem norm_fwdDiff_iter_le_two_pow_mul
+    (k : ℕ) {g : ℝ → ℝ} {u h eps : ℝ}
+    (heps : 0 ≤ eps)
+    (hbound :
+      ∀ j ∈ Finset.range (k + 1),
+        ‖g (u + (j : ℝ) * h)‖ ≤ eps) :
+    ‖(fwdDiff h)^[k] g u‖ ≤ (2 : ℝ) ^ k * eps := by
+  induction k generalizing g u eps with
+  | zero =>
+      simpa using hbound 0 (by simp)
+
+  | succ k ih =>
+      have hbound' :
+          ∀ j ∈ Finset.range (k + 1),
+            ‖fwdDiff h g (u + (j : ℝ) * h)‖ ≤ 2 * eps := by
+        intro j hj
+
+        have hj0 :
+            j ∈ Finset.range (Nat.succ k + 1) := by
+          apply Finset.mem_range.mpr
+          have hjlt : j < k + 1 := Finset.mem_range.mp hj
+          omega
+
+        have hj1 :
+            j + 1 ∈ Finset.range (Nat.succ k + 1) := by
+          apply Finset.mem_range.mpr
+          have hjlt : j < k + 1 := Finset.mem_range.mp hj
+          omega
+
+        have h0 := hbound j hj0
+        have h1 := hbound (j + 1) hj1
+
+        have hshift :
+            u + (j : ℝ) * h + h =
+              u + ((j + 1 : ℕ) : ℝ) * h := by
+          push_cast
+          ring
+
+        rw [fwdDiff, hshift]
+
+        calc
+          ‖g (u + ((j + 1 : ℕ) : ℝ) * h) -
+              g (u + (j : ℝ) * h)‖
+              ≤ ‖g (u + ((j + 1 : ℕ) : ℝ) * h)‖ +
+                ‖g (u + (j : ℝ) * h)‖ := norm_sub_le _ _
+          _ ≤ eps + eps := add_le_add h1 h0
+          _ = 2 * eps := by ring
+
+      have hih :=
+        ih (g := fwdDiff h g) (u := u) (eps := 2 * eps)
+          (by positivity) hbound'
+
+      rw [Function.iterate_succ_apply]
+      simpa [pow_succ, mul_assoc] using hih
 
 end MahlerLean
