@@ -1,9 +1,11 @@
 # Etapa 12 — ponte para o subnível uniforme
 
 Esta etapa começa a combinação dos passos 10 e 11 necessária para o
-Lemma 3.5 do manuscrito. O módulo intermediário é:
+Lemma 3.5 do manuscrito. Os módulos intermediários são:
 
 `MahlerLean/AnalyticLinearCombination.lean`
+
+`MahlerLean/LocalJetPersistence.lean`
 
 ## Resultado já formalizado
 
@@ -26,21 +28,33 @@ Esses resultados eliminam uma incompatibilidade formal entre a notação
 matricial de jatos e a função escalar à qual se aplica a estimativa de
 subnível.
 
+O segundo módulo prova ainda:
+
+- `exists_nhds_iteratedDeriv_abs_lower_bound`: uma coordenada de jato
+  maior ou igual a `η` num ponto fornece a cota `η/2` para a mesma
+  derivada numa vizinhança desse ponto;
+- `exists_product_nhds_jetApply_abs_lower_bound`: a persistência vale
+  quando variam simultaneamente o vetor de coeficientes e o ponto da
+  fonte, relativamente ao produto com o compacto `K`;
+- `exists_uniform_product_nhds_jetApply_lower_bound_of_analytic`: sob a
+  não anulação do Wronskiano em `K`, existe um único `η > 0` válido para
+  todos os coeficientes unitários e todos os pontos de `K`; apenas a
+  ordem da derivada e a vizinhança podem variar.
+
 ## O que ainda não está provado
 
 Este commit intermediário não afirma o Lemma 3.5 completo. Ainda é
 necessário formalizar:
 
-1. a escolha local de uma ordem de derivada `k` em cada ponto `(c,x)` da
-   esfera de coeficientes vezes o intervalo;
-2. a persistência do lower bound do jato em uma vizinhança produto;
-3. a extração de uma subcobertura finita independente de `c`;
-4. a soma das estimativas locais com expoente uniforme `1/(N-1)`;
-5. a representação do subnível como união de um número uniformemente
+1. a extração de uma subcobertura finita no produto compacto;
+2. a conversão dessa cobertura em uma partição finita adequada à
+   aplicação repetida de `sublevel_measure_bound`;
+3. a soma das estimativas locais com expoente uniforme `1/(N-1)`;
+4. a representação do subnível como união de um número uniformemente
    limitado de intervalos;
-6. a especialização à família racional `x^i f(x)^j`, que dará o
+5. a especialização à família racional `x^i f(x)^j`, que dará o
    Corolário 3.6.
 
 Nenhuma dessas conclusões pendentes é introduzida como axioma ou
-placeholder. Os três teoremas deste módulo foram compilados previamente
-com `warningAsError=true` e serão novamente verificados pelo build e pela
+placeholder. Todos os teoremas são verificados pelo build e pela auditoria
+automática de axiomas.

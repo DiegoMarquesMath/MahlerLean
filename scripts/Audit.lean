@@ -167,3 +167,8 @@ import MahlerLean
 #print axioms MahlerLean.analyticOnNhd_jetLinearCombo
 #print axioms MahlerLean.iteratedDeriv_jetLinearCombo_eq_jetApply
 #print axioms MahlerLean.analyticFamily_linearCombo_smooth
+
+-- Step 12b: local persistence on coefficient/source product space
+#print axioms MahlerLean.exists_nhds_iteratedDeriv_abs_lower_bound
+#print axioms MahlerLean.exists_product_nhds_jetApply_abs_lower_bound
+#print axioms MahlerLean.exists_uniform_product_nhds_jetApply_lower_bound_of_analytic
