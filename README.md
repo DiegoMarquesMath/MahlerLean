@@ -14,16 +14,16 @@ $f : U \to \mathbb R$ be real-analytic and nonrational. The main target is
 to formalize the statement that every nonempty open subinterval of $U$
 contains a Liouville number $\xi$ such that
 
-$
+$$
 \mu(f(\xi)) \le 100.
-$
+$$
 
 The central counting input is a uniform two-height estimate of the form
 
-$
+$$
 \#\mathcal D(J;Q,A,H)
 \le C_{\mathrm{low}}Q^2H^{-98}+C(J,A)Q^{17/10},
-$
+$$
 
 with the remainder constant and threshold independent of $H$.
 
