@@ -91,13 +91,18 @@ theorem jetLinearCombo_sublevel_measure_bound_uniform_order
       (k.val : ℝ) ≤ ((N - 1 : ℕ) : ℝ) := by
     exact_mod_cast hkN
 
+  have hk0 : 0 ≤ (k.val : ℝ) := by
+    positivity
+
+  have hn0 : 0 ≤ ((N - 1 : ℕ) : ℝ) := by
+    positivity
+
   have hcoeff :
       2 * (k.val : ℝ) *
           (2 * (k.val : ℝ) + 1)
         ≤
       2 * (((N - 1 : ℕ) : ℝ)) *
           (2 * (((N - 1 : ℕ) : ℝ)) + 1) := by
-    positivity
     nlinarith
 
   have hlocal :=
