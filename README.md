@@ -31,13 +31,14 @@ including the explicit bound
 `2 k (2 k + 1) (eps/lambda)^(1/k)`. Rational source supply is discharged by a theorem.
 Theorems 1.1 and 1.2 are **not** fully formalized. No pending result is
 installed as an axiom or an unproved placeholder.
-Step 12 has begun with the analytic linear-combination bridge: derivatives
-of `jetLinearCombo` are identified with the jet coordinates from Step 10;
-analyticity supplies the regularity hypotheses from Step 11; and a uniformly
-large jet coordinate persists on product neighborhoods of coefficient space
-times the compact source set. Compactness now extracts finitely many such
-patches, each carrying a fixed derivative order. The conversion to uniform
-sublevel and component bounds in Lemma 3.5 remains pending.
+Step 12 now connects the analytic linear-combination bridge to the local
+sublevel estimate: derivatives of `jetLinearCombo` are identified with the
+jet coordinates from Step 10; analyticity supplies the Step 11 regularity;
+compactness extracts finitely many coefficient/source patches with a fixed
+derivative order; and each positive-order patch satisfies the explicit
+sublevel bound, while the zero-order sublevel is empty below the jet lower
+bound. The finite global assembly, uniform exponent, and component bound in
+Lemma 3.5 remain pending.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).

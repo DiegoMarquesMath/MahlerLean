@@ -178,3 +178,10 @@ import MahlerLean
 #print axioms MahlerLean.jetApply_continuousAt_of_analytic
 #print axioms MahlerLean.exists_product_nhds_jetApply_abs_lower_bound_of_analytic
 #print axioms MahlerLean.exists_finite_uniform_jet_product_cover_of_analytic
+
+-- Step 12d: local uniform sublevel bridge
+#print axioms MahlerLean.sublevel_set_eq_empty_of_abs_lower_bound
+#print axioms MahlerLean.sublevel_measure_eq_zero_of_abs_lower_bound
+#print axioms MahlerLean.jetLinearCombo_sublevel_measure_bound
+#print axioms MahlerLean.jetLinearCombo_sublevel_eq_empty_of_zero_order
+#print axioms MahlerLean.jetLinearCombo_local_sublevel_control

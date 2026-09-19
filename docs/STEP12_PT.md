@@ -9,6 +9,8 @@ Lemma 3.5 do manuscrito. Os módulos intermediários são:
 
 `MahlerLean/FiniteJetCover.lean`
 
+`MahlerLean/LocalUniformSublevel.lean`
+
 ## Resultado já formalizado
 
 Para uma família analítica `φ : Fin N → ℝ → ℝ` e um vetor de
@@ -54,18 +56,31 @@ O terceiro módulo completa a extração compacta:
   cada patch possui uma ordem `k` fixa, enquanto a mesma constante
   positiva `η` funciona em todos eles.
 
+O quarto módulo faz a primeira aplicação local efetiva da estimativa de
+subnível:
+
+- `sublevel_set_eq_empty_of_abs_lower_bound` e
+  `sublevel_measure_eq_zero_of_abs_lower_bound`: uma cota absoluta
+  estrita exclui o subnível menor, tratando separadamente a ordem zero;
+- `jetLinearCombo_sublevel_measure_bound`: para uma ordem positiva fixa
+  num intervalo, aplica a estimativa explícita do passo 11 à combinação
+  linear analítica;
+- `jetLinearCombo_local_sublevel_control`: reúne os casos de ordem zero
+  e ordem positiva numa dicotomia local pronta para a montagem finita.
+
 ## O que ainda não está provado
 
-Este commit intermediário não afirma o Lemma 3.5 completo. Ainda é
+Esta etapa intermediária ainda não afirma o Lemma 3.5 completo. Ainda é
 necessário formalizar:
 
-1. a conversão da cobertura em uma partição finita adequada à
-   aplicação repetida de `sublevel_measure_bound`;
-2. a soma das estimativas locais com expoente uniforme `1/(N-1)`;
-3. a representação do subnível como união de um número uniformemente
-   limitado de intervalos;
-4. a especialização à família racional `x^i f(x)^j`, que dará o
-   Corolário 3.6.
+1. refinar a cobertura finita do produto em intervalos nos quais uma
+   ordem fixa controla toda a combinação relevante;
+2. somar as estimativas locais e uniformizar os expoentes em
+   `1/(N-1)`;
+3. representar o subnível como união de um número uniformemente limitado
+   de intervalos;
+4. especializar o resultado global à família racional `x^i f(x)^j`,
+   obtendo o Corolário 3.6.
 
 Nenhuma dessas conclusões pendentes é introduzida como axioma ou
 placeholder. Todos os teoremas são verificados pelo build e pela auditoria
