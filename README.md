@@ -3,7 +3,7 @@
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 128 listed theorems. It proves the rational
+**Scope:** the project contains 151 listed theorems. It proves the rational
 source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
 formalizes the infinite fusion construction and its escape conclusion
 **conditional on explicit counting, derivative and finite-forbidden-set
@@ -24,9 +24,11 @@ large-target parameter inequalities used in Proposition 5.1. Step 10
 formalizes the compactness and linear-algebra core of Lemma 3.5, including
 uniform lower bounds for normalized jets and the rational-family specialization.
 
-Proposition 5.1, the one-dimensional sublevel estimate, the determinant
-lemmas, and the implication from nonrationality to Wronskian nontriviality
-remain unproved on `main`. Rational source supply is discharged by a theorem.
+Proposition 5.1, the determinant lemmas, and the implication from
+nonrationality to Wronskian nontriviality remain unproved on `main`.
+Step 11 formalizes the one-dimensional sublevel estimate of Lemma 3.4,
+including the explicit bound
+`2 k (2 k + 1) (eps/lambda)^(1/k)`. Rational source supply is discharged by a theorem.
 Theorems 1.1 and 1.2 are **not** fully formalized. No pending result is
 installed as an axiom or an unproved placeholder.
 
@@ -43,6 +45,7 @@ For the proved rational supply and its fusion application, open [docs/STEP7_PT.m
 For analytic zero sets and Wronskian localization, open [docs/STEP8_PT.md](docs/STEP8_PT.md).
 For the large-target parameter inequalities, open [docs/STEP9_PT.md](docs/STEP9_PT.md).
 For uniform jet lower bounds, open [docs/STEP10_PT.md](docs/STEP10_PT.md).
+For the one-dimensional sublevel estimate, open [docs/STEP11_PT.md](docs/STEP11_PT.md).
 
 ## Reproduce
 
