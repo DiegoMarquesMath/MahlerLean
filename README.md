@@ -9,23 +9,23 @@ the local quantitative theorem.
 
 ## Mathematical goal
 
-Let \(U \subseteq \mathbb R\) be an open interval and let
-\(f : U \to \mathbb R\) be real-analytic and nonrational. The main target is
-to formalize the statement that every nonempty open subinterval of \(U\)
-contains a Liouville number \(\xi\) such that
+Let $U \subseteq \mathbb R$ be an open interval and let
+$f : U \to \mathbb R$ be real-analytic and nonrational. The main target is
+to formalize the statement that every nonempty open subinterval of $U$
+contains a Liouville number $\xi$ such that
 
-\[
+$
 \mu(f(\xi)) \le 100.
-\]
+$
 
 The central counting input is a uniform two-height estimate of the form
 
-\[
+$
 \#\mathcal D(J;Q,A,H)
 \le C_{\mathrm{low}}Q^2H^{-98}+C(J,A)Q^{17/10},
-\]
+$
 
-with the remainder constant and threshold independent of \(H\).
+with the remainder constant and threshold independent of $H$.
 
 ## Project status
 
@@ -33,14 +33,14 @@ The formalization is in active development.
 
 Verified components currently include:
 
-- rational separation and the upper bound \(4Q^2|E|+R\);
-- rational source supply with the absolute constant \(c_{\mathrm F}=1/4\);
+- rational separation and the upper bound $4Q^2|E|+R$;
+- rational source supply with the absolute constant $c_{\mathrm F}=1/4$;
 - analytic zero localization and finite Wronskian forbidden sets, conditional
   on Wronskian nontriviality;
 - the parameter inequalities used in the large-target range;
 - uniform lower bounds for normalized jets;
 - the one-dimensional sublevel estimate
-  \(2k(2k+1)(\varepsilon/\lambda)^{1/k}\);
+  $2k(2k+1)(\varepsilon/\lambda)^{1/k}$;
 - the complete abstract fusion construction and its escape conclusion,
   conditional on the uniform dangerous-source estimate.
 
@@ -80,36 +80,36 @@ the main theorem is already fully formalized.
 Install Lean using the
 [official installation instructions](https://lean-lang.org/install/), then run:
 
-\`\`\`bash
+```bash
 git clone https://github.com/DiegoMarquesMath/MahlerLean.git
 cd MahlerLean
 lake exe cache get
 lake build
 bash scripts/check.sh
-\`\`\`
+```
 
-The project pins Lean and mathlib through \`lean-toolchain\` and
-\`lake-manifest.json\`. Ordinary builds should not run \`lake update\`, since
+The project pins Lean and mathlib through `lean-toolchain` and
+`lake-manifest.json`. Ordinary builds should not run `lake update`, since
 that may change the verified dependency snapshot.
 
 ## Repository layout
 
 | Path | Purpose |
 | --- | --- |
-| \`MahlerLean/\` | Lean source modules |
-| \`MahlerLean.lean\` | Root import file |
-| \`scripts/Audit.lean\` | Axiom audit for listed project theorems |
-| \`scripts/check.sh\` | Reproducible build and audit checks |
-| \`docs/\` | Roadmap, detailed status, and step-by-step notes |
-| \`paper/\` | Manuscript source and PDF |
-| \`.github/workflows/lean.yml\` | Continuous verification on GitHub Actions |
+| `MahlerLean/` | Lean source modules |
+| `MahlerLean.lean` | Root import file |
+| `scripts/Audit.lean` | Axiom audit for listed project theorems |
+| `scripts/check.sh` | Reproducible build and audit checks |
+| `docs/` | Roadmap, detailed status, and step-by-step notes |
+| `paper/` | Manuscript source and PDF |
+| `.github/workflows/lean.yml` | Continuous verification on GitHub Actions |
 
 ## Verification policy
 
-Every claimed project theorem is added to \`scripts/Audit.lean\`. The automated
+Every claimed project theorem is added to `scripts/Audit.lean`. The automated
 workflow builds the project and checks the printed axiom dependencies. The
-usual foundational axioms used by classical mathlib developments—\`propext\`,
-\`Classical.choice\`, and \`Quot.sound\`—are expected; \`sorryAx\` or a
+usual foundational axioms used by classical mathlib developments—`propext`,
+`Classical.choice`, and `Quot.sound`—are expected; `sorryAx` or a
 project-specific mathematical axiom is not.
 
 For the exact scope of each verified milestone and the hypotheses still
