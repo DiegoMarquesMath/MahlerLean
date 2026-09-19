@@ -3,7 +3,7 @@
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 96 listed theorems. It proves the rational
+**Scope:** the project contains 128 listed theorems. It proves the rational
 source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
 formalizes the infinite fusion construction and its escape conclusion
 **conditional on explicit counting, derivative and finite-forbidden-set
@@ -19,11 +19,16 @@ decomposition into at most R disjoint intervals. This is the component
 form of Lemma 2.1, proved without any counting estimate as a hypothesis.
 
 Step 8 constructs the finite Wronskian zero sets from analyticity and explicit
-nontriviality hypotheses, and proves their nesting. Proposition 5.1 and
-the implication from nonrationality to Wronskian nontriviality remain unproved.
-Rational source supply is discharged by a theorem. Theorems 1.1 and 1.2
-are **not** fully formalized. No pending result is installed as an axiom
-or an unproved placeholder.
+nontriviality hypotheses, and proves their nesting. Step 9 formalizes the
+large-target parameter inequalities used in Proposition 5.1. Step 10
+formalizes the compactness and linear-algebra core of Lemma 3.5, including
+uniform lower bounds for normalized jets and the rational-family specialization.
+
+Proposition 5.1, the one-dimensional sublevel estimate, the determinant
+lemmas, and the implication from nonrationality to Wronskian nontriviality
+remain unproved on `main`. Rational source supply is discharged by a theorem.
+Theorems 1.1 and 1.2 are **not** fully formalized. No pending result is
+installed as an axiom or an unproved placeholder.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
@@ -36,6 +41,8 @@ For Farey separation and upper counting, open [docs/STEP6_PT.md](docs/STEP6_PT.m
 For the proved rational supply and its fusion application, open [docs/STEP7_PT.md](docs/STEP7_PT.md).
 
 For analytic zero sets and Wronskian localization, open [docs/STEP8_PT.md](docs/STEP8_PT.md).
+For the large-target parameter inequalities, open [docs/STEP9_PT.md](docs/STEP9_PT.md).
+For uniform jet lower bounds, open [docs/STEP10_PT.md](docs/STEP10_PT.md).
 
 ## Reproduce
 
