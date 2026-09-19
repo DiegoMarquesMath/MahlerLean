@@ -25,3 +25,4 @@ import MahlerLean.AnalyticLinearCombination
 import MahlerLean.LocalJetPersistence
 import MahlerLean.FiniteJetCover
 import MahlerLean.LocalUniformSublevel
+import MahlerLean.FiniteSublevelAssembly
