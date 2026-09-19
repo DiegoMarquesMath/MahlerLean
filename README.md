@@ -3,7 +3,7 @@
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 151 listed theorems. It proves the rational
+**Scope:** the project contains 154 listed theorems. It proves the rational
 source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
 formalizes the infinite fusion construction and its escape conclusion
 **conditional on explicit counting, derivative and finite-forbidden-set
@@ -31,6 +31,10 @@ including the explicit bound
 `2 k (2 k + 1) (eps/lambda)^(1/k)`. Rational source supply is discharged by a theorem.
 Theorems 1.1 and 1.2 are **not** fully formalized. No pending result is
 installed as an axiom or an unproved placeholder.
+Step 12 has begun with the analytic linear-combination bridge: derivatives
+of `jetLinearCombo` are identified with the jet coordinates from Step 10,
+and analyticity supplies the regularity hypotheses from Step 11. The finite
+product-cover and uniform component arguments of Lemma 3.5 remain pending.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
@@ -46,6 +50,7 @@ For analytic zero sets and Wronskian localization, open [docs/STEP8_PT.md](docs/
 For the large-target parameter inequalities, open [docs/STEP9_PT.md](docs/STEP9_PT.md).
 For uniform jet lower bounds, open [docs/STEP10_PT.md](docs/STEP10_PT.md).
 For the one-dimensional sublevel estimate, open [docs/STEP11_PT.md](docs/STEP11_PT.md).
+For the Step 12 bridge and its exact remaining tasks, open [docs/STEP12_PT.md](docs/STEP12_PT.md).
 
 ## Reproduce
 

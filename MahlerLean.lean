@@ -21,3 +21,4 @@ import MahlerLean.FusionFromWronskians
 import MahlerLean.LargeTargetParameters
 import MahlerLean.UniformJet
 import MahlerLean.SublevelOneDim
+import MahlerLean.AnalyticLinearCombination

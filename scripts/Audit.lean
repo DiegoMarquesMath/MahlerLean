@@ -162,3 +162,8 @@ import MahlerLean
 #print axioms MahlerLean.sublevel_gap_measure_bound
 #print axioms MahlerLean.sublevel_measure_le_of_boundary_finset_aux
 #print axioms MahlerLean.sublevel_measure_bound
+
+-- Step 12a: analytic linear-combination bridge
+#print axioms MahlerLean.analyticOnNhd_jetLinearCombo
+#print axioms MahlerLean.iteratedDeriv_jetLinearCombo_eq_jetApply
+#print axioms MahlerLean.analyticFamily_linearCombo_smooth
