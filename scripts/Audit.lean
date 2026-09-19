@@ -137,3 +137,28 @@ import MahlerLean
 #print axioms MahlerLean.exists_uniform_jet_coordinate_lower_bound
 #print axioms MahlerLean.exists_uniform_jet_coordinate_lower_bound_of_analytic
 #print axioms MahlerLean.exists_rationalFamily_uniform_jet_coordinate_lower_bound
+
+-- Step 11: one-dimensional sublevel estimate
+#print axioms MahlerLean.exists_iteratedDeriv_succ_eq_zero
+#print axioms MahlerLean.exists_iteratedDeriv_succ_eq_zero_of_endpoints
+#print axioms MahlerLean.iteratedDeriv_ne_zero_of_abs_lower_bound
+#print axioms MahlerLean.exists_interlaced_deriv_zeros
+#print axioms MahlerLean.exists_interlaced_iteratedDeriv_zeros
+#print axioms MahlerLean.exists_iteratedDeriv_add_eq_zero_of_many_zeros
+#print axioms MahlerLean.exists_iteratedDeriv_eq_zero_of_many_zeros
+#print axioms MahlerLean.not_exists_many_zeros_of_iteratedDeriv_ne_zero
+#print axioms MahlerLean.not_exists_many_zeros_of_iteratedDeriv_abs_lower_bound
+#print axioms MahlerLean.not_exists_many_level_hits_of_iteratedDeriv_ne_zero
+#print axioms MahlerLean.not_exists_many_level_hits_of_iteratedDeriv_abs_lower_bound
+#print axioms MahlerLean.norm_fwdDiff_iter_le_two_pow_mul
+#print axioms MahlerLean.hasDerivAt_fwdDiff_iter
+#print axioms MahlerLean.exists_fwdDiff_iter_eq_pow_mul_iteratedDeriv
+#print axioms MahlerLean.sublevel_interval_power_bound
+#print axioms MahlerLean.sublevel_interval_length_bound
+#print axioms MahlerLean.level_hit_finset_card_le
+#print axioms MahlerLean.level_hit_set_finite
+#print axioms MahlerLean.two_level_set_finite_and_ncard_le
+#print axioms MahlerLean.abs_boundary_set_finite_and_ncard_le
+#print axioms MahlerLean.sublevel_gap_measure_bound
+#print axioms MahlerLean.sublevel_measure_le_of_boundary_finset_aux
+#print axioms MahlerLean.sublevel_measure_bound
