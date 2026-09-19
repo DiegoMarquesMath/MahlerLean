@@ -11,6 +11,8 @@ Lemma 3.5 do manuscrito. Os módulos intermediários são:
 
 `MahlerLean/LocalUniformSublevel.lean`
 
+`MahlerLean/FiniteSublevelAssembly.lean`
+
 ## Resultado já formalizado
 
 Para uma família analítica `φ : Fin N → ℝ → ℝ` e um vetor de
@@ -68,15 +70,28 @@ subnível:
 - `jetLinearCombo_local_sublevel_control`: reúne os casos de ordem zero
   e ordem positiva numa dicotomia local pronta para a montagem finita.
 
+O quinto módulo realiza a montagem quantitativa para uma cobertura por
+intervalos:
+
+- `rpow_inv_nat_le_rpow_inv_nat`: para uma base em `[0,1]`, permite
+  substituir os expoentes variáveis `1/k` pelo expoente comum
+  `1/(N-1)`;
+- `measureReal_le_card_mul_of_finite_cover`: soma estimativas locais
+  sobre uma cobertura finita;
+- `jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover`:
+  combina os dois fatos anteriores com a estimativa local da etapa 12d,
+  permitindo que a ordem positiva da derivada varie entre os intervalos.
+
 ## O que ainda não está provado
 
 Esta etapa intermediária ainda não afirma o Lemma 3.5 completo. Ainda é
 necessário formalizar:
 
-1. refinar a cobertura finita do produto em intervalos nos quais uma
-   ordem fixa controla toda a combinação relevante;
-2. somar as estimativas locais e uniformizar os expoentes em
-   `1/(N-1)`;
+1. extrair, da cobertura finita do produto, uma família finita de
+   intervalos compactos subordinados aos patches e válida para cada vetor
+   unitário de coeficientes;
+2. alimentar essa família no teorema de montagem já formalizado, obtendo
+   a afirmação global sem hipóteses auxiliares de cobertura;
 3. representar o subnível como união de um número uniformemente limitado
    de intervalos;
 4. especializar o resultado global à família racional `x^i f(x)^j`,

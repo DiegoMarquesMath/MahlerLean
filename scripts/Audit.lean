@@ -185,3 +185,9 @@ import MahlerLean
 #print axioms MahlerLean.jetLinearCombo_sublevel_measure_bound
 #print axioms MahlerLean.jetLinearCombo_sublevel_eq_empty_of_zero_order
 #print axioms MahlerLean.jetLinearCombo_local_sublevel_control
+
+-- Step 12e: finite quantitative assembly
+#print axioms MahlerLean.rpow_inv_nat_le_rpow_inv_nat
+#print axioms MahlerLean.jetLinearCombo_sublevel_measure_bound_uniform_order
+#print axioms MahlerLean.measureReal_le_card_mul_of_finite_cover
+#print axioms MahlerLean.jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover

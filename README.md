@@ -37,8 +37,10 @@ jet coordinates from Step 10; analyticity supplies the Step 11 regularity;
 compactness extracts finitely many coefficient/source patches with a fixed
 derivative order; and each positive-order patch satisfies the explicit
 sublevel bound, while the zero-order sublevel is empty below the jet lower
-bound. The finite global assembly, uniform exponent, and component bound in
-Lemma 3.5 remain pending.
+bound. The exponent has now been uniformized to `1/(N-1)`, and the local
+bounds are summed over any finite subordinate interval cover. Extracting
+that interval cover from the product patches and proving the uniform
+component bound in Lemma 3.5 remain pending.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
