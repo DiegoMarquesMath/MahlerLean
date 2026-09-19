@@ -3,7 +3,7 @@
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 157 listed theorems. It proves the rational
+**Scope:** the project contains 161 listed theorems. It proves the rational
 source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
 formalizes the infinite fusion construction and its escape conclusion
 **conditional on explicit counting, derivative and finite-forbidden-set
@@ -34,9 +34,10 @@ installed as an axiom or an unproved placeholder.
 Step 12 has begun with the analytic linear-combination bridge: derivatives
 of `jetLinearCombo` are identified with the jet coordinates from Step 10;
 analyticity supplies the regularity hypotheses from Step 11; and a uniformly
-large jet coordinate is shown to persist on a relative product neighborhood
-of coefficient space times the compact source set. The finite-subcover and
-uniform component arguments of Lemma 3.5 remain pending.
+large jet coordinate persists on product neighborhoods of coefficient space
+times the compact source set. Compactness now extracts finitely many such
+patches, each carrying a fixed derivative order. The conversion to uniform
+sublevel and component bounds in Lemma 3.5 remains pending.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).

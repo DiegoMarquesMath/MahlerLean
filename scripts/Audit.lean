@@ -172,3 +172,9 @@ import MahlerLean
 #print axioms MahlerLean.exists_nhds_iteratedDeriv_abs_lower_bound
 #print axioms MahlerLean.exists_product_nhds_jetApply_abs_lower_bound
 #print axioms MahlerLean.exists_uniform_product_nhds_jetApply_lower_bound_of_analytic
+
+-- Step 12c: finite compact product cover
+#print axioms MahlerLean.mem_coefficientSourceProduct
+#print axioms MahlerLean.jetApply_continuousAt_of_analytic
+#print axioms MahlerLean.exists_product_nhds_jetApply_abs_lower_bound_of_analytic
+#print axioms MahlerLean.exists_finite_uniform_jet_product_cover_of_analytic

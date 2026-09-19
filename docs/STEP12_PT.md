@@ -7,6 +7,8 @@ Lemma 3.5 do manuscrito. Os módulos intermediários são:
 
 `MahlerLean/LocalJetPersistence.lean`
 
+`MahlerLean/FiniteJetCover.lean`
+
 ## Resultado já formalizado
 
 Para uma família analítica `φ : Fin N → ℝ → ℝ` e um vetor de
@@ -41,18 +43,28 @@ O segundo módulo prova ainda:
   todos os coeficientes unitários e todos os pontos de `K`; apenas a
   ordem da derivada e a vizinhança podem variar.
 
+O terceiro módulo completa a extração compacta:
+
+- `jetApply_continuousAt_of_analytic`: cada coordenada do jato é
+  conjuntamente contínua no vetor de coeficientes e no ponto da fonte;
+- `exists_product_nhds_jetApply_abs_lower_bound_of_analytic`: a cota
+  `η/2` vale numa vizinhança ambiente do par `(c,x)`;
+- `exists_finite_uniform_jet_product_cover_of_analytic`: a esfera unitária
+  de coeficientes vezes `K` admite uma subcobertura finita por patches;
+  cada patch possui uma ordem `k` fixa, enquanto a mesma constante
+  positiva `η` funciona em todos eles.
+
 ## O que ainda não está provado
 
 Este commit intermediário não afirma o Lemma 3.5 completo. Ainda é
 necessário formalizar:
 
-1. a extração de uma subcobertura finita no produto compacto;
-2. a conversão dessa cobertura em uma partição finita adequada à
+1. a conversão da cobertura em uma partição finita adequada à
    aplicação repetida de `sublevel_measure_bound`;
-3. a soma das estimativas locais com expoente uniforme `1/(N-1)`;
-4. a representação do subnível como união de um número uniformemente
+2. a soma das estimativas locais com expoente uniforme `1/(N-1)`;
+3. a representação do subnível como união de um número uniformemente
    limitado de intervalos;
-5. a especialização à família racional `x^i f(x)^j`, que dará o
+4. a especialização à família racional `x^i f(x)^j`, que dará o
    Corolário 3.6.
 
 Nenhuma dessas conclusões pendentes é introduzida como axioma ou
