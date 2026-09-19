@@ -41,7 +41,7 @@ theorem exists_product_nhds_Icc_subset
     ⟨A, hA, B, hB, hprod⟩
 
   have hBU : B ∩ U ∈ 𝓝 x :=
-    inter_mem hB (hU.mem_nhds hx)
+    Filter.inter_mem hB (hU.mem_nhds hx)
 
   rcases Metric.mem_nhds_iff.mp hBU with
     ⟨eps, heps, hepsSub⟩
@@ -96,8 +96,8 @@ theorem exists_finite_uniform_jet_interval_cover_of_analytic
         ∃ t : Finset (coefficientSourceProduct N K),
           ∀ q ∈ coefficientSourceProduct N K,
             ∃ p ∈ t,
-              q.1.1 ∈ A p ∧
-              q.1.2 ∈ Ioo (a p) (b p) := by
+              q.1 ∈ A p ∧
+              q.2 ∈ Ioo (a p) (b p) := by
 
   obtain ⟨eta, heta, k, V, hV, hbound, _t, _ht⟩ :=
     exists_finite_uniform_jet_product_cover_of_analytic
