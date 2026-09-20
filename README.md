@@ -30,10 +30,13 @@ not yet fully formalized.**
 
 ## Current status
 
-This branch includes the uniform analytic sublevel theorem, its
-rational-family specialization, the arithmetic determinant lower bound with separate source and target heights,
-and the analytic row-norm and vertical-perturbation bounds. See the [determinant overview](docs/STEP13_PT.md). The [Step 12 overview](docs/STEP12_PT.md) records its precise
-hypotheses and scope. These additions have not yet been merged into `main`.
+This branch includes the uniform analytic sublevel theorem with an exact
+pairwise-disjoint interval decomposition, the arithmetic determinant lower
+bound with separate source and target heights, the analytic determinant upper
+bound, determinant vanishing, normalized relation extraction, and their
+composition with Farey counting. See the [determinant overview](docs/STEP13_PT.md).
+The [Step 12 overview](docs/STEP12_PT.md) records the analytic hypotheses and
+scope. These additions have not yet been merged into `main`.
 
 | Part of the argument | Formalization status |
 | --- | --- |
@@ -42,16 +45,17 @@ hypotheses and scope. These additions have not yet been merged into `main`.
 | Infinite fusion and Liouville escape | Proved from explicit counting and analytic inputs. |
 | Wronskian localization | Proved under explicit nontriviality hypotheses. |
 | Uniform jets and one-dimensional sublevels | Proved. |
-| Uniform analytic sublevels | Proved on this branch, including the rational-family specialization. |
+| Uniform analytic sublevels | Proved, including a pairwise-disjoint rational-family specialization. |
 | Arithmetic determinant lower bound | Proved, without reduced-fraction assumptions. |
-| Analytic determinant upper bound and Proposition 5.1 | Pending. |
+| Analytic determinant and rank-to-counting core | Proved on this branch. |
+| Full scale/cell assembly of Proposition 5.1 | Pending. |
 | Theorem 1.2 from the manuscript's hypotheses | Pending. |
 
 The remaining work includes deriving Wronskian nontriviality from
-nonrationality, connecting the sublevel interval cover to the disjoint
-Farey-counting interface, and completing the determinant and counting
-arguments. The uniform sublevel result assumes analyticity; the more
-general finite-smoothness statement in the manuscript is not claimed.
+nonrationality and completing the scale/cell and target-height-block assembly
+of Proposition 5.1. The determinant-to-counting core is now machine checked.
+The uniform sublevel result assumes analyticity; the more general
+finite-smoothness statement in the manuscript is not claimed.
 
 ## Build the Lean files
 

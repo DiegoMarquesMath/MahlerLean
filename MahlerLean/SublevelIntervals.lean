@@ -37,6 +37,7 @@ theorem sublevel_interval_cover_of_boundary_finset
     (hB : ∀ x ∈ S, ‖g x‖ = eps → x ∈ B) :
     ∃ t : Finset (Set ℝ), t.card ≤ 2 * B.card + 1 ∧
       (∀ E ∈ t, E.OrdConnected) ∧
+      (t : Set (Set ℝ)).PairwiseDisjoint id ∧
       (∀ x, (x ∈ S ∧ ‖g x‖ ≤ eps) ↔ ∃ E ∈ t, x ∈ E) := by
   classical
   suffices aux : ∀ n : ℕ, ∀ (S : Set ℝ) (B : Finset ℝ),
@@ -44,6 +45,7 @@ theorem sublevel_interval_cover_of_boundary_finset
       (∀ x ∈ S, ‖g x‖ = eps → x ∈ B) →
       ∃ t : Finset (Set ℝ), t.card ≤ 2 * B.card + 1 ∧
         (∀ E ∈ t, E.OrdConnected) ∧
+        (t : Set (Set ℝ)).PairwiseDisjoint id ∧
         (∀ x, (x ∈ S ∧ ‖g x‖ ≤ eps) ↔ ∃ E ∈ t, x ∈ E) by
     exact aux B.card S B le_rfl hS hg hB
   intro n
@@ -55,12 +57,13 @@ theorem sublevel_interval_cover_of_boundary_finset
       intro x hx he
       have := hB x hx he
       simp only [hb, Finset.notMem_empty] at this
-    refine ⟨{{x | x ∈ S ∧ ‖g x‖ ≤ eps}}, ?_, ?_, ?_⟩
+    refine ⟨{{x | x ∈ S ∧ ‖g x‖ ≤ eps}}, ?_, ?_, ?_, ?_⟩
     · simp
     · intro E hE
       have heq : E = {x | x ∈ S ∧ ‖g x‖ ≤ eps} := Finset.mem_singleton.mp hE
       subst E
       exact sublevel_ordConnected_of_no_level hS hg hno
+    · simp
     · intro x
       simp
   | succ n ih =>
@@ -70,12 +73,13 @@ theorem sublevel_interval_cover_of_boundary_finset
         intro x hx he
         have := hB x hx he
         simp only [hb, Finset.notMem_empty] at this
-      refine ⟨{{x | x ∈ S ∧ ‖g x‖ ≤ eps}}, ?_, ?_, ?_⟩
+      refine ⟨{{x | x ∈ S ∧ ‖g x‖ ≤ eps}}, ?_, ?_, ?_, ?_⟩
       · simp
       · intro E hE
         have heq := Finset.mem_singleton.mp hE
         subst E
         exact sublevel_ordConnected_of_no_level hS hg hno
+      · simp
       · intro x
         simp
     · obtain ⟨c, hc⟩ := Finset.nonempty_iff_ne_empty.mpr hb
@@ -105,10 +109,10 @@ theorem sublevel_interval_cover_of_boundary_finset
         have hh := Finset.card_le_card hu
         rw [Finset.card_union_of_disjoint hdis] at hh
         omega
-      obtain ⟨tl, htl, hlconn, hlcov⟩ := ih (S ∩ Iio c) BL hlcard
+      obtain ⟨tl, htl, hlconn, hldis, hlcov⟩ := ih (S ∩ Iio c) BL hlcard
         (hS.inter ordConnected_Iio) (hg.mono inter_subset_left)
         (by intro x hx he; exact Finset.mem_filter.mpr ⟨hB x hx.1 he, hx.2⟩)
-      obtain ⟨tr, htr, hrconn, hrcov⟩ := ih (S ∩ Ioi c) BR hrcard
+      obtain ⟨tr, htr, hrconn, hrdis, hrcov⟩ := ih (S ∩ Ioi c) BR hrcard
         (hS.inter ordConnected_Ioi) (hg.mono inter_subset_left)
         (by intro x hx he; exact Finset.mem_filter.mpr ⟨hB x hx.1 he, hx.2⟩)
       let C : Set ℝ := {x | x = c ∧ x ∈ S ∧ ‖g x‖ ≤ eps}
@@ -122,7 +126,7 @@ theorem sublevel_interval_cover_of_boundary_finset
           have := hz.2
           linarith
         exact ⟨hzc, hzc.symm ▸ (hx.1 ▸ hx.2)⟩
-      refine ⟨insert C (tl ∪ tr), ?_, ?_, ?_⟩
+      refine ⟨insert C (tl ∪ tr), ?_, ?_, ?_, ?_⟩
       · have h1 := Finset.card_insert_le C (tl ∪ tr)
         have h2 := Finset.card_union_le tl tr
         omega
@@ -132,6 +136,63 @@ theorem sublevel_interval_cover_of_boundary_finset
         · rcases Finset.mem_union.mp hE with hE | hE
           · exact hlconn E hE
           · exact hrconn E hE
+      · intro E hE F hF hEF
+        rcases Finset.mem_insert.mp hE with rfl | hE
+        · rcases Finset.mem_insert.mp hF with rfl | hF
+          · exact (hEF rfl).elim
+          · rcases Finset.mem_union.mp hF with hF | hF
+            · change Disjoint C F
+              rw [Set.disjoint_left]
+              intro x hxC hxF
+              have hxlt := ((hlcov x).mpr ⟨F, hF, hxF⟩).1.2
+              change x = c ∧ x ∈ S ∧ ‖g x‖ ≤ eps at hxC
+              change x < c at hxlt
+              linarith
+            · change Disjoint C F
+              rw [Set.disjoint_left]
+              intro x hxC hxF
+              have hxgt := ((hrcov x).mpr ⟨F, hF, hxF⟩).1.2
+              change x = c ∧ x ∈ S ∧ ‖g x‖ ≤ eps at hxC
+              change c < x at hxgt
+              linarith
+        · rcases Finset.mem_insert.mp hF with rfl | hF
+          · apply Disjoint.symm
+            rcases Finset.mem_union.mp hE with hE | hE
+            · change Disjoint C E
+              rw [Set.disjoint_left]
+              intro x hxC hxE
+              have hxlt := ((hlcov x).mpr ⟨E, hE, hxE⟩).1.2
+              change x = c ∧ x ∈ S ∧ ‖g x‖ ≤ eps at hxC
+              change x < c at hxlt
+              linarith
+            · change Disjoint C E
+              rw [Set.disjoint_left]
+              intro x hxC hxE
+              have hxgt := ((hrcov x).mpr ⟨E, hE, hxE⟩).1.2
+              change x = c ∧ x ∈ S ∧ ‖g x‖ ≤ eps at hxC
+              change c < x at hxgt
+              linarith
+          · rcases Finset.mem_union.mp hE with hEl | hEr
+            · rcases Finset.mem_union.mp hF with hFl | hFr
+              · exact hldis hEl hFl hEF
+              · change Disjoint E F
+                rw [Set.disjoint_left]
+                intro x hxE hxF
+                have hxlt := ((hlcov x).mpr ⟨E, hEl, hxE⟩).1.2
+                have hxgt := ((hrcov x).mpr ⟨F, hFr, hxF⟩).1.2
+                change x < c at hxlt
+                change c < x at hxgt
+                linarith
+            · rcases Finset.mem_union.mp hF with hFl | hFr
+              · change Disjoint E F
+                rw [Set.disjoint_left]
+                intro x hxE hxF
+                have hxgt := ((hrcov x).mpr ⟨E, hEr, hxE⟩).1.2
+                have hxlt := ((hlcov x).mpr ⟨F, hFl, hxF⟩).1.2
+                change c < x at hxgt
+                change x < c at hxlt
+                linarith
+              · exact hrdis hEr hFr hEF
       · intro x
         constructor
         · intro hx
@@ -164,7 +225,7 @@ theorem sublevel_interval_cover_of_derivative_bound
   classical
   obtain ⟨hfin,hcard⟩ := abs_boundary_set_finite_and_ncard_le
     (eps := eps) hk hcont hlam hlow
-  obtain ⟨t,ht,hconn,hcov⟩ := sublevel_interval_cover_of_boundary_finset
+  obtain ⟨t,ht,hconn,_hdis,hcov⟩ := sublevel_interval_cover_of_boundary_finset
     ordConnected_Icc (by simpa using hcont 0) hfin.toFinset
     (by intro x hx he; exact hfin.mem_toFinset.mpr ⟨hx, by simpa [Real.norm_eq_abs] using he⟩)
   refine ⟨t, ?_, hconn, hcov⟩

@@ -281,3 +281,15 @@ import MahlerLean
 #print axioms MahlerLean.exists_targetLinearCurve_rowL1_bound
 #print axioms MahlerLean.exists_targetLinearMatrix_analytic_upper_bound
 #print axioms MahlerLean.exists_targetLinearMatrix_det_zero_of_clustered_approximations
+
+
+-- Step 13: rank, normalized relations, disjoint sublevels and counting
+#print axioms MahlerLean.exists_unit_relation_of_all_det_zero
+#print axioms MahlerLean.exists_unit_targetLinear_relation_of_all_det_zero
+#print axioms MahlerLean.norm_targetLinear_graph_relation_le_of_approx
+#print axioms MahlerLean.exists_unit_targetLinear_graph_sublevel_of_all_det_zero
+#print axioms MahlerLean.exists_uniform_analytic_sublevel_disjoint_interval_cover
+#print axioms MahlerLean.exists_uniform_analytic_disjoint_sublevel_bound
+#print axioms MahlerLean.exists_uniform_rational_relation_disjoint_sublevel_bound
+#print axioms MahlerLean.exists_uniform_sublevel_data_of_targetLinear_det_zero
+#print axioms MahlerLean.exists_targetLinear_counting_bound_of_all_det_zero

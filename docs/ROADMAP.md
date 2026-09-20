@@ -50,15 +50,18 @@ and measure at most C eps^(1/(N-1)), with constants preceding all normalized
 coefficient vectors. It includes the rational-family specialization.
 See [STEP12_PT.md](STEP12_PT.md) for the precise analytic hypotheses.
 
-Step 13 now proves the arithmetic lower bound for target-linear evaluation
-determinants, including nonreduced fractions and separate source/target
-height bounds. The analytic determinant upper bound is still pending.
+Step 13 proves the determinant-to-counting core of Proposition 5.1. It
+separates source and target denominator heights in the arithmetic lower
+bound, proves triangular analytic determinant decay and perturbation control,
+forces determinant vanishing, extracts a common normalized relation from all
+maximal minors, transfers it to the graph, and applies a pairwise-disjoint
+uniform sublevel decomposition to Farey counting.
 See [STEP13_PT.md](STEP13_PT.md).
 
 The abstract infinite fusion argument is formalized conditionally.
-Remaining tasks include deriving Wronskian nontriviality from nonrationality,
-adapting the interval union to the disjoint Farey-counting interface, and
-Proposition 5.1 with its dependencies. These must provide `FusionInputs`
+Remaining tasks include deriving Wronskian nontriviality from nonrationality
+and completing the scale/cell and target-height-block assembly of
+Proposition 5.1. These must provide `FusionInputs`
 from the hypotheses of the manuscript before the main theorems can be
 claimed as fully formalized.
 
@@ -121,13 +124,13 @@ the full interface.
 Farey separation, the upper estimate from a disjoint interval
 decomposition, and rational supply with cF = 1/4 are now proved.
 Localized Wronskian separation is now proved given nontriviality.
-Uniform sublevel measure and finite interval bounds are now proved for
-analytic families with a nonvanishing Wronskian on the compact interval.
-The interval pieces may overlap; a disjointification or compatible counting
-adapter remains. Other remaining statements include rationality versus
-linear dependence, the analytic Wronskian criterion, determinant perturbation,
-rank deficiency and coefficient normalization. Rational denominator clearing
-and the resulting arithmetic determinant lower bound are proved in Step 13.
+Uniform sublevel measure and pairwise-disjoint finite interval bounds are now
+proved for analytic families with a nonvanishing Wronskian on the compact
+interval. Determinant perturbation, rational denominator clearing, rank
+deficiency, coefficient normalization and their Farey-counting composition
+are also proved. Remaining statements include rationality versus linear
+dependence, the analytic Wronskian criterion, and the full cell/block scale
+assembly of Proposition 5.1.
 
 In the large-target range track:
 

@@ -42,3 +42,9 @@ import MahlerLean.DeterminantRowExpansion
 import MahlerLean.SmoothCurveDeterminantBound
 import MahlerLean.TargetLinearDeterminantUpper
 import MahlerLean.DeterminantVanishing
+import MahlerLean.DeterminantRelations
+import MahlerLean.TargetLinearRelations
+import MahlerLean.UniformDisjointSublevel
+import MahlerLean.UniformSublevelDisjoint
+import MahlerLean.DeterminantSublevelBridge
+import MahlerLean.TargetLinearCounting
