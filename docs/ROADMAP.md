@@ -50,6 +50,11 @@ and measure at most C eps^(1/(N-1)), with constants preceding all normalized
 coefficient vectors. It includes the rational-family specialization.
 See [STEP12_PT.md](STEP12_PT.md) for the precise analytic hypotheses.
 
+Step 13 now proves the arithmetic lower bound for target-linear evaluation
+determinants, including nonreduced fractions and separate source/target
+height bounds. The analytic determinant upper bound is still pending.
+See [STEP13_PT.md](STEP13_PT.md).
+
 The abstract infinite fusion argument is formalized conditionally.
 Remaining tasks include deriving Wronskian nontriviality from nonrationality,
 adapting the interval union to the disjoint Farey-counting interface, and
@@ -121,7 +126,8 @@ analytic families with a nonvanishing Wronskian on the compact interval.
 The interval pieces may overlap; a disjointification or compatible counting
 adapter remains. Other remaining statements include rationality versus
 linear dependence, the analytic Wronskian criterion, determinant perturbation,
-rational denominator clearing, rank deficiency and coefficient normalization.
+rank deficiency and coefficient normalization. Rational denominator clearing
+and the resulting arithmetic determinant lower bound are proved in Step 13.
 
 In the large-target range track:
 

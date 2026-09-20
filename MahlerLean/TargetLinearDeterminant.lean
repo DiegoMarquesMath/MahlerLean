@@ -76,12 +76,10 @@ theorem targetLinearMatrix_clear_entry (d : ℕ)
       mul_one, if_true, Int.cast_mul, Int.cast_pow, Int.cast_natCast]
     rw [hpow, div_pow]
     field_simp [hq0, hb0]
-    <;> ring
   · simp only [targetLinearMatrix, clearedTargetLinearMatrix, hj, pow_one,
       if_neg (by decide : ¬ (1 : ℕ) = 0), Int.cast_mul, Int.cast_pow, Int.cast_natCast]
     rw [hpow, div_pow]
     field_simp [hq0, hb0]
-    <;> ring
 
 /-- Exact relation between the rational evaluation determinant and an
 integer determinant; no source or target fraction needs to be reduced. -/
