@@ -437,3 +437,15 @@ Validation for this change:
 
 The final corollary supplies `HasUniformDangerBound`. Theorem 1.2 from the
 manuscript's hypotheses is still pending.
+
+## Step 14: manuscript correspondence and analytic fusion
+
+Compared Proposition 5.1 and its preceding definitions in the manuscript
+at commit 1cd6a0b2a8692b5278365c34ef60571a5fa48081 with the Lean statement.
+See docs/STEP14_PT.md for the correspondence and scope.
+Compiled FusionFromTwoHeight.lean with warnings as errors and audited
+exists_escape_of_analytic_wronskians: only propext, Classical.choice,
+Quot.sound; no sorryAx. The theorem discharges the counting input using
+Proposition 5.1. Derivative bounds and Wronskian nontriviality remain
+explicit; Theorem 1.2 from nonrationality is not yet claimed.
+This records targeted validation, not a completed new full CI run.

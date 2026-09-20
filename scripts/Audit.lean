@@ -378,3 +378,6 @@ import MahlerLean
 #print axioms MahlerLean.proposition_5_1_of_fixed_bounds
 #print axioms MahlerLean.proposition_5_1
 #print axioms MahlerLean.proposition_5_1_uniformDangerBound
+
+-- Proposition 5.1 discharges the counting input of analytic fusion
+#print axioms MahlerLean.exists_escape_of_analytic_wronskians

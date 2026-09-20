@@ -64,3 +64,5 @@ import MahlerLean.LargeTargetSafetyMargin
 import MahlerLean.SmallTargetDerivativeBounds
 
 import MahlerLean.TwoHeightCounting
+
+import MahlerLean.FusionFromTwoHeight

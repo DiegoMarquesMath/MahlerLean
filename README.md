@@ -24,6 +24,9 @@ estimates, and a nested-interval construction.
 **Proposition 5.1 is formalized on this branch under its fixed analytic,
 derivative and Wronskian hypotheses. Theorem 1.2 remains in progress.**
 
+The [statement comparison](docs/STEP14_PT.md) checks these hypotheses and
+definitions against Proposition 5.1 in the repository manuscript.
+
 [Manuscript](paper/main.pdf) · [Proof roadmap](docs/ROADMAP.md) ·
 [Formalized results](docs/FORMALIZATION.md) · [Validation record](VALIDATION.md) ·
 [Guia em português](GUIA_PT.md)
@@ -44,7 +47,7 @@ scope. These additions have not yet been merged into `main`.
 | --- | --- |
 | Farey separation and upper counting | Proved for a supplied disjoint interval decomposition. |
 | Rational source supply | Proved with the absolute constant $c_F=1/4$. |
-| Infinite fusion and Liouville escape | Proved from explicit counting and analytic inputs. |
+| Infinite fusion and Liouville escape | Counting input discharged by Proposition 5.1; analytic derivative bounds and Wronskian nontriviality remain explicit. |
 | Wronskian localization | Proved under explicit nontriviality hypotheses. |
 | Uniform jets and one-dimensional sublevels | Proved. |
 | Uniform analytic sublevels | Proved, including a pairwise-disjoint rational-family specialization. |
@@ -53,9 +56,11 @@ scope. These additions have not yet been merged into `main`.
 | Full scale/cell assembly of Proposition 5.1 | Proved, including small and large target blocks and uniformity in the cutoff. |
 | Theorem 1.2 from the manuscript's hypotheses | Pending. |
 
-The remaining work includes deriving Wronskian nontriviality from
-nonrationality and instantiating the analytic and counting inputs of the
-fusion construction from the hypotheses of Theorem 1.2.
+[Analytic fusion](MahlerLean/FusionFromTwoHeight.lean) now derives escape
+from derivative bounds and Wronskian nontriviality, with no counting
+hypothesis. The remaining work is to derive these analytic data from
+nonrationality inside every requested open subinterval, and conclude
+Theorem 1.2.
 The uniform sublevel result assumes analyticity; the more general
 finite-smoothness statement in the manuscript is not claimed.
 
