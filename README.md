@@ -21,8 +21,8 @@ Here $\mu$ denotes the irrationality exponent. The proof combines rational
 point counting at independent source and target heights, Wronskian
 estimates, and a nested-interval construction.
 
-**The formalization is in progress. Proposition 5.1 and Theorem 1.2 are
-not yet fully formalized.**
+**Proposition 5.1 is formalized on the development branch under explicit
+analytic, derivative and Wronskian hypotheses. Theorem 1.2 remains in progress.**
 
 [Manuscript](paper/main.pdf) · [Proof roadmap](docs/ROADMAP.md) ·
 [Formalized results](docs/FORMALIZATION.md) · [Validation record](VALIDATION.md) ·
@@ -33,9 +33,12 @@ not yet fully formalized.**
 The `main` branch contains the arithmetic and fusion infrastructure, Wronskian
 localization, uniform jet bounds, and one-dimensional sublevel estimates.
 The [development branch](https://github.com/DiegoMarquesMath/MahlerLean/tree/step13-determinants)
-also contains the uniform analytic sublevel theorem, its rational-family
-specialization, and the arithmetic determinant lower bound with separate
-source and target heights. See the
+contains the uniform analytic sublevel theorem, arithmetic and analytic
+determinant bounds, and the complete small/large target-height assembly of
+[Proposition 5.1](https://github.com/DiegoMarquesMath/MahlerLean/blob/1cd6a0b2a8692b5278365c34ef60571a5fa48081/MahlerLean/TwoHeightCounting.lean).
+The leading constant is chosen before the source subinterval and approximation
+order; the remainder constant and threshold are uniform in the target cutoff.
+These additions have not yet been merged into `main`. See the
 [sublevel overview](https://github.com/DiegoMarquesMath/MahlerLean/blob/step13-determinants/docs/STEP12_PT.md)
 and [determinant overview](https://github.com/DiegoMarquesMath/MahlerLean/blob/step13-determinants/docs/STEP13_PT.md).
 
@@ -48,13 +51,13 @@ and [determinant overview](https://github.com/DiegoMarquesMath/MahlerLean/blob/s
 | Uniform jets and one-dimensional sublevels | Proved. |
 | Uniform analytic sublevels | Proved on the development branch linked above. |
 | Arithmetic determinant lower bound | Proved on the development branch linked above. |
-| Analytic determinant upper bound and Proposition 5.1 | Pending. |
+| Analytic determinant upper bound | Proved on the development branch linked above. |
+| Proposition 5.1 | Proved there under explicit analytic, derivative and Wronskian hypotheses, including uniformity in the target cutoff. |
 | Theorem 1.2 from the manuscript's hypotheses | Pending. |
 
 The remaining work includes deriving Wronskian nontriviality from
-nonrationality, connecting the sublevel interval cover to the disjoint
-Farey-counting interface, and completing the determinant and counting
-arguments. The uniform sublevel result assumes analyticity; the more
+nonrationality and instantiating the analytic and counting inputs of the
+fusion construction from the hypotheses of Theorem 1.2. The uniform sublevel result assumes analyticity; the more
 general finite-smoothness statement in the manuscript is not claimed.
 
 ## Build the Lean files
