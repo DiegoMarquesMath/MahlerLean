@@ -292,3 +292,23 @@ This confirms step 7. The step-8 patch is locally verified; its Mac check,
 commit, push and remote verification remain to be run. The connected
 GitHub account was checked again: DiegoNash, with a 404 response for the
 private DiegoMarquesMath/MahlerLean repository. No remote write occurred.
+
+
+# Step 12g — global uniform sublevel measure estimate
+
+Validated on 20 September 2026 by GitHub Actions on the pinned Lean 4.24.0
+and mathlib v4.24.0 revisions.
+
+- Workflow run 35479026128 completed successfully:
+  https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35479026128
+- `lake build` passed with 3129 jobs.
+- `bash scripts/check.sh` passed with warnings treated as errors.
+- The zero-order and positive-order patches are assembled with the common
+  exponent `1/(N-1)`.
+- The compact coefficient/source cover is clipped to the fixed source
+  interval and yields a global measure estimate uniform over all unit
+  coefficient vectors.
+- No `sorry`, `admit`, custom axiom, or placeholder was introduced.
+
+The uniform bound on the number of interval components and the
+rational-family specialization remain to finish Step 12.
