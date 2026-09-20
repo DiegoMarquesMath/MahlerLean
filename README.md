@@ -10,6 +10,13 @@ of Proposition 5.1 are formalized.** The final theorem includes the
 irrationality-exponent bound and has no additional counting, derivative
 or Wronskian hypotheses.
 
+**Project URL:** [github.com/DiegoMarquesMath/MahlerLean](https://github.com/DiegoMarquesMath/MahlerLean)
+
+| Result | Lean declaration | Source |
+| --- | --- | --- |
+| Theorem 1.2, including $\mu(f(\xi))\le100$ | `MahlerLean.theorem_1_2` | [IrrationalityExponent.lean](MahlerLean/IrrationalityExponent.lean) |
+| Proposition 5.1, uniform in the target cutoff | `MahlerLean.proposition_5_1` | [TwoHeightCounting.lean](MahlerLean/TwoHeightCounting.lean) |
+
 [Main theorem](MahlerLean/IrrationalityExponent.lean) ·
 [Manuscript](paper/main.pdf) ·
 [Statement comparison](docs/THEOREM_1_2.md) ·
@@ -56,6 +63,16 @@ See the [proof roadmap](docs/ROADMAP.md),
 The conditional interfaces in intermediate modules are instantiated in
 the final theorem. Historical development notes record earlier checkpoints.
 
+## Verification record
+
+The complete local verification at
+[commit `babdfb8`](https://github.com/DiegoMarquesMath/MahlerLean/tree/babdfb81675dbce78991bef3cd8e9a4350635e1f)
+passed with Lean 4.24.0: all 88 project modules checked with warnings as
+errors and all 352 listed declarations audited. The only reported axioms
+were `propext`, `Classical.choice` and `Quot.sound`, with no `sorryAx`.
+The [GitHub Actions run for that exact proof commit](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35528475325)
+provides its separate remote verification status.
+
 ## Reproduce the verification
 
 Install Lean using the [Lean community guide](https://leanprover-community.github.io/get_started.html).
@@ -83,7 +100,17 @@ finite-smoothness version of the sublevel theorem is not claimed.
 
 The kernel verifies the Lean statements. The correspondence to the
 manuscript is documented separately in the statement comparisons.
-When citing the formalization, include the repository URL and the exact
-commit or release used, so readers can reproduce the same proof.
+A concise statement for the manuscript is:
+
+> A formalization of Theorem 1.2 in the Lean 4 proof assistant is available at https://github.com/DiegoMarquesMath/MahlerLean.
+
+```latex
+A formalization of Theorem~1.2 in the Lean~4 proof assistant is
+available at \url{https://github.com/DiegoMarquesMath/MahlerLean}.
+```
+
+For a version-specific reference, cite the proof commit
+[`babdfb81675dbce78991bef3cd8e9a4350635e1f`](https://github.com/DiegoMarquesMath/MahlerLean/tree/babdfb81675dbce78991bef3cd8e9a4350635e1f).
+This pins the statements and proofs independently of later documentation changes.
 
 Maintained by [Diego Marques](https://github.com/DiegoMarquesMath).
