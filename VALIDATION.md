@@ -1,6 +1,32 @@
 # Validation record
 
-## Current result — 20 September 2026
+## Theorem 1.1 extension — 20 September 2026
+
+Theorem 1.1 is formalized as `MahlerLean.theorem_1_1` in
+`MahlerLean/EntireRigidity.lean`: an entire function preserving every
+Liouville number is a polynomial with real coefficients on all of ℂ.
+The real-axis property is proved from Liouville density and continuity;
+no extra real-valuedness or rationality hypothesis is assumed.
+The statement comparison and proof are documented in
+[THEOREM_1_1.md](docs/THEOREM_1_1.md).
+
+The complete `bash scripts/check.sh` passed with exit code 0:
+
+- Lean 4.24.0 and unchanged pinned dependencies.
+- `lake build`: passed, 3194 jobs.
+- All 89 project source modules passed with warnings treated as errors.
+- All 358 listed declarations were audited, including the six new ones.
+- Only `propext`, `Classical.choice`, and `Quot.sound` were reported;
+  no `sorryAx` or additional project axiom.
+
+The isolated validation tree was compared by Git blob hashes against
+base commit `aee728dbda5391cdd32f4ae67d029d0d3d0d27c8`.
+Only the new module, its root import and the audit entries differ among
+project sources and build configuration. No verification script or
+pinned dependency was changed. This records local validation; the new
+commit's GitHub Actions result is available separately on publication.
+
+## Theorem 1.2 and Proposition 5.1 — prior validation
 
 Proposition 5.1 and the local quantitative Theorem 1.2 are formalized.
 The final declaration is `MahlerLean.theorem_1_2` in

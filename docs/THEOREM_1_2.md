@@ -53,7 +53,8 @@ family independence, the adapted Taylor basis and the Wronskian leading-term
 formula. The Wronskian criterion is documented in `WRONSKIAN_CRITERION.md`;
 Proposition 5.1's statement comparison is in `STEP14_PT.md`.
 
-This completes the local quantitative statement of Theorem 1.2. It does not
-claim formalization of every result in the manuscript, the entire-function
-consequence of Theorem 1.1, or the independent Section 7 statements.
+This completes the local quantitative statement of Theorem 1.2.
+The entire-function consequence, Theorem 1.1, is now formalized in
+`EntireRigidity.lean`; see [THEOREM_1_1.md](THEOREM_1_1.md).
+The independent Section 7 statements remain outside the formalization scope.
 Reproducible build and audit results are recorded in `../VALIDATION.md`.

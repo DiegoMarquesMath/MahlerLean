@@ -433,3 +433,11 @@ import MahlerLean
 #print axioms MahlerLean.approximationPairs_finite_of_eventual_target_avoidance
 #print axioms MahlerLean.irrationalityExponent_le_of_eventual_target_avoidance
 #print axioms MahlerLean.theorem_1_2
+
+-- Entire-function rigidity and its real-analytic prerequisite
+#print axioms MahlerLean.rationalOn_of_preserves_liouville
+#print axioms MahlerLean.real_on_axis_of_preserves_liouville
+#print axioms MahlerLean.analytic_real_restriction
+#print axioms MahlerLean.entire_eq_of_eq_on_real
+#print axioms MahlerLean.entire_polynomial_of_rational_real_restriction
+#print axioms MahlerLean.theorem_1_1
