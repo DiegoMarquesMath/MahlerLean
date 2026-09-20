@@ -293,3 +293,7 @@ import MahlerLean
 #print axioms MahlerLean.exists_uniform_rational_relation_disjoint_sublevel_bound
 #print axioms MahlerLean.exists_uniform_sublevel_data_of_targetLinear_det_zero
 #print axioms MahlerLean.exists_targetLinear_counting_bound_of_all_det_zero
+
+#print axioms MahlerLean.card_le_sum_of_finite_cover
+#print axioms MahlerLean.card_le_of_uniform_cell_bound
+#print axioms MahlerLean.eventually_log_mul_large_block_power_le

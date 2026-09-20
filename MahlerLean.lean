@@ -48,3 +48,5 @@ import MahlerLean.UniformDisjointSublevel
 import MahlerLean.UniformSublevelDisjoint
 import MahlerLean.DeterminantSublevelBridge
 import MahlerLean.TargetLinearCounting
+
+import MahlerLean.CellCountingAssembly
