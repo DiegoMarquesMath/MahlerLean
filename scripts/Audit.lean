@@ -234,3 +234,9 @@ import MahlerLean
 #print axioms MahlerLean.exists_taylor_remainder_bound_on_radius
 #print axioms MahlerLean.exists_curve_taylor_remainder_bound
 #print axioms MahlerLean.taylorWithinEval_eq_derivative_sum
+
+-- Step 13: target-linear curve Taylor specialization
+#print axioms MahlerLean.targetLinearCurve_apply
+#print axioms MahlerLean.targetLinearMatrix_row_eq_curve
+#print axioms MahlerLean.targetLinearCurve_contDiffOn
+#print axioms MahlerLean.exists_targetLinearCurve_taylor_remainder_bound
