@@ -34,6 +34,11 @@ The manual statement comparison with `paper/main.tex` is recorded in
 [STEP14_PT.md](docs/STEP14_PT.md). Kernel verification applies to these
 formal statements; unrelated manuscript results are not claimed.
 
+The final proof sources are fixed at
+[commit `babdfb8`](https://github.com/DiegoMarquesMath/MahlerLean/tree/babdfb81675dbce78991bef3cd8e9a4350635e1f).
+The [GitHub Actions run for that proof commit](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35528475325)
+provides its separate remote verification status.
+
 ## Historical checkpoint records
 
 The entries below describe earlier states. Their old statements of pending
