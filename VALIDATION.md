@@ -414,3 +414,26 @@ Validated on 20 September 2026 at commit
   a small remainder row has an explicit Leibniz bound.
 - The final uniform smooth-curve assembly and the simultaneous vertical
   perturbation estimate remain pending.
+
+## Proposition 5.1: complete two-height assembly
+
+The records above describe earlier milestones. The current assembly is
+`MahlerLean.proposition_5_1` in `TwoHeightCounting.lean`, with its explicit
+analytic, derivative and Wronskian hypotheses. It bounds the original
+`dangerousSources`, with the leading constant chosen before the subinterval
+and approximation order, and the remainder constant and positive natural
+threshold chosen before the target cutoff H.
+
+Validation for this change:
+- Compiled `DangerousSourceDecomposition.lean` and `TwoHeightCounting.lean`
+  with Lean 4.24.0 and `-DwarningAsError=true`.
+- Inspected the printed statement of `proposition_5_1`.
+- Audited `exists_dyadic_target_block`, `hasTargetWitness_small_or_large`,
+  `proposition_5_1_of_fixed_bounds`, `proposition_5_1`, and
+  `proposition_5_1_uniformDangerBound`. Their transitive axiom dependencies
+  are exactly `propext, Classical.choice, Quot.sound`; no `sorryAx`.
+- This records targeted module compilation and theorem audits, not a new
+  full `scripts/check.sh` run or a completed GitHub Actions run.
+
+The final corollary supplies `HasUniformDangerBound`. Theorem 1.2 from the
+manuscript's hypotheses is still pending.

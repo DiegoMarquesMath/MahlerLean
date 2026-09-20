@@ -278,3 +278,33 @@ Validação: os sete módulos novos compilaram com warningAsError=true.
 Os catorze resultados novos foram auditados e usam somente propext,
 Classical.choice e Quot.sound. Essa validação direcionada não declara
 que o CI integral já terminou.
+
+## Item 4 — montagem completa da Proposição 5.1
+
+A montagem está formalizada em `TwoHeightCounting.lean`.
+`DangerousSourceDecomposition.lean` atribui cada witness original a um bloco
+diádico de extremo esquerdo `2^k H`. Blocos com extremo esquerdo menor que
+`Q^(1/5)` são pequenos, inclusive quando atravessam esse limiar. Os demais
+são grandes e conservam o cutoff original. Uma partição por predicado impede
+contagem dupla de uma fonte com múltiplos witnesses.
+
+O teorema `proposition_5_1` prova
+`card(dangerousSources) ≤ C_low Q² / H^98 + C Q^(17/10)`.
+A constante positiva `C_low` é escolhida antes do subintervalo `J` e de `A`.
+Para cada `J,A` admissíveis, existem `C>0` e `Q₀:ℕ, Q₀>0`, escolhidos
+antes de `H`, tais que a estimativa vale para todo `H≥2` e `Q≥Q₀`.
+O erro pequeno `Q^(2/5)` é absorvido em `Q^(17/10)`.
+O limite da imagem no intervalo ambiente é deduzido por compacidade.
+
+Hipóteses explícitas: analiticidade em um aberto contendo o intervalo ambiente
+compacto, `M≥0`, limite inferior positivo para `|f'|` nesse intervalo,
+`A≥3` e não anulação dos Wronskianos de graus `2..wronskianDegreeCutoff A`
+em `J`. A contagem usa a margem de segurança original.
+`proposition_5_1_uniformDangerBound` fornece diretamente a interface de
+contagem da construção de fusão.
+
+Os novos módulos compilaram com warnings tratados como erros. A auditoria
+transitiva dos teoremas exibiu apenas `propext, Classical.choice, Quot.sound`.
+Isso encerra a montagem de contagem sob essas hipóteses; o Teorema 1.2 ainda
+exige derivar os dados analíticos e a não trivialidade dos Wronskianos a partir
+das hipóteses do manuscrito e instanciar a construção de fusão.

@@ -371,3 +371,10 @@ import MahlerLean
 #print axioms MahlerLean.exists_smallTarget_original_margin_card_bound
 #print axioms MahlerLean.inverse_bound_of_abs_deriv_lower
 #print axioms MahlerLean.exists_smallTarget_counting_of_derivative_bounds
+
+-- Complete two-height assembly and the fusion counting interface
+#print axioms MahlerLean.exists_dyadic_target_block
+#print axioms MahlerLean.hasTargetWitness_small_or_large
+#print axioms MahlerLean.proposition_5_1_of_fixed_bounds
+#print axioms MahlerLean.proposition_5_1
+#print axioms MahlerLean.proposition_5_1_uniformDangerBound

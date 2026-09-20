@@ -21,8 +21,8 @@ Here $\mu$ denotes the irrationality exponent. The proof combines rational
 point counting at independent source and target heights, Wronskian
 estimates, and a nested-interval construction.
 
-**The formalization is in progress. Proposition 5.1 and Theorem 1.2 are
-not yet fully formalized.**
+**Proposition 5.1 is formalized on this branch under its fixed analytic,
+derivative and Wronskian hypotheses. Theorem 1.2 remains in progress.**
 
 [Manuscript](paper/main.pdf) · [Proof roadmap](docs/ROADMAP.md) ·
 [Formalized results](docs/FORMALIZATION.md) · [Validation record](VALIDATION.md) ·
@@ -30,11 +30,13 @@ not yet fully formalized.**
 
 ## Current status
 
-This branch includes the uniform analytic sublevel theorem with an exact
-pairwise-disjoint interval decomposition, the arithmetic determinant lower
-bound with separate source and target heights, the analytic determinant upper
-bound, determinant vanishing, normalized relation extraction, and their
-composition with Farey counting. See the [determinant overview](docs/STEP13_PT.md).
+The [two-height counting theorem](MahlerLean/TwoHeightCounting.lean) combines
+small and large target blocks to prove Proposition 5.1 for the original
+`dangerousSources` and safety margin. The leading constant is chosen before
+the source subinterval and approximation order; the remainder constant and
+threshold are uniform in the target-height cutoff. It also supplies the
+`HasUniformDangerBound` interface used by fusion.
+See the [determinant and counting overview](docs/STEP13_PT.md).
 The [Step 12 overview](docs/STEP12_PT.md) records the analytic hypotheses and
 scope. These additions have not yet been merged into `main`.
 
@@ -48,12 +50,12 @@ scope. These additions have not yet been merged into `main`.
 | Uniform analytic sublevels | Proved, including a pairwise-disjoint rational-family specialization. |
 | Arithmetic determinant lower bound | Proved, without reduced-fraction assumptions. |
 | Analytic determinant and rank-to-counting core | Proved on this branch. |
-| Full scale/cell assembly of Proposition 5.1 | Pending. |
+| Full scale/cell assembly of Proposition 5.1 | Proved, including small and large target blocks and uniformity in the cutoff. |
 | Theorem 1.2 from the manuscript's hypotheses | Pending. |
 
 The remaining work includes deriving Wronskian nontriviality from
-nonrationality and completing the scale/cell and target-height-block assembly
-of Proposition 5.1. The determinant-to-counting core is now machine checked.
+nonrationality and instantiating the analytic and counting inputs of the
+fusion construction from the hypotheses of Theorem 1.2.
 The uniform sublevel result assumes analyticity; the more general
 finite-smoothness statement in the manuscript is not claimed.
 
