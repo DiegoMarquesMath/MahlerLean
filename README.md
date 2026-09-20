@@ -3,7 +3,7 @@
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 161 listed theorems. It proves the rational
+**Scope:** the project contains 164 listed theorems. It proves the rational
 source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
 formalizes the infinite fusion construction and its escape conclusion
 **conditional on explicit counting, derivative and finite-forbidden-set
@@ -40,9 +40,12 @@ sublevel bound, while the zero-order sublevel is empty below the jet lower
 bound. The exponent has now been uniformized to `1/(N-1)`, the local bounds
 are summed over finite interval covers, and compactness extracts a uniform
 finite family of coefficient/source rectangles carrying compact source
-intervals. Clipping these intervals to the source interval, incorporating
-zero-order patches in the final assembly, and proving the uniform component
-bound in Lemma 3.5 remain pending.
+intervals. The intervals are now clipped to the fixed source interval,
+zero-order patches are incorporated in the finite assembly, and
+`exists_uniform_analytic_sublevel_measure_bound` proves the resulting
+global measure estimate uniformly over normalized coefficient vectors.
+The uniform component bound and the rational-family specialization in
+Lemma 3.5 remain pending.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
