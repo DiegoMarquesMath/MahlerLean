@@ -245,3 +245,10 @@ import MahlerLean
 #print axioms MahlerLean.targetLinearMatrix_eq_add_perturbation
 #print axioms MahlerLean.targetLinearPerturbationMatrix_rowL1_le
 #print axioms MahlerLean.abs_det_targetLinearPerturbationMatrix_le
+
+-- Step 13: Taylor-polynomial determinant factorization
+#print axioms MahlerLean.taylorPolynomialMatrix_eq_mul
+#print axioms MahlerLean.det_taylorPolynomialMatrix_eq_mul
+#print axioms MahlerLean.taylorCoefficientMatrix_transpose_rowL1_le
+#print axioms MahlerLean.abs_det_taylorCoefficientMatrix_le
+#print axioms MahlerLean.abs_det_taylorPolynomialMatrix_le
