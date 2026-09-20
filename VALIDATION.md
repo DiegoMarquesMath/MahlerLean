@@ -312,3 +312,25 @@ and mathlib v4.24.0 revisions.
 
 The uniform bound on the number of interval components and the
 rational-family specialization remain to finish Step 12.
+
+
+# Step 12 — uniform analytic sublevel theorem
+
+The new modules are `SublevelIntervals`, `UniformSublevelIntervals`, and
+`UniformSublevel`. The root module imports all three transitively, and
+`scripts/Audit.lean` includes all seven new named theorems (182 entries total).
+Lean and mathlib revisions are unchanged.
+
+The complete build, including the rational-family specialization, passed
+in run 35482382760 at commit `70c8457` (3132 jobs). That run's strict audit
+stopped on three deprecated-name warnings. These have been replaced with
+`Finset.notMem_empty`; the branch's subsequent CI is the verification gate
+for the corrected sources. A successful build alone is not an audit pass.
+
+The audited statements require analyticity on an open neighborhood and a
+nonvanishing Wronskian on the compact source interval. They quantify the
+positive measure constant, interval bound, and smallness threshold before
+all unit coefficient vectors and sublevel heights. The interval union is
+exact, includes singleton pieces, and may overlap. The general C^(N-1)
+version of Lemma 3.5 is not claimed. See `docs/STEP12_PT.md` for the remaining
+Farey interface, nonrationality, determinant, and final-theorem dependencies.

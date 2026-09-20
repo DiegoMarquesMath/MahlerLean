@@ -295,8 +295,10 @@ The remainder coefficient and threshold retain independence of H.
 
 The simultaneous lower bound can depend on the chosen finite degree set
 and interval. No uniform bound over all degrees or all shrinking intervals
-is claimed. Uniform sublevel estimates, the determinant counting argument,
-and the derivation of Wronskian nontriviality from nonrationality remain open
+is claimed. Uniform analytic sublevel estimates now provide both a measure
+bound and an exact finite interval union. Integration with the disjoint
+Farey-counting interface, the determinant counting argument, and the
+derivation of Wronskian nontriviality from nonrationality remain open
 formalization tasks. The main theorems are still not fully formalized.
 
 ## Verification policy

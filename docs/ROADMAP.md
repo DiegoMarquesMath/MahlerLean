@@ -44,9 +44,15 @@ in fusion, conditional on Wronskian nontriviality. The new
 `WronskianCountingInputs` adapter constructs those sets instead of taking
 an arbitrary finite-set sequence as input. See [STEP8_PT.md](STEP8_PT.md).
 
+Step 12 combines the uniform jet and one-dimensional sublevel results
+into uniform analytic sublevel bounds: an exact union of at most R intervals
+and measure at most C eps^(1/(N-1)), with constants preceding all normalized
+coefficient vectors. It includes the rational-family specialization.
+See [STEP12_PT.md](STEP12_PT.md) for the precise analytic hypotheses.
+
 The abstract infinite fusion argument is formalized conditionally.
 Remaining tasks include deriving Wronskian nontriviality from nonrationality,
-sublevel interval decompositions, and
+adapting the interval union to the disjoint Farey-counting interface, and
 Proposition 5.1 with its dependencies. These must provide `FusionInputs`
 from the hypotheses of the manuscript before the main theorems can be
 claimed as fully formalized.
@@ -110,9 +116,12 @@ the full interface.
 Farey separation, the upper estimate from a disjoint interval
 decomposition, and rational supply with cF = 1/4 are now proved.
 Localized Wronskian separation is now proved given nontriviality.
-Remaining statements include rationality versus linear dependence, the analytic
-Wronskian criterion, uniform sublevel length and component bounds, determinant perturbation, rational
-denominator clearing, rank deficiency and coefficient normalization.
+Uniform sublevel measure and finite interval bounds are now proved for
+analytic families with a nonvanishing Wronskian on the compact interval.
+The interval pieces may overlap; a disjointification or compatible counting
+adapter remains. Other remaining statements include rationality versus
+linear dependence, the analytic Wronskian criterion, determinant perturbation,
+rational denominator clearing, rank deficiency and coefficient normalization.
 
 In the large-target range track:
 
@@ -137,3 +146,4 @@ results are a separate milestone.
 Only after verification, create a tagged release and describe its precise
 scope in the paper. A public blueprint site and an archival DOI can be added
 then. A Markdown dependency plan is not itself a machine-checked proof.
+
