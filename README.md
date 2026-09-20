@@ -32,9 +32,12 @@ not yet fully formalized.**
 
 The `main` branch contains the arithmetic and fusion infrastructure, Wronskian
 localization, uniform jet bounds, and one-dimensional sublevel estimates.
-The [development branch](https://github.com/DiegoMarquesMath/MahlerLean/tree/step12-uniform-sublevel)
-also contains the uniform analytic sublevel theorem and its rational-family
-specialization; see the [Step 12 overview](https://github.com/DiegoMarquesMath/MahlerLean/blob/step12-uniform-sublevel/docs/STEP12_PT.md).
+The [development branch](https://github.com/DiegoMarquesMath/MahlerLean/tree/step13-determinants)
+also contains the uniform analytic sublevel theorem, its rational-family
+specialization, and the arithmetic determinant lower bound with separate
+source and target heights. See the
+[sublevel overview](https://github.com/DiegoMarquesMath/MahlerLean/blob/step13-determinants/docs/STEP12_PT.md)
+and [determinant overview](https://github.com/DiegoMarquesMath/MahlerLean/blob/step13-determinants/docs/STEP13_PT.md).
 
 | Part of the argument | Formalization status |
 | --- | --- |
@@ -44,7 +47,8 @@ specialization; see the [Step 12 overview](https://github.com/DiegoMarquesMath/M
 | Wronskian localization | Proved under explicit nontriviality hypotheses. |
 | Uniform jets and one-dimensional sublevels | Proved. |
 | Uniform analytic sublevels | Proved on the development branch linked above. |
-| Determinant estimates and Proposition 5.1 | Pending. |
+| Arithmetic determinant lower bound | Proved on the development branch linked above. |
+| Analytic determinant upper bound and Proposition 5.1 | Pending. |
 | Theorem 1.2 from the manuscript's hypotheses | Pending. |
 
 The remaining work includes deriving Wronskian nontriviality from
