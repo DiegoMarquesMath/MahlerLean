@@ -93,7 +93,8 @@ theorem exists_uniform_analytic_sublevel_measure_bound
       hleft.trans hright
 
     have hps : p ∈ s := by
-      simp [s, hpt, hcp, hpnonempty]
+      apply Finset.mem_filter.mpr
+      exact ⟨hpt, hcp, hpnonempty⟩
 
     exact
       Set.mem_iUnion₂.mpr
