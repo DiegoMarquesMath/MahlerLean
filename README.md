@@ -22,7 +22,9 @@ point counting at independent source and target heights, Wronskian
 estimates, and a nested-interval construction.
 
 **Proposition 5.1 is formalized on this branch under its fixed analytic,
-derivative and Wronskian hypotheses. Theorem 1.2 remains in progress.**
+derivative and Wronskian hypotheses. The analytic nonrational escape result
+is now proved without extra Wronskian assumptions. The final irrationality-exponent
+statement and validation of Theorem 1.2 remain in progress.**
 
 The [statement comparison](docs/STEP14_PT.md) checks these hypotheses and
 definitions against Proposition 5.1 in the repository manuscript.
@@ -47,26 +49,27 @@ scope. These additions have not yet been merged into `main`.
 | --- | --- |
 | Farey separation and upper counting | Proved for a supplied disjoint interval decomposition. |
 | Rational source supply | Proved with the absolute constant $c_F=1/4$. |
-| Infinite fusion and Liouville escape | Counting and derivative bounds discharged; Wronskian nontriviality remains explicit. |
-| Wronskian localization | Proved under explicit nontriviality hypotheses. |
+| Infinite fusion and Liouville escape | Proved from analyticity and nonrationality, with target avoidance at exponent 100. |
+| Wronskian localization | Proved; nontriviality is now deduced from nonrationality. |
 | Uniform jets and one-dimensional sublevels | Proved. |
 | Uniform analytic sublevels | Proved, including a pairwise-disjoint rational-family specialization. |
 | Arithmetic determinant lower bound | Proved, without reduced-fraction assumptions. |
 | Analytic determinant and rank-to-counting core | Proved on this branch. |
 | Full scale/cell assembly of Proposition 5.1 | Proved, including small and large target blocks and uniformity in the cutoff. |
-| Theorem 1.2 from the manuscript's hypotheses | Pending. |
+| Theorem 1.2 from the manuscript's hypotheses | Escape and exponent-100 target avoidance proved. Explicit irrationality-exponent formulation and final validation remain. |
 
-[Local analytic escape](MahlerLean/AnalyticDerivativeInterval.lean) now
-works in every nonempty open subset of the domain. Counting and derivative
-bounds are proved internally. [Polynomial relation cancellation](MahlerLean/RationalRelation.lean)
-now proves that nonrationality excludes every nontrivial relation A+Bf=0
-and implies nonconstancy. [Independence of the exact indexed family](MahlerLean/RationalFamilyIndependent.lean)
-is proved globally on the domain and locally as analytic germs.
-The remaining implication is Wronskian nontriviality from analytic
-independence, followed by the final application to Theorem 1.2.
-[Taylor orders and the leading determinant](docs/WRONSKIAN_CRITERION.md)
-and the constant change to a basis of distinct orders are proved.
-The analytic leading-term formula remains. See the [derivative localization notes](docs/STEP15_PT.md).
+[Analytic nonrational escape](MahlerLean/RationalWronskianNonvanishing.lean)
+now works in every nonempty open subset of the domain. The theorem
+`exists_escape_of_analytic_not_rational` supplies a Liouville point whose
+image satisfies `EventualTargetAvoidance` at exponent 100 and is not Liouville.
+Counting, derivative bounds and Wronskian nontriviality are all proved internally.
+
+The [Wronskian leading-term formula](MahlerLean/WronskianLeadingTerm.lean)
+is proved using scaled derivative limits and the Vandermonde determinant.
+An adapted constant basis transfers nonvanishing to the manuscript's exact
+rational family. See the [criterion and validation notes](docs/WRONSKIAN_CRITERION.md).
+The remaining finalization is the explicit irrationality-exponent formulation,
+the whole-theorem manuscript comparison and full project validation.
 The uniform sublevel result assumes analyticity; the more general
 finite-smoothness statement in the manuscript is not claimed.
 

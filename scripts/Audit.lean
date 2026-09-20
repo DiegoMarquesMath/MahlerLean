@@ -414,3 +414,17 @@ import MahlerLean
 #print axioms MahlerLean.rationalFamily_exists_basis_distinct_orders
 #print axioms MahlerLean.wronskian_linearCombination_matrix
 #print axioms MahlerLean.wronskian_basis_ne_zero_iff
+
+-- Analytic Wronskian leading term and discharge of nontriviality
+#print axioms MahlerLean.tendsto_div_pow_of_analytic_vanishing
+#print axioms MahlerLean.tendsto_scaled_iteratedDeriv
+#print axioms MahlerLean.det_scaled_derivatives
+#print axioms MahlerLean.tendsto_wronskian_leading_coefficient
+#print axioms MahlerLean.wronskian_leading_coefficient_ne_zero
+#print axioms MahlerLean.tendsto_wronskian_div_zpow
+#print axioms MahlerLean.eventually_wronskian_ne_zero_of_distinct_orders
+#print axioms MahlerLean.sum_indices_le_sum_distinct_orders
+#print axioms MahlerLean.tendsto_wronskian_div_pow
+#print axioms MahlerLean.eventually_rationalWronskian_ne_zero_of_not_rational
+#print axioms MahlerLean.exists_rationalWronskian_ne_zero_of_not_rational
+#print axioms MahlerLean.exists_escape_of_analytic_not_rational

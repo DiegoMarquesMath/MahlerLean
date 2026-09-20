@@ -1,47 +1,59 @@
-# Analytic Wronskian criterion: implementation status
+# Analytic Wronskian criterion
 
-The analytic criterion is still pending. The adapted basis and its
-constant change-of-basis identity are now proved.
+The leading-term formula and its application to the manuscript's rational
+family are proved. Wronskian nontriviality is no longer an extra assumption
+in the analytic nonrational escape theorem.
 
-## Proved ingredients
+## Leading term
 
-- Nonrationality implies independence of the exact rational family on U
-  and as analytic germs at each point of U.
-- A scalar analytic function whose iterated derivatives all vanish has
-  zero germ. Thus every nonzero coefficient combination has finite order.
-- `exists_basis_distinct_orders` constructs a basis with distinct first
-  nonzero indices for any separating sequence of linear forms on a
-  finite-dimensional real vector space. Its proof uses induction on
-  dimension, a minimal nonzero linear form, and its codimension-one kernel.
-- `rationalFamily_exists_basis_distinct_orders` applies this construction
-  to the derivative forms on coefficient space. It supplies an actual
-  basis of the original coefficient space, so the change is constant and
-  invertible, not a point-dependent change of functions.
-- `wronskian_linearCombination_matrix` proves that a constant coefficient
-  change C multiplies the Wronskian by det(C).
-  `wronskian_basis_ne_zero_iff` transfers nonvanishing for a basis change.
-- For distinct natural orders r_j, the matrix with entries
-  (r_j).descFactorial(i) has nonzero determinant by the Vandermonde identity.
+For analytic functions φ_j at z with distinct finite vanishing orders r_j,
+put a_j = φ_j^(r_j)(z)/r_j! and S = sum_j r_j - N(N-1)/2.
+The theorem `tendsto_wronskian_div_pow` proves
 
-Files: AnalyticTaylorInjectivity.lean, WronskianLeadingMatrix.lean,
-OrderedTaylorBasis.lean, RationalTaylorBasis.lean.
+    W(φ)(x) / (x-z)^S → (product_j a_j) det(Vandermonde(r))
 
-## Remaining proof
+on the punctured neighborhood of z. The exponent S is nonnegative:
+`sum_indices_le_sum_distinct_orders` proves the required inequality.
+If each a_j is nonzero, the limit is nonzero; hence the Wronskian is
+nonzero sufficiently near z away from z.
 
-Prove the analytic leading-term formula for the Wronskian of a family
-with distinct orders. For leading terms a_j t^(r_j), its proposed first
-coefficient is the product of a_j times the descending-factorial determinant,
-with exponent sum(r_j)-N(N-1)/2. In particular, the proof must handle
-derivative orders larger than an individual r_j, not use truncated natural
-subtraction as if negative powers were present.
+The proof first establishes the limit of each scaled derivative
 
-After that, use the already proved basis change to obtain W_d not
-identically zero and apply the existing escape theorem.
-Theorem 1.2 is not yet claimed as fully formalized.
+    (x-z)^i φ_j^(i)(x) / (x-z)^(r_j) → a_j (r_j).descFactorial(i).
 
-## Validation of the basis construction
+For i ≤ r_j it uses Taylor's theorem and the lower vanishing derivatives.
+For i > r_j it uses continuity multiplied by a positive power tending
+to zero. This explicitly handles the case where naive natural subtraction
+of exponents would lose information. Exact row and column scaling of the
+determinant then gives the leading-term formula.
 
-Compiled OrderedTaylorBasis.lean and RationalTaylorBasis.lean in Lean
-4.24.0 with warnings as errors. Audited the five new theorem declarations;
-only propext, Classical.choice, Quot.sound occur transitively, without
-sorryAx. This is targeted validation, not a new full CI success claim.
+## Application to the rational family
+
+The previously proved results give:
+- independence of 1,f,x,xf,...,x^d,x^d f on the domain and as analytic germs;
+- a constant coefficient basis with distinct first nonzero Taylor orders;
+- the Wronskian change-of-basis identity, with nonzero basis determinant.
+
+`eventually_rationalWronskian_ne_zero_of_not_rational` applies the new
+formula to that basis and transfers the result back to the original family.
+`exists_rationalWronskian_ne_zero_of_not_rational` provides a nonzero point
+for every d, directly from analyticity and nonrationality.
+
+Finally, `exists_escape_of_analytic_not_rational` applies the existing
+counting and fusion construction with these Wronskians. For every nonempty
+open V contained in the open preconnected analytic domain U, it gives
+x in V and B ≥ 2 with Liouville x, PaperLiouville x,
+EventualTargetAvoidance (f x) 100 B, and not Liouville (f x).
+There is no extra derivative, counting or Wronskian hypothesis.
+
+## Files and validation
+
+New modules: WronskianLeadingTerm.lean and RationalWronskianNonvanishing.lean.
+Both compiled with Lean 4.24.0 and warnings treated as errors.
+All twelve new declarations were audited transitively: only propext,
+Classical.choice and Quot.sound occur, without sorryAx.
+The main import module and scripts/Audit.lean include these results.
+
+This records targeted compilation and axiom audits, not a fresh full CI
+success. The explicit irrationality-exponent formulation, final comparison
+of the entire Theorem 1.2 and full project validation remain to be completed.

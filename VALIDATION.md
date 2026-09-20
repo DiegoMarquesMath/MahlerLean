@@ -507,3 +507,19 @@ Only propext, Classical.choice, Quot.sound occur transitively.
 The basis is a genuine constant invertible change of coefficients.
 The analytic leading-term formula remains unproved; the full criterion and
 Theorem 1.2 are not claimed here. Targeted validation only.
+
+## Analytic Wronskian leading term and nonrational escape
+
+Compiled `WronskianLeadingTerm.lean` and
+`RationalWronskianNonvanishing.lean` with Lean 4.24.0 and
+`-DwarningAsError=true`. All twelve new declarations were checked with
+`#print axioms`, including the composed escape theorem; their transitive
+axioms are only `propext`, `Classical.choice`, `Quot.sound`.
+
+The proof includes the actual analytic leading-term limit, the nonnegative
+natural exponent, distinct-order nonvanishing, application to the exact
+rational family, and escape from analyticity and nonrationality without
+additional Wronskian hypotheses. No placeholders or extra axioms were added.
+
+This is targeted validation. Full repository CI and the final explicit
+irrationality-exponent version of Theorem 1.2 are not claimed here.
