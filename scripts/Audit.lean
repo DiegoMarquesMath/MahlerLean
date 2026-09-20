@@ -252,3 +252,10 @@ import MahlerLean
 #print axioms MahlerLean.taylorCoefficientMatrix_transpose_rowL1_le
 #print axioms MahlerLean.abs_det_taylorCoefficientMatrix_le
 #print axioms MahlerLean.abs_det_taylorPolynomialMatrix_le
+
+-- Step 13: alternating Taylor expansion
+#print axioms MahlerLean.det_sum_rows_eq_sum_det
+#print axioms MahlerLean.det_rows_eq_zero_of_not_injective
+#print axioms MahlerLean.fin_val_le_of_strictMono
+#print axioms MahlerLean.triangular_le_sum_of_injective
+#print axioms MahlerLean.abs_det_taylor_sum_le

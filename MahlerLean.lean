@@ -37,3 +37,4 @@ import MahlerLean.DeterminantAnalyticBounds
 import MahlerLean.CurveTaylorBounds
 import MahlerLean.TargetLinearCurveTaylor
 import MahlerLean.SmoothCurveDeterminant
+import MahlerLean.AlternatingTaylorExpansion
