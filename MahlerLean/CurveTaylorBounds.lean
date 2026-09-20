@@ -58,6 +58,23 @@ theorem exists_taylor_remainder_bound_on_radius
   exact taylor_remainder_le_radius hC0 (hC x hx)
     (sub_nonneg.mpr hx.1) hxρ
 
+/-- The form used for an `N`-dimensional determinant: Taylor order
+`N - 1` and remainder of order `N`. -/
+theorem exists_curve_taylor_remainder_bound
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {Φ : ℝ → E} {a b : ℝ} {N : ℕ} (hN : 0 < N) (hab : a ≤ b)
+    (hΦ : ContDiffOn ℝ N Φ (Icc a b)) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (ρ : ℝ), 0 ≤ ρ → ∀ x ∈ Icc a b,
+      x - a ≤ ρ →
+      ‖Φ x - taylorWithinEval Φ (N - 1) (Icc a b) a x‖ ≤
+        C * ρ ^ N := by
+  have horder : N - 1 + 1 = N := Nat.sub_add_cancel (Nat.one_le_iff_ne_zero.mpr hN.ne')
+  have hΦ' : ContDiffOn ℝ ((N - 1 + 1 : ℕ) : WithTop ℕ∞) Φ (Icc a b) := by
+    simpa [horder] using hΦ
+  simpa [horder] using
+    (exists_taylor_remainder_bound_on_radius
+      (Φ := Φ) (a := a) (b := b) (n := N - 1) hab hΦ')
+
 /-- The explicit finite-sum form of the vector Taylor polynomial used in
 the determinant expansion. -/
 theorem taylorWithinEval_eq_derivative_sum

@@ -232,4 +232,5 @@ import MahlerLean
 #print axioms MahlerLean.exists_taylor_remainder_bound_nonneg
 #print axioms MahlerLean.taylor_remainder_le_radius
 #print axioms MahlerLean.exists_taylor_remainder_bound_on_radius
+#print axioms MahlerLean.exists_curve_taylor_remainder_bound
 #print axioms MahlerLean.taylorWithinEval_eq_derivative_sum
