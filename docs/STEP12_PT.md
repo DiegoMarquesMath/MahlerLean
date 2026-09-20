@@ -15,6 +15,8 @@ Lemma 3.5 do manuscrito. Os módulos intermediários são:
 
 `MahlerLean/UniformIntervalCover.lean`
 
+`MahlerLean/UniformSublevelGlobal.lean`
+
 ## Resultado já formalizado
 
 Para uma família analítica `φ : Fin N → ℝ → ℝ` e um vetor de
@@ -94,19 +96,25 @@ O sexto módulo completa a extração topológica dos intervalos:
   uma única família finita de retângulos; cada retângulo possui ordem de
   derivação fixa e a mesma cota positiva de jato.
 
+O sétimo módulo fecha a estimativa global de medida:
+
+- `jetLinearCombo_sublevel_measure_bound_uniform`: reúne explicitamente
+  os casos de ordem zero e de ordem positiva com a constante e o expoente
+  comuns;
+- `jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover_all_orders`:
+  soma as estimativas numa cobertura finita permitindo todas as ordens;
+- `exists_uniform_analytic_sublevel_measure_bound`: recorta os patches
+  pelo intervalo-fonte fixo e produz uma constante positiva e um número
+  finito de patches independentes do vetor unitário de coeficientes.
+
 ## O que ainda não está provado
 
-Esta etapa intermediária ainda não afirma o Lemma 3.5 completo. Ainda é
-necessário formalizar:
+A estimativa global de medida de subnível está provada. Para concluir o
+Lemma 3.5 e sua aplicação ainda é necessário formalizar:
 
-1. recortar os intervalos extraídos pelo intervalo-fonte `J` e
-   alimentar a família resultante no teorema de montagem, incluindo os
-   patches de ordem zero;
-2. obter assim a afirmação global de medida sem hipóteses auxiliares de
-   cobertura;
-3. representar o subnível como união de um número uniformemente limitado
+1. representar o subnível como união de um número uniformemente limitado
    de intervalos;
-4. especializar o resultado global à família racional `x^i f(x)^j`,
+2. especializar o resultado global à família racional `x^i f(x)^j`,
    obtendo o Corolário 3.6.
 
 Nenhuma dessas conclusões pendentes é introduzida como axioma ou
