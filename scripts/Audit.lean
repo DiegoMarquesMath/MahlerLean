@@ -244,3 +244,4 @@ import MahlerLean
 -- Step 13: perturbation matrix interface
 #print axioms MahlerLean.targetLinearMatrix_eq_add_perturbation
 #print axioms MahlerLean.targetLinearPerturbationMatrix_rowL1_le
+#print axioms MahlerLean.abs_det_targetLinearPerturbationMatrix_le

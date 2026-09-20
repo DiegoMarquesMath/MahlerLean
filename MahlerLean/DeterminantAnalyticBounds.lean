@@ -132,6 +132,20 @@ theorem targetLinearPerturbationMatrix_rowL1_le (d : ℕ)
       (2 * (d + 1) : ℕ) * (X ^ d * δ) := by
   exact targetLinearPerturbation_l1_le d hX (hx k) (hδ k)
 
+/-- The all-error term in the multilinear determinant expansion. -/
+theorem abs_det_targetLinearPerturbationMatrix_le (d : ℕ)
+    {x y z : Fin (2 * (d + 1)) → ℝ} {X δ : ℝ}
+    (hX : 1 ≤ X) (hx : ∀ k, |x k| ≤ X)
+    (hδ : ∀ k, |y k - z k| ≤ δ) :
+    |(targetLinearPerturbationMatrix d x y z).det| ≤
+      Fintype.card (Equiv.Perm (Fin (2 * (d + 1)))) *
+        (((2 * (d + 1) : ℕ) : ℝ) * (X ^ d * δ)) ^ (2 * (d + 1)) := by
+  simpa using
+    (abs_det_le_perm_card_mul_pow
+      (targetLinearPerturbationMatrix d x y z)
+      (K := ((2 * (d + 1) : ℕ) : ℝ) * (X ^ d * δ))
+      (fun k => targetLinearPerturbationMatrix_rowL1_le d hX hx hδ k))
+
 /-- Exact exponent identity behind the stability of the determinant
 under `r` vertical perturbation rows. -/
 theorem perturbation_exponent_identity (N r : ℝ) :
