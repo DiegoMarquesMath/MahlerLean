@@ -461,3 +461,15 @@ Classical.choice, Quot.sound occur transitively. The final theorem has
 no supplied counting or derivative-bound hypotheses; Wronskian
 nontriviality and nonconstancy remain explicit. This is targeted
 validation, not a new full CI success claim.
+
+## Step 16: polynomial relations and pole cancellation
+
+Compiled RationalRelation.lean with warnings as errors. Audited
+polynomial_eq_zero_on_open, isRationalOn_of_polynomial_relation,
+polynomial_relation_eq_zero_of_not_rational, nonconstant_of_not_rational,
+and exists_escape_of_not_rational_and_wronskians. Dependencies are only
+propext, Classical.choice, Quot.sound. Rationality requires a denominator
+nonzero everywhere on U; gcd cancellation and the analytic identity theorem
+justify removal of apparent poles. Wronskian nontriviality remains an
+explicit hypothesis of escape. The full analytic Wronskian criterion is
+not claimed. This records targeted validation, not a new full CI run.

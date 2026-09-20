@@ -387,3 +387,10 @@ import MahlerLean
 #print axioms MahlerLean.exists_analytic_derivative_interval
 #print axioms MahlerLean.exists_escape_of_nonconstant_analytic_wronskians
 #print axioms MahlerLean.exists_escape_in_open_of_analytic_wronskians
+
+-- Rational relations, cancellation and the original nonrationality hypothesis
+#print axioms MahlerLean.polynomial_eq_zero_on_open
+#print axioms MahlerLean.isRationalOn_of_polynomial_relation
+#print axioms MahlerLean.polynomial_relation_eq_zero_of_not_rational
+#print axioms MahlerLean.nonconstant_of_not_rational
+#print axioms MahlerLean.exists_escape_of_not_rational_and_wronskians

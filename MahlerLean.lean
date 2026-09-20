@@ -68,3 +68,5 @@ import MahlerLean.TwoHeightCounting
 import MahlerLean.FusionFromTwoHeight
 
 import MahlerLean.AnalyticDerivativeInterval
+
+import MahlerLean.RationalRelation
