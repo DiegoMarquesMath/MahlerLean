@@ -210,3 +210,10 @@ import MahlerLean
 #print axioms MahlerLean.exists_uniform_analytic_sublevel_interval_cover
 #print axioms MahlerLean.exists_uniform_analytic_sublevel_bound
 #print axioms MahlerLean.exists_uniform_rational_relation_sublevel_bound
+
+#print axioms MahlerLean.determinant_lower_bound_of_integral_rows
+#print axioms MahlerLean.targetLinearMatrix_clear_entry
+#print axioms MahlerLean.targetLinearMatrix_cleared_det
+#print axioms MahlerLean.targetLinearMatrix_det_lower
+#print axioms MahlerLean.targetLinearMatrix_det_lower_dyadic
+#print axioms MahlerLean.targetLinearMatrix_det_eq_zero_of_lt

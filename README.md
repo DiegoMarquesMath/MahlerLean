@@ -1,6 +1,6 @@
 # Mahler's Question on Liouville Numbers
 
-[![Lean verification](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=step12-uniform-sublevel)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml?query=branch%3Astep12-uniform-sublevel)
+[![Lean verification](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=step13-determinants)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml?query=branch%3Astep13-determinants)
 
 A Lean 4 formalization project accompanying Diego Marques's manuscript
 [*Mahler's problem on Liouville numbers*](paper/main.pdf).
@@ -30,9 +30,9 @@ not yet fully formalized.**
 
 ## Current status
 
-This branch includes the uniform analytic sublevel theorem and its
-rational-family specialization, in addition to the arithmetic and fusion
-infrastructure. The [Step 12 overview](docs/STEP12_PT.md) records its precise
+This branch includes the uniform analytic sublevel theorem, its
+rational-family specialization, and the arithmetic determinant lower bound
+with separate source and target heights. See the [determinant overview](docs/STEP13_PT.md). The [Step 12 overview](docs/STEP12_PT.md) records its precise
 hypotheses and scope. These additions have not yet been merged into `main`.
 
 | Part of the argument | Formalization status |
@@ -43,7 +43,8 @@ hypotheses and scope. These additions have not yet been merged into `main`.
 | Wronskian localization | Proved under explicit nontriviality hypotheses. |
 | Uniform jets and one-dimensional sublevels | Proved. |
 | Uniform analytic sublevels | Proved on this branch, including the rational-family specialization. |
-| Determinant estimates and Proposition 5.1 | Pending. |
+| Arithmetic determinant lower bound | Proved, without reduced-fraction assumptions. |
+| Analytic determinant upper bound and Proposition 5.1 | Pending. |
 | Theorem 1.2 from the manuscript's hypotheses | Pending. |
 
 The remaining work includes deriving Wronskian nontriviality from

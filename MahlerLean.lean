@@ -30,3 +30,5 @@ import MahlerLean.UniformIntervalCover
 import MahlerLean.UniformSublevelGlobal
 
 import MahlerLean.UniformSublevel
+
+import MahlerLean.TargetLinearDeterminant
