@@ -344,3 +344,14 @@ import MahlerLean
 #print axioms MahlerLean.exists_uniform_largeTarget_cell_counting_bound
 #print axioms MahlerLean.exists_uniform_largeTarget_cell_card_bound
 #print axioms MahlerLean.exists_uniform_largeTarget_interval_cell_card_bound
+
+-- Source cells and all large dyadic blocks, with the original margin
+#print axioms MahlerLean.exists_source_cell_cover
+#print axioms MahlerLean.exists_uniform_largeTarget_block_card_bound
+#print axioms MahlerLean.dyadic_index_lt_uniform_count
+#print axioms MahlerLean.uniform_dyadic_count_le_log
+#print axioms MahlerLean.large_block_log_exponent
+#print axioms MahlerLean.exists_largeTarget_dyadic_card_bound
+#print axioms MahlerLean.safetyMargin_le_largeTarget_error
+#print axioms MahlerLean.witness_rational_den_le
+#print axioms MahlerLean.exists_largeTarget_original_margin_card_bound

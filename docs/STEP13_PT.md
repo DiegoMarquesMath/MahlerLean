@@ -200,3 +200,44 @@ pendente.
 Validação: os três novos módulos compilaram com warningAsError=true.
 Os oito resultados novos foram auditados e dependem apenas de propext,
 Classical.choice e Quot.sound. O build/CI integral é uma verificação separada.
+
+## Item 2: soma das células e dos blocos grandes — concluído
+
+A contribuição completa dos blocos grandes tem agora cota C Q^(17/10),
+com C e Q₀ escolhidos antes de H≥1.
+
+1. `SourceCellCover.lean` constrói uma cobertura de [a,b] por
+   ceil((b-a)/rho) células, incluindo o extremo direito. Cada base c satisfaz
+   a≤c<b. O número de células é ≤(b-a)/rho+1.
+2. `LargeTargetBlockCounting.lean` aplica a cota uniforme por célula e
+   κ≤33/20 para obter uma cota C Q^(33/20) por bloco. A cobertura e a
+   contagem das células são provadas, não hipóteses do resultado.
+3. `DyadicTargetBlocks.lean` mostra que 2^k H<Q^(A/97), H≥1 implica
+   k<ceil((A/97)log Q/log 2), e limita essa quantidade por
+   ((A/97+1)/log 2)log Q. Também verifica u=log_Q(2^k H), u≥1/5 e 97u<A
+   para os blocos grandes.
+4. `LargeTargetDyadicCounting.lean` constrói os subconjuntos finitos
+   associados aos blocos e soma as suas cotas. Possíveis sobreposições
+   apenas produzem uma sobrecontagem. O lema de absorção logarítmica já
+   existente dá Q^(33/20)log Q≤Q^(17/10) para Q suficientemente grande.
+5. `LargeTargetSafetyMargin.lean` liga a soma ao erro original
+   safetyMargin = 2 b^(-100)+4M Q^(-A), usando K₀=2+4M. Os witnesses
+   inteiros p,b não precisam estar em forma reduzida: a redução só diminui
+   o denominador usado no determinante, enquanto a estimativa de erro usa
+   o denominador original b.
+
+O teorema final `exists_largeTarget_original_margin_card_bound` vale para
+qualquer família finita de fontes em [a,b], com denominadores <2Q, cada uma
+admitindo witness em algum bloco B=2^k H com Q^(1/5)≤B<Q^(A/97) e
+B≤b<2B, com o erro original. Ele conclui #S≤C Q^(17/10).
+Não há hipóteses de número de células, número de blocos ou constante
+dependente de H.
+
+**Restam:** a contagem dos blocos pequenos e a decomposição/montagem do
+conjunto dangerousSources no enunciado integral da Proposition 5.1.
+Blocos que começam abaixo de Q^(1/5), mesmo cruzando esse limiar, continuam
+atribuídos ao regime pequeno, conforme o artigo. Theorem 1.2 não está concluído.
+
+Validação: os cinco novos módulos compilaram com warningAsError=true.
+Os nove resultados foram auditados: apenas propext, Classical.choice e
+Quot.sound. Não se confunde essa validação direcionada com o CI integral.
