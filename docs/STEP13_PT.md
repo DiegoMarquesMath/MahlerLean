@@ -69,5 +69,39 @@ Assim, o termo aditivo de erro não é pequeno o suficiente para a comparação
 assintótica nessa escolha. Isso identifica uma lacuna na formalização,
 não uma refutação do lema perturbado do artigo.
 
-Próxima prioridade: formalizar a estimativa perturbada forte e garantir
-constantes uniformes nas células antes de fechar a Proposição 5.1.
+A continuação abaixo prova a versão forte com base fixa. A uniformidade
+na posição das células permanece necessária.
+
+## Expansão multilinear e limiar uniforme
+
+A origem exata da perda foi identificada em
+`abs_det_add_le_of_remainder_rows`: após selecionar uma linha pequena,
+as demais são estimadas individualmente por B, perdendo o decaimento
+conjunto dos vetores da curva.
+
+A nova rota preserva essa informação sem exigir Wronskianos não nulos:
+
+- `SmoothCurveMinorDecay.lean` prova o decaimento triangular para os menores
+de m linhas da curva, uniformemente nas escolhas de coordenadas, incluindo
+m=0 e m=1.
+- `MixedDeterminantDecay.lean` usa expansão de Laplace pelas linhas de erro
+para obter os fatores delta^r e rho^((N-r)(N-r-1)/2). A prova combina esses
+fatores na expansão multilinear já existente. Os fatores combinatórios
+são absorvidos numa constante finita.
+- `exists_smooth_curve_perturbed_sum_bound` estabelece a versão matricial
+de (4.8) para pontos próximos de uma base de Taylor fixa.
+- `exists_targetLinearMatrix_strong_perturbed_bound` dá o corolário forte
+para a curva alvo-linear sob delta ≤ rho^N, sem hipótese sobre Wronskianos.
+- `MultilinearPerturbation.lean` prova (4.9), a absorção dos termos da soma
+e `largeTarget_vertical_error_le_radius_power`, que liga diretamente
+s-kappa*N ≥ 1/5 ao limiar Q ≥ K0^5. Esse limiar não depende de u, B ou H.
+
+Os novos arquivos foram compilados com warningAsError=true e os resultados
+principais auditados: somente propext, Classical.choice e Quot.sound.
+
+Limite preciso: as constantes analíticas acima ainda são escolhidas para
+um intervalo e sua extremidade esquerda fixos. Para concluir o lema do
+artigo em toda célula móvel dentro de J, falta extrair os limites de
+Taylor/derivadas uniformemente na base em J. Só depois essa estimativa
+substituirá a interface usada na montagem global da Proposição 5.1.
+A alternativa por inversão da matriz de derivadas não foi incorporada.

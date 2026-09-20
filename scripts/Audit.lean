@@ -297,3 +297,17 @@ import MahlerLean
 #print axioms MahlerLean.card_le_sum_of_finite_cover
 #print axioms MahlerLean.card_le_of_uniform_cell_bound
 #print axioms MahlerLean.eventually_log_mul_large_block_power_le
+
+-- Mixed perturbation: fixed-base analytic bounds and uniform scalar threshold
+#print axioms MahlerLean.mixed_perturbation_term_le
+#print axioms MahlerLean.mixed_perturbation_sum_le
+#print axioms MahlerLean.abs_det_add_le_mixed_sum
+#print axioms MahlerLean.abs_det_add_le_triangular_of_mixed_bounds
+#print axioms MahlerLean.perturbation_small_of_exponent_gap
+#print axioms MahlerLean.largeTarget_vertical_error_le_radius_power
+#print axioms MahlerLean.exists_uniform_smooth_curve_minor_bound
+#print axioms MahlerLean.abs_det_le_error_power_of_good_minors
+#print axioms MahlerLean.exists_smooth_curve_mixed_bound
+#print axioms MahlerLean.exists_smooth_curve_perturbed_sum_bound
+#print axioms MahlerLean.exists_smooth_curve_strong_perturbed_bound
+#print axioms MahlerLean.exists_targetLinearMatrix_strong_perturbed_bound
