@@ -54,7 +54,7 @@ theorem sublevel_interval_cover_of_boundary_finset
     have hno : ∀ x ∈ S, ‖g x‖ ≠ eps := by
       intro x hx he
       have := hB x hx he
-      simpa [hb] using this
+      simp only [hb, Finset.not_mem_empty] at this
     refine ⟨{{x | x ∈ S ∧ ‖g x‖ ≤ eps}}, ?_, ?_, ?_⟩
     · simp
     · intro E hE
@@ -69,7 +69,7 @@ theorem sublevel_interval_cover_of_boundary_finset
     · have hno : ∀ x ∈ S, ‖g x‖ ≠ eps := by
         intro x hx he
         have := hB x hx he
-        simpa [hb] using this
+        simp only [hb, Finset.not_mem_empty] at this
       refine ⟨{{x | x ∈ S ∧ ‖g x‖ ≤ eps}}, ?_, ?_, ?_⟩
       · simp
       · intro E hE

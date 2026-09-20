@@ -28,7 +28,11 @@ theorem jetLinearCombo_interval_cover
       have hm : x ∈ ({y | y ∈ Icc a b ∧ ‖jetLinearCombo φ c y‖ ≤ eps} : Set ℝ) := hx
       rw [hempty] at hm
       exact hm
-    simp [hx]
+    constructor
+    · intro h
+      exact (hx h).elim
+    · rintro ⟨E, hE, _⟩
+      exact (Finset.not_mem_empty E hE).elim
   · obtain ⟨hcont, _⟩ := analyticFamily_linearCombo_smooth φ c hφ hI
     have hder : ∀ x ∈ Icc a b,
         lam ≤ |iteratedDeriv k.val (jetLinearCombo φ c) x| := by

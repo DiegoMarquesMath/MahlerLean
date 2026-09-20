@@ -1,122 +1,54 @@
-# Etapa 12 — ponte para o subnível uniforme
+# Etapa 12 — subníveis uniformes de famílias analíticas
 
-Esta etapa começa a combinação dos passos 10 e 11 necessária para o
-Lemma 3.5 do manuscrito. Os módulos intermediários são:
+## Resultado
 
-`MahlerLean/AnalyticLinearCombination.lean`
+O teorema `exists_uniform_analytic_sublevel_bound` reúne a estimativa de
+medida e a representação como união finita de intervalos. Para uma família
+analítica de N funções, N ≥ 2, cujo Wronskiano não se anula no intervalo
+compacto J, existem C > 0, R > 0 e 0 < ε₀ < 1 tais que, simultaneamente
+para todo vetor de coeficientes de norma euclidiana 1 e todo 0 ≤ ε < ε₀:
 
-`MahlerLean/LocalJetPersistence.lean`
+- o subnível de |G_c| é exatamente uma união de no máximo R intervalos;
+- sua medida é no máximo C ε^(1/(N−1)).
 
-`MahlerLean/FiniteJetCover.lean`
+Os intervalos são conjuntos `OrdConnected`; podem ser vazios, degenerados
+ou sobrepostos. A igualdade com a união é expressa por uma equivalência
+de pertinência para todo ponto, não apenas por uma inclusão.
 
-`MahlerLean/LocalUniformSublevel.lean`
+O teorema `exists_uniform_rational_relation_sublevel_bound` especializa
+esse resultado à família x^i f(x)^j, com 0 ≤ i ≤ d e j = 0,1. Os
+coeficientes estão na ordem (0,0),(0,1),…,(d,1), com norma euclidiana 1,
+e a conclusão usa explicitamente a soma desses monômios. N = 2(d+1).
+As constantes são escolhidas antes dos coeficientes e de ε.
 
-`MahlerLean/FiniteSublevelAssembly.lean`
+## Estrutura da prova
 
-`MahlerLean/UniformIntervalCover.lean`
+1. `AnalyticLinearCombination`: identifica derivadas e coordenadas do jato.
+2. `LocalJetPersistence`, `FiniteJetCover`, `UniformIntervalCover`: extraem
+   por compactidade uma cobertura finita uniforme em coeficientes e fonte.
+3. `LocalUniformSublevel`, `FiniteSublevelAssembly`, `UniformSublevelGlobal`:
+   provam a cota global de medida, incluindo o caso de ordem zero.
+4. `SublevelIntervals`: corta um intervalo num conjunto finito de pontos
+   onde |g| = ε. Inclui pontos isolados e produz no máximo 2#B+1 peças.
+   A cota #B ≤ 2k, já provada por Rolle, fornece 4k+1 peças.
+5. `UniformSublevelIntervals`: aplica essa decomposição em cada intervalo
+   da cobertura e recorta a união pelo intervalo-fonte J.
+6. `UniformSublevel`: reúne medida e intervalos com constantes positivas
+   e fornece a especialização racional.
 
-`MahlerLean/UniformSublevelGlobal.lean`
+## Escopo e limites
 
-## Resultado já formalizado
+Esta etapa formaliza o caso **analítico** do Lemma 3.5 necessário à
+aplicação racional do Corollary 3.6. O enunciado mais geral do manuscrito,
+para famílias apenas C^(N−1), não é afirmado por esses teoremas.
 
-Para uma família analítica `φ : Fin N → ℝ → ℝ` e um vetor de
-coeficientes `c`, define-se
+A cota local de número de peças é 4k+1, em vez de 2k+1; ambas fornecem a
+constante uniforme existencial exigida na aplicação. Não se reivindica
+que as peças construídas sejam as componentes conexas maximais ou que
+sejam disjuntas. A interface de contagem de Farey que exige uma família
+disjunta ainda precisa de uma decomposição compatível ou de um adaptador.
 
-`jetLinearCombo φ c x = ∑ j, c j * φ j x`.
-
-O módulo prova:
-
-- `analyticOnNhd_jetLinearCombo`: a combinação linear finita continua
-  analítica;
-- `iteratedDeriv_jetLinearCombo_eq_jetApply`: a derivada iterada de ordem
-  `k` é exatamente a coordenada `jetApply` construída no passo 10;
-- `analyticFamily_linearCombo_smooth`: a combinação possui todas as
-  hipóteses de continuidade e diferenciabilidade exigidas pelo teorema
-  `sublevel_measure_bound` do passo 11.
-
-Esses resultados eliminam uma incompatibilidade formal entre a notação
-matricial de jatos e a função escalar à qual se aplica a estimativa de
-subnível.
-
-O segundo módulo prova ainda:
-
-- `exists_nhds_iteratedDeriv_abs_lower_bound`: uma coordenada de jato
-  maior ou igual a `η` num ponto fornece a cota `η/2` para a mesma
-  derivada numa vizinhança desse ponto;
-- `exists_product_nhds_jetApply_abs_lower_bound`: a persistência vale
-  quando variam simultaneamente o vetor de coeficientes e o ponto da
-  fonte, relativamente ao produto com o compacto `K`;
-- `exists_uniform_product_nhds_jetApply_lower_bound_of_analytic`: sob a
-  não anulação do Wronskiano em `K`, existe um único `η > 0` válido para
-  todos os coeficientes unitários e todos os pontos de `K`; apenas a
-  ordem da derivada e a vizinhança podem variar.
-
-O terceiro módulo completa a extração compacta:
-
-- `jetApply_continuousAt_of_analytic`: cada coordenada do jato é
-  conjuntamente contínua no vetor de coeficientes e no ponto da fonte;
-- `exists_product_nhds_jetApply_abs_lower_bound_of_analytic`: a cota
-  `η/2` vale numa vizinhança ambiente do par `(c,x)`;
-- `exists_finite_uniform_jet_product_cover_of_analytic`: a esfera unitária
-  de coeficientes vezes `K` admite uma subcobertura finita por patches;
-  cada patch possui uma ordem `k` fixa, enquanto a mesma constante
-  positiva `η` funciona em todos eles.
-
-O quarto módulo faz a primeira aplicação local efetiva da estimativa de
-subnível:
-
-- `sublevel_set_eq_empty_of_abs_lower_bound` e
-  `sublevel_measure_eq_zero_of_abs_lower_bound`: uma cota absoluta
-  estrita exclui o subnível menor, tratando separadamente a ordem zero;
-- `jetLinearCombo_sublevel_measure_bound`: para uma ordem positiva fixa
-  num intervalo, aplica a estimativa explícita do passo 11 à combinação
-  linear analítica;
-- `jetLinearCombo_local_sublevel_control`: reúne os casos de ordem zero
-  e ordem positiva numa dicotomia local pronta para a montagem finita.
-
-O quinto módulo realiza a montagem quantitativa para uma cobertura por
-intervalos:
-
-- `rpow_inv_nat_le_rpow_inv_nat`: para uma base em `[0,1]`, permite
-  substituir os expoentes variáveis `1/k` pelo expoente comum
-  `1/(N-1)`;
-- `measureReal_le_card_mul_of_finite_cover`: soma estimativas locais
-  sobre uma cobertura finita;
-- `jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover`:
-  combina os dois fatos anteriores com a estimativa local da etapa 12d,
-  permitindo que a ordem positiva da derivada varie entre os intervalos.
-
-O sexto módulo completa a extração topológica dos intervalos:
-
-- `exists_product_nhds_Icc_subset`: dentro de uma vizinhança de um par
-  coeficiente/fonte, escolhe uma vizinhança dos coeficientes e um
-  intervalo compacto da fonte contido no domínio analítico;
-- `exists_finite_uniform_jet_interval_cover_of_analytic`: aplica essa
-  construção a todos os pares normalizados e usa compactidade para obter
-  uma única família finita de retângulos; cada retângulo possui ordem de
-  derivação fixa e a mesma cota positiva de jato.
-
-O sétimo módulo fecha a estimativa global de medida:
-
-- `jetLinearCombo_sublevel_measure_bound_uniform`: reúne explicitamente
-  os casos de ordem zero e de ordem positiva com a constante e o expoente
-  comuns;
-- `jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover_all_orders`:
-  soma as estimativas numa cobertura finita permitindo todas as ordens;
-- `exists_uniform_analytic_sublevel_measure_bound`: recorta os patches
-  pelo intervalo-fonte fixo e produz uma constante positiva e um número
-  finito de patches independentes do vetor unitário de coeficientes.
-
-## O que ainda não está provado
-
-A estimativa global de medida de subnível está provada. Para concluir o
-Lemma 3.5 e sua aplicação ainda é necessário formalizar:
-
-1. representar o subnível como união de um número uniformemente limitado
-   de intervalos;
-2. especializar o resultado global à família racional `x^i f(x)^j`,
-   obtendo o Corolário 3.6.
-
-Nenhuma dessas conclusões pendentes é introduzida como axioma ou
-placeholder. Todos os teoremas são verificados pelo build e pela auditoria
-automática de axiomas.
+A não anulação do Wronskiano é hipótese explícita. Ainda faltam a dedução
+dessa propriedade a partir da não racionalidade, os determinantes, a
+Proposição 5.1 e a integração final ao Teorema 1.2. Nenhuma dessas partes
+é instalada como axioma ou placeholder.

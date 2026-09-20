@@ -3,7 +3,7 @@
 Lean 4 project for work towards formalizing results in Diego Marques,
 *Mahler's problem on Liouville numbers*, manuscript dated 18 September 2026.
 
-**Scope:** the project contains 164 listed theorems. It proves the rational
+**Scope:** the project contains 182 listed theorems. It proves the rational
 source supply in Lemma 2.2 with the absolute constant **cF = 1/4**, and
 formalizes the infinite fusion construction and its escape conclusion
 **conditional on explicit counting, derivative and finite-forbidden-set
@@ -31,21 +31,16 @@ including the explicit bound
 `2 k (2 k + 1) (eps/lambda)^(1/k)`. Rational source supply is discharged by a theorem.
 Theorems 1.1 and 1.2 are **not** fully formalized. No pending result is
 installed as an axiom or an unproved placeholder.
-Step 12 now connects the analytic linear-combination bridge to the local
-sublevel estimate: derivatives of `jetLinearCombo` are identified with the
-jet coordinates from Step 10; analyticity supplies the Step 11 regularity;
-compactness extracts finitely many coefficient/source patches with a fixed
-derivative order; and each positive-order patch satisfies the explicit
-sublevel bound, while the zero-order sublevel is empty below the jet lower
-bound. The exponent has now been uniformized to `1/(N-1)`, the local bounds
-are summed over finite interval covers, and compactness extracts a uniform
-finite family of coefficient/source rectangles carrying compact source
-intervals. The intervals are now clipped to the fixed source interval,
-zero-order patches are incorporated in the finite assembly, and
-`exists_uniform_analytic_sublevel_measure_bound` proves the resulting
-global measure estimate uniformly over normalized coefficient vectors.
-The uniform component bound and the rational-family specialization in
-Lemma 3.5 remain pending.
+Step 12 proves a uniform sublevel theorem for analytic families with
+nonvanishing Wronskian on a compact interval: the normalized linear
+combinations have sublevels of measure at most `C eps^(1/(N-1))`, each an
+exact union of at most `R` intervals, with `C`, `R`, and the smallness
+threshold independent of the coefficient vector. The rational-relation
+specialization uses the explicit monomials `x^i f(x)^j`, `j = 0,1`.
+This proves the analytic case required for Corollary 3.6; it does not claim
+the more general finite-smoothness version of Lemma 3.5. The interval
+cover need not be disjoint, so adapting it to the disjoint-interval Farey
+interface remains an integration task.
 
 For the Portuguese installation guide, open [GUIA_PT.md](GUIA_PT.md).
 For the mathematical work plan, open [docs/ROADMAP.md](docs/ROADMAP.md).
@@ -317,3 +312,4 @@ formalization tasks. The main theorems are still not fully formalized.
 
 No open-source license has been selected for this initial package.
 Choose one before inviting unrestricted public reuse or contributions.
+
