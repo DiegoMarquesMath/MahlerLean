@@ -30,8 +30,9 @@ theorem abs_det_le_sum_perm_prod_rowL1
   calc
     |∑ σ : Equiv.Perm n, Equiv.Perm.sign σ • ∏ i, M (σ i) i| ≤
         ∑ σ : Equiv.Perm n, |Equiv.Perm.sign σ • ∏ i, M (σ i) i| :=
-      by simpa using Finset.abs_sum_le_sum_abs
-        (fun σ : Equiv.Perm n => Equiv.Perm.sign σ • ∏ i, M (σ i) i) Finset.univ
+      by
+        simpa using Finset.abs_sum_le_sum_abs
+          (fun σ : Equiv.Perm n => Equiv.Perm.sign σ • (∏ i, M (σ i) i)) Finset.univ
     _ ≤ ∑ σ : Equiv.Perm n, ∏ i, matrixRowL1 M (σ i) := by
       apply Finset.sum_le_sum
       intro σ _
@@ -44,7 +45,7 @@ theorem abs_det_le_sum_perm_prod_rowL1
 same `L¹` bound. -/
 theorem abs_det_le_perm_card_mul_pow
     {n : Type*} [Fintype n] [DecidableEq n] (M : Matrix n n ℝ)
-    {K : ℝ} (hK : 0 ≤ K) (hrow : ∀ i, matrixRowL1 M i ≤ K) :
+    {K : ℝ} (hrow : ∀ i, matrixRowL1 M i ≤ K) :
     |M.det| ≤ Fintype.card (Equiv.Perm n) * K ^ Fintype.card n := by
   refine (abs_det_le_sum_perm_prod_rowL1 M).trans ?_
   calc
@@ -83,7 +84,7 @@ theorem abs_targetLinearPerturbation_le (d : ℕ) {x y z X δ : ℝ}
   have hδ0 : 0 ≤ δ := (abs_nonneg (y - z)).trans hδ
   rw [targetLinearPerturbation_apply]
   split_ifs
-  · exact mul_nonneg (pow_nonneg (le_trans zero_le_one hX) _) hδ0
+  · simpa using mul_nonneg (pow_nonneg (le_trans zero_le_one hX) d) hδ0
   · rw [abs_mul, abs_pow]
     calc
       |x| ^ (j.val / 2) * |y - z| ≤ X ^ (j.val / 2) * δ :=

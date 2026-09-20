@@ -218,4 +218,12 @@ import MahlerLean
 #print axioms MahlerLean.targetLinearMatrix_det_lower_dyadic
 #print axioms MahlerLean.targetLinearMatrix_det_eq_zero_of_lt
 
-
+-- Step 13: determinant analytic groundwork
+#print axioms MahlerLean.matrix_entry_le_rowL1
+#print axioms MahlerLean.abs_det_le_sum_perm_prod_rowL1
+#print axioms MahlerLean.abs_det_le_perm_card_mul_pow
+#print axioms MahlerLean.targetLinearPerturbation_apply
+#print axioms MahlerLean.abs_targetLinearPerturbation_le
+#print axioms MahlerLean.targetLinearPerturbation_l1_le
+#print axioms MahlerLean.perturbation_exponent_identity
+#print axioms MahlerLean.perturbation_exponent_ge
