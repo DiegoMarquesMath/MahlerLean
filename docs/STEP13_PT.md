@@ -30,10 +30,31 @@ O caso d=0 está incluído.
 abaixo desse limiar força det M = 0. A estimativa analítica permanece uma
 hipótese explícita nesse teorema; ela não foi substituída por um axioma.
 
+## Bloco analítico preparatório
+
+`DeterminantAnalyticBounds.lean` formaliza a desigualdade de Leibniz em
+termos da norma L¹ de cada linha. Também identifica exatamente a diferença
+entre as linhas `Ψ_d(x,y)` e `Ψ_d(x,z)`: as coordenadas pares anulam-se
+e as ímpares são `x^i (y-z)`. Disso resulta o controle uniforme
+
+```text
+‖E_k‖₁ ≤ 2(d+1) X^d δ.
+```
+
+A identidade de expoentes usada na expansão perturbada também foi provada:
+
+```text
+rN + (N-r)(N-r-1)/2 = N(N-1)/2 + r(r+1)/2.
+```
+
+Este bloco fornece as estimativas elementares que entram no Lema do
+determinante perturbado. Ele ainda não formaliza a expansão completa por
+multilinearidade nem o decaimento de Taylor da curva suave.
+
 ## Próximos blocos
 
 1. Decaimento de determinantes ao longo de uma curva suave, com expoente N(N−1)/2.
-2. Controle da perturbação vertical, conservando esse expoente.
+2. Montagem da expansão multilinear com as linhas de perturbação.
 3. Aplicação a todos os menores máximos e extração de uma relação com
    coeficientes normalizados.
 4. Integração com os subníveis e a contagem da Proposição 5.1.
@@ -43,9 +64,11 @@ Não conclui toda a etapa de determinantes nem a Proposição 5.1.
 
 ## Verificação
 
-As seis declarações estão incluídas em `scripts/Audit.lean`.
-O workflow da branch compila o projeto e executa `bash scripts/check.sh`,
-com avisos tratados como erros e inspeção das dependências axiomáticas.
+As seis declarações aritméticas e as oito declarações analíticas novas estão
+incluídas em `scripts/Audit.lean`. O commit `8ebbe3f` passou no
+[GitHub Actions run 35487464974](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35487464974):
+compilação integral, avisos tratados como erros e inspeção das dependências
+axiomáticas.
 
 ## Infraestrutura analítica
 

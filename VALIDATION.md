@@ -356,3 +356,17 @@ Validated on 20 September 2026 at commit
 
 The record above concerns the exact Lean source at the cited commit.
 Subsequent documentation-only commits do not change that source.
+# Step 13 — analytic determinant groundwork
+
+Validated on 20 September 2026 at commit
+`8ebbe3fe055d6a9d6224f54af8838dee4fdc8fca` by
+[GitHub Actions run 35487464974](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35487464974).
+
+- Full build passed (3134 jobs).
+- The listed-theorem audit passed for 196 declarations.
+- The eight new theorems depend only on `propext`, `Classical.choice`,
+  and `Quot.sound`; no `sorryAx` or custom axiom appears.
+- The module proves determinant bounds from row L¹ sizes, exact vertical
+  perturbation coordinates, their L¹ bound, and the exponent identity used
+  in the perturbed determinant expansion.
+- The complete smooth-curve Taylor determinant estimate remains pending.
