@@ -134,3 +134,33 @@ K*rho^(N(N-1)/2) e o limiar aritmético após inserir as escalas do artigo;
 construir as famílias de centros com testemunhos, aplicar a contagem,
 e concluir as somas de células e blocos. A Proposição 5.1 completa ainda
 não é declarada como concluída.
+
+## Escalas, witnesses e contagem por célula — avanço seguinte
+
+A comparação estrita dos determinantes foi fechada com as escalas do artigo.
+`DeterminantScaleComparison.lean` verifica o ganho de pelo menos uma potência
+de Q e a identidade exata do fator dos denominadores. Para d ≤ D, o fator
+2^(dN+N) é dominado por 2^(D·2(D+1)+2(D+1)).
+
+`exists_largeTarget_det_zero_uniform_threshold` escolhe um único Q₀ antes de
+u e da célula. Com d=ceil(10u), N=2(d+1), κ e s do artigo, u≥1/5 e 97u<A,
+ele deduz o anulamento do determinante diretamente dos limites de denominadores,
+da geometria da célula e da aproximação vertical K₀ Q^(-s).
+O limiar absorve simultaneamente K₀^5 e a constante do determinante.
+Não restam hipóteses de comparação estrita nem de δ≤ρ^N nesse enunciado.
+
+`LargeTargetWitnesses.lean` escolhe um witness racional por ponto fonte de uma
+família finita e estabelece o anulamento para todas as tuplas, com repetições.
+O corolário `exists_largeTarget_cell_counting_data` conecta essa construção à
+contagem de Farey/subnível, assumindo os Wronskianos apenas para 2≤d≤D(A).
+
+**Limite exato deste avanço:** o corolário de contagem ainda explicita o limiar
+de subnível eps0. Seus dados C, R, eps0 são escolhidos após u; é necessário
+uniformizá-los sobre os graus finitos, absorver o limiar e somar células e blocos.
+O regime de pequenas alturas e a montagem integral da Proposition 5.1
+continuam pendentes. Não se declara concluído o Theorem 1.2.
+
+Validação: os três novos módulos compilaram com warningAsError=true.
+Os oito resultados novos foram auditados: somente propext, Classical.choice
+e Quot.sound. Esta validação é direcionada aos módulos novos; o CI completo
+é uma verificação separada.

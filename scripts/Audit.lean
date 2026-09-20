@@ -324,3 +324,13 @@ import MahlerLean
 #print axioms MahlerLean.exists_targetLinearMatrix_uniform_perturbed_bound
 #print axioms MahlerLean.exists_targetLinearMatrix_uniform_degree_bound
 #print axioms MahlerLean.exists_targetLinearMatrix_det_zero_uniform_cells
+
+-- Uniform large-target scales and rational witnesses
+#print axioms MahlerLean.strict_power_comparison
+#print axioms MahlerLean.degree_denominator_factor_le
+#print axioms MahlerLean.largeTarget_determinant_exponent_gap
+#print axioms MahlerLean.two_height_denominator_eq
+#print axioms MahlerLean.determinant_scale_comparison
+#print axioms MahlerLean.exists_largeTarget_det_zero_uniform_threshold
+#print axioms MahlerLean.exists_largeTarget_witnesses_all_det_zero
+#print axioms MahlerLean.exists_largeTarget_cell_counting_data
