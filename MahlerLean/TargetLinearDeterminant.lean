@@ -73,7 +73,7 @@ theorem targetLinearMatrix_clear_entry (d : ℕ)
   have hj : j.val % 2 = 0 ∨ j.val % 2 = 1 := by omega
   rcases hj with hj | hj
   · simp only [targetLinearMatrix, clearedTargetLinearMatrix, hj, pow_zero,
-      mul_one, if_pos rfl, Int.cast_mul, Int.cast_pow, Int.cast_natCast]
+      mul_one, if_true, Int.cast_mul, Int.cast_pow, Int.cast_natCast]
     rw [hpow, div_pow]
     field_simp [hq0, hb0]
     <;> ring
@@ -122,7 +122,7 @@ theorem targetLinearMatrix_det_lower (d : ℕ)
 theorem targetLinearMatrix_det_lower_dyadic (d : ℕ)
     (p a : Fin (2 * (d + 1)) → ℤ) (q b : Fin (2 * (d + 1)) → ℕ)
     (hq : ∀ k, 0 < q k) (hb : ∀ k, 0 < b k)
-    {Q B : ℝ} (hQ : 0 < Q) (hB : 0 < B)
+    {Q B : ℝ} (hQ : 0 < Q) (_hB : 0 < B)
     (hqQ : ∀ k, (q k : ℝ) ≤ 2 * Q) (hbB : ∀ k, (b k : ℝ) ≤ 2 * B)
     (hdet : (targetLinearMatrix d (fun k => (p k : ℝ) / q k)
       (fun k => (a k : ℝ) / b k)).det ≠ 0) :
