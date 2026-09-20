@@ -200,3 +200,13 @@ import MahlerLean
 
 -- Step 12g: global uniform sublevel measure estimate
 #print axioms MahlerLean.exists_uniform_analytic_sublevel_measure_bound
+
+
+-- Uniform interval covers and rational-relation specialization
+#print axioms MahlerLean.sublevel_ordConnected_of_no_level
+#print axioms MahlerLean.sublevel_interval_cover_of_boundary_finset
+#print axioms MahlerLean.sublevel_interval_cover_of_derivative_bound
+#print axioms MahlerLean.jetLinearCombo_interval_cover
+#print axioms MahlerLean.exists_uniform_analytic_sublevel_interval_cover
+#print axioms MahlerLean.exists_uniform_analytic_sublevel_bound
+#print axioms MahlerLean.exists_uniform_rational_relation_sublevel_bound
