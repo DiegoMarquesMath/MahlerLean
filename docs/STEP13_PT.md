@@ -1,87 +1,85 @@
 # Etapa 13 — determinantes com duas alturas
 
-## Bloco aritmético
+A etapa formaliza o argumento determinantal usado para converter muitos pontos
+racionais próximos do gráfico em uma relação polinomial. O trabalho está na
+branch `step13-determinants`.
 
-`TargetLinearDeterminant.lean` trata o limite inferior do determinante
-da matriz de monômios `1, y, x, xy, ..., x^d, x^d y`, com N = 2(d+1).
-Os numeradores podem ser quaisquer inteiros; os denominadores são naturais
-positivos. As frações não precisam estar reduzidas.
+## Parte aritmética concluída
 
-Multiplicar a linha k por q_k^d b_k produz uma matriz inteira. O módulo
-de um determinante inteiro não nulo é pelo menos 1. Consequentemente,
+O módulo `TargetLinearDeterminant.lean` considera a matriz de monômios
 
 ```text
-|det M| ≥ 1 / ∏_k (q_k^d b_k).
+1, y, x, xy, ..., x^d, x^d y
 ```
 
-Se q_k ≤ 2Q e b_k ≤ 2B, segue a forma de duas alturas
+de dimensão (N=2(d+1)). Multiplicar a linha (k) por
+(q_k^d b_k) produz uma matriz inteira. Portanto, se o determinante não se
+anula,
+
+```text
+|det M| ≥ 1 / ∏ₖ (qₖ^d bₖ).
+```
+
+Para (q_k≤2Q) e (b_k≤2B), obtemos separadamente as duas alturas:
 
 ```text
 |det M| ≥ 1 / ((2Q)^(dN) (2B)^N).
 ```
 
-A hipótese não estrita nos denominadores é ligeiramente mais geral que
-a do manuscrito. Os expoentes dN e N são conservados separadamente.
-O caso d=0 está incluído.
+As frações não precisam estar reduzidas, os numeradores podem ter qualquer
+sinal e o caso (d=0) está incluído. O teorema
+`targetLinearMatrix_det_eq_zero_of_lt` compara uma cota analítica estrita
+com esse limiar e conclui `det M = 0`.
 
-## Interface com a estimativa analítica
+## Parte analítica formalizada
 
-`targetLinearMatrix_det_eq_zero_of_lt` prova que uma estimativa estrita
-abaixo desse limiar força det M = 0. A estimativa analítica permanece uma
-hipótese explícita nesse teorema; ela não foi substituída por um axioma.
+Três módulos fornecem agora a infraestrutura do limite superior:
 
-## Bloco analítico preparatório
+- `DeterminantAnalyticBounds.lean`: desigualdade de Leibniz pelas normas
+  L¹ das linhas, coordenadas exatas da perturbação vertical e cotas uniformes;
+- `CurveTaylorBounds.lean`: Taylor vetorial em intervalo compacto, constante
+  não negativa e resto uniforme (Cρ^N);
+- `TargetLinearCurveTaylor.lean`: especialização à curva
+  (Phi_d(x)=(1,f(x),x,xf(x),…,x^d,x^df(x))).
 
-`DeterminantAnalyticBounds.lean` formaliza a desigualdade de Leibniz em
-termos da norma L¹ de cada linha. Também identifica exatamente a diferença
-entre as linhas `Ψ_d(x,y)` e `Ψ_d(x,z)`: as coordenadas pares anulam-se
-e as ímpares são `x^i (y-z)`. Disso resulta o controle uniforme
-
-```text
-‖E_k‖₁ ≤ 2(d+1) X^d δ.
-```
-
-A identidade de expoentes usada na expansão perturbada também foi provada:
+Também está provada a decomposição exata
 
 ```text
-rN + (N-r)(N-r-1)/2 = N(N-1)/2 + r(r+1)/2.
+targetLinearMatrix = graphMatrix + perturbationMatrix
 ```
 
-Este bloco fornece as estimativas elementares que entram no Lema do
-determinante perturbado. Ele ainda não formaliza a expansão completa por
-multilinearidade nem o decaimento de Taylor da curva suave.
+e a cota do termo extremo em que todas as linhas são perturbações. A
+identidade de expoentes da expansão é
 
-## Próximos blocos
+```text
+rN + (N-r)(N-r-1)/2
+  = N(N-1)/2 + r(r+1)/2.
+```
 
-1. Decaimento de determinantes ao longo de uma curva suave, com expoente N(N−1)/2.
-2. Montagem da expansão multilinear com as linhas de perturbação.
-3. Aplicação a todos os menores máximos e extração de uma relação com
-   coeficientes normalizados.
-4. Integração com os subníveis e a contagem da Proposição 5.1.
+## Estado da prova
 
-Este bloco conclui o lema aritmético de limpeza de denominadores.
-Não conclui toda a etapa de determinantes nem a Proposição 5.1.
+O marco atual conclui a limpeza aritmética de denominadores e os dados de
+Taylor necessários ao lema analítico. Ainda faltam:
+
+1. expandir o determinante por multilinearidade para qualquer subconjunto de
+   linhas perturbadas;
+2. provar que as linhas de Taylor restantes fornecem o fator
+   (ρ^{(N-r)(N-r-1)/2});
+3. combinar as cotas e obter o decaimento total
+   (ρ^{N(N-1)/2});
+4. aplicar o resultado aos menores máximos, normalizar a relação e integrá-la
+   à contagem da Proposição 5.1.
+
+Assim, a etapa 13 e a Proposição 5.1 ainda não estão concluídas.
 
 ## Verificação
 
-As seis declarações aritméticas e as oito declarações analíticas novas estão
-incluídas em `scripts/Audit.lean`. O commit `8ebbe3f` passou no
-[GitHub Actions run 35487464974](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35487464974):
-compilação integral, avisos tratados como erros e inspeção das dependências
-axiomáticas.
+O commit `953661b05f47ca3d3645b1ce1b0c72fc149bd031` passou no
+[GitHub Actions run 35488804840](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35488804840).
 
-## Infraestrutura analítica
-
-O módulo `DeterminantAnalyticBounds` introduz a norma L¹ de cada linha e
-prova, diretamente pela fórmula de Leibniz, uma cota para o determinante
-pela soma sobre permutações dos produtos dessas normas. Uma versão uniforme
-dá o fator finito `#Perm(N) K^N`.
-
-Para a família alvo-linear, a perturbação da linha entre `(x,y)` e
-`(x,z)` é identificada coordenada a coordenada: as coordenadas pares
-desaparecem e as ímpares são `x^i(y-z)`. Em um intervalo `|x|≤X`,
-`X≥1`, isso fornece uma cota L¹ uniforme proporcional a `X^d |y-z|`.
-
-Também foram formalizadas a identidade e a desigualdade de expoentes
-`rN+(N-r)(N-r-1)/2 ≥ N(N-1)/2`, usadas na expansão com `r` linhas
-perturbadas. O próximo bloco aplica Taylor às linhas não perturbadas.
+- build integral: 3139 jobs;
+- avisos tratados como erros;
+- 208 declarações inspecionadas por `scripts/Audit.lean`;
+- dependências axiomáticas impressas limitadas a
+  `propext`, `Classical.choice` e `Quot.sound`;
+- nenhum `sorryAx` ou axioma próprio do projeto.

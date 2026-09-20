@@ -370,3 +370,24 @@ Validated on 20 September 2026 at commit
   perturbation coordinates, their L¹ bound, and the exponent identity used
   in the perturbed determinant expansion.
 - The complete smooth-curve Taylor determinant estimate remains pending.
+
+
+# Step 13 — vector Taylor and target-linear perturbations
+
+Validated on 20 September 2026 at commit
+`953661b05f47ca3d3645b1ce1b0c72fc149bd031` by
+[GitHub Actions run 35488804840](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35488804840).
+
+- Full build passed (3139 jobs).
+- Warnings were treated as errors.
+- The listed-theorem audit passed for 208 declarations.
+- The twelve new theorems depend only on `propext`,
+  `Classical.choice`, and `Quot.sound`.
+- Vector-valued Taylor remainders are uniform on compact intervals and have
+  the determinant-dimension form (Cρ^N).
+- The target-linear curve is connected exactly to the rows of the evaluation
+  matrix and inherits arbitrary finite smoothness from analyticity.
+- The exact graph-plus-perturbation decomposition, row L¹ bounds, and the
+  all-error determinant term are formalized.
+- The mixed multilinear terms and the complete
+  (ρ^{N(N-1)/2}) determinant estimate remain pending.
