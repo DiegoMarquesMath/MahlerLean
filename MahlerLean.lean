@@ -32,3 +32,5 @@ import MahlerLean.UniformSublevelGlobal
 import MahlerLean.UniformSublevel
 
 import MahlerLean.TargetLinearDeterminant
+
+import MahlerLean.DeterminantAnalyticBounds

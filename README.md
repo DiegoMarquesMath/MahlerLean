@@ -31,8 +31,8 @@ not yet fully formalized.**
 ## Current status
 
 This branch includes the uniform analytic sublevel theorem, its
-rational-family specialization, and the arithmetic determinant lower bound
-with separate source and target heights. See the [determinant overview](docs/STEP13_PT.md). The [Step 12 overview](docs/STEP12_PT.md) records its precise
+rational-family specialization, the arithmetic determinant lower bound with separate source and target heights,
+and the analytic row-norm and vertical-perturbation bounds. See the [determinant overview](docs/STEP13_PT.md). The [Step 12 overview](docs/STEP12_PT.md) records its precise
 hypotheses and scope. These additions have not yet been merged into `main`.
 
 | Part of the argument | Formalization status |
