@@ -47,7 +47,7 @@ scope. These additions have not yet been merged into `main`.
 | --- | --- |
 | Farey separation and upper counting | Proved for a supplied disjoint interval decomposition. |
 | Rational source supply | Proved with the absolute constant $c_F=1/4$. |
-| Infinite fusion and Liouville escape | Counting input discharged by Proposition 5.1; analytic derivative bounds and Wronskian nontriviality remain explicit. |
+| Infinite fusion and Liouville escape | Counting and derivative bounds discharged; Wronskian nontriviality remains explicit. |
 | Wronskian localization | Proved under explicit nontriviality hypotheses. |
 | Uniform jets and one-dimensional sublevels | Proved. |
 | Uniform analytic sublevels | Proved, including a pairwise-disjoint rational-family specialization. |
@@ -56,11 +56,11 @@ scope. These additions have not yet been merged into `main`.
 | Full scale/cell assembly of Proposition 5.1 | Proved, including small and large target blocks and uniformity in the cutoff. |
 | Theorem 1.2 from the manuscript's hypotheses | Pending. |
 
-[Analytic fusion](MahlerLean/FusionFromTwoHeight.lean) now derives escape
-from derivative bounds and Wronskian nontriviality, with no counting
-hypothesis. The remaining work is to derive these analytic data from
-nonrationality inside every requested open subinterval, and conclude
-Theorem 1.2.
+[Local analytic escape](MahlerLean/AnalyticDerivativeInterval.lean) now
+works in every nonempty open subset of the domain. Counting and derivative
+bounds are proved internally. The remaining implication is Wronskian
+nontriviality from nonrationality, followed by the final application to
+Theorem 1.2. See the [derivative localization notes](docs/STEP15_PT.md).
 The uniform sublevel result assumes analyticity; the more general
 finite-smoothness statement in the manuscript is not claimed.
 

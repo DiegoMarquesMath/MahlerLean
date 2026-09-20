@@ -449,3 +449,15 @@ Quot.sound; no sorryAx. The theorem discharges the counting input using
 Proposition 5.1. Derivative bounds and Wronskian nontriviality remain
 explicit; Theorem 1.2 from nonrationality is not yet claimed.
 This records targeted validation, not a completed new full CI run.
+
+## Step 15: derivative localization
+
+Compiled AnalyticDerivativeInterval.lean with warnings as errors.
+Audited exists_deriv_ne_zero_of_analytic_nonconstant,
+exists_analytic_derivative_interval,
+exists_escape_of_nonconstant_analytic_wronskians, and
+exists_escape_in_open_of_analytic_wronskians. Only propext,
+Classical.choice, Quot.sound occur transitively. The final theorem has
+no supplied counting or derivative-bound hypotheses; Wronskian
+nontriviality and nonconstancy remain explicit. This is targeted
+validation, not a new full CI success claim.

@@ -66,3 +66,5 @@ import MahlerLean.SmallTargetDerivativeBounds
 import MahlerLean.TwoHeightCounting
 
 import MahlerLean.FusionFromTwoHeight
+
+import MahlerLean.AnalyticDerivativeInterval

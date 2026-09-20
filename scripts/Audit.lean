@@ -381,3 +381,9 @@ import MahlerLean
 
 -- Proposition 5.1 discharges the counting input of analytic fusion
 #print axioms MahlerLean.exists_escape_of_analytic_wronskians
+
+-- Derivative localization and escape in arbitrary open subsets
+#print axioms MahlerLean.exists_deriv_ne_zero_of_analytic_nonconstant
+#print axioms MahlerLean.exists_analytic_derivative_interval
+#print axioms MahlerLean.exists_escape_of_nonconstant_analytic_wronskians
+#print axioms MahlerLean.exists_escape_in_open_of_analytic_wronskians
