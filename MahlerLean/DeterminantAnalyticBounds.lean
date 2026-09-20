@@ -58,6 +58,50 @@ theorem abs_det_le_perm_card_mul_pow
         (fun i _ => hrow (σ i))
     _ = Fintype.card (Equiv.Perm n) * K ^ Fintype.card n := by simp
 
+/-- Determinant bound when one distinguished row has a sharper bound than
+all the others.  This is the form used for every mixed Taylor-remainder
+term. -/
+theorem abs_det_le_perm_card_mul_one_row
+    {n : Type*} [Fintype n] [DecidableEq n] (M : Matrix n n ℝ)
+    (i₀ : n) {E B : ℝ}
+    (hsmall : matrixRowL1 M i₀ ≤ E)
+    (hrow : ∀ i, matrixRowL1 M i ≤ B) :
+    |M.det| ≤ Fintype.card (Equiv.Perm n) *
+      (E * B ^ (Fintype.card n - 1)) := by
+  have hE0 : 0 ≤ E := (Finset.sum_nonneg (fun j _ => abs_nonneg _)).trans hsmall
+  have hprod : (∏ i, matrixRowL1 M i) ≤ E * B ^ (Fintype.card n - 1) := by
+    rw [← Finset.mul_prod_erase Finset.univ (fun i => matrixRowL1 M i)
+      (Finset.mem_univ i₀)]
+    apply mul_le_mul hsmall
+    · calc
+        (∏ i ∈ Finset.univ.erase i₀, matrixRowL1 M i) ≤
+            ∏ _i ∈ Finset.univ.erase i₀, B := by
+          apply Finset.prod_le_prod
+          · intro i _
+            exact Finset.sum_nonneg (fun j _ => abs_nonneg _)
+          · intro i _
+            exact hrow i
+        _ = B ^ (Fintype.card n - 1) := by
+          rw [Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i₀),
+            Finset.card_univ]
+    · exact Finset.prod_nonneg (fun i _ =>
+        Finset.sum_nonneg (fun j _ => abs_nonneg _))
+    · exact hE0
+  calc
+    |M.det| ≤ ∑ σ : Equiv.Perm n, ∏ i, matrixRowL1 M (σ i) :=
+      abs_det_le_sum_perm_prod_rowL1 M
+    _ = Fintype.card (Equiv.Perm n) * (∏ i, matrixRowL1 M i) := by
+      calc
+        (∑ σ : Equiv.Perm n, ∏ i, matrixRowL1 M (σ i)) =
+            ∑ _σ : Equiv.Perm n, ∏ i, matrixRowL1 M i := by
+          apply Finset.sum_congr rfl
+          intro σ _
+          exact Equiv.prod_comp σ (matrixRowL1 M)
+        _ = _ := by simp
+    _ ≤ Fintype.card (Equiv.Perm n) *
+          (E * B ^ (Fintype.card n - 1)) := by
+      exact mul_le_mul_of_nonneg_left hprod (Nat.cast_nonneg _)
+
 /-- Difference between a target-linear monomial row at heights `y` and `z`. -/
 def targetLinearPerturbation (d : ℕ) (x y z : ℝ) :
     Fin (2 * (d + 1)) → ℝ :=

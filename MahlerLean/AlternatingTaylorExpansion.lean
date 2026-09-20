@@ -154,4 +154,51 @@ theorem abs_det_taylor_sum_le {N S : ℕ}
     _ = Fintype.card (Fin N → Fin S) *
           (ρ ^ (N * (N - 1) / 2) * D) := by simp
 
+/-- A canonical finite constant controlling every determinant of derivative
+rows up to order `S-1`. -/
+def derivativeDeterminantSum {N S : ℕ} (v : Fin S → Fin N → ℝ) : ℝ :=
+  ∑ κ : Fin N → Fin S, |Matrix.det (fun i => v (κ i))|
+
+theorem derivativeDeterminantSum_nonneg {N S : ℕ}
+    (v : Fin S → Fin N → ℝ) : 0 ≤ derivativeDeterminantSum v := by
+  exact Finset.sum_nonneg (fun κ _ => abs_nonneg _)
+
+theorem abs_det_le_derivativeDeterminantSum {N S : ℕ}
+    (v : Fin S → Fin N → ℝ) (κ : Fin N → Fin S) :
+    |Matrix.det (fun i => v (κ i))| ≤ derivativeDeterminantSum v := by
+  unfold derivativeDeterminantSum
+  exact Finset.single_le_sum
+    (s := Finset.univ)
+    (f := fun τ : Fin N → Fin S => |Matrix.det (fun i => v (τ i))|)
+    (fun τ _ => abs_nonneg _) (Finset.mem_univ κ)
+
+/-- Actual Taylor-polynomial rows, of any positive order `S`, have the
+triangular determinant power dictated only by the number `N` of rows. -/
+theorem abs_det_taylorWithinEval_le {N S : ℕ} (hS : 0 < S)
+    (Φ : ℝ → (Fin N → ℝ)) (s : Set ℝ) {a b ρ : ℝ}
+    {x : Fin N → ℝ} (hρ0 : 0 ≤ ρ) (hρ1 : ρ ≤ 1)
+    (hx : ∀ i, x i ∈ Set.Icc a b) (hxρ : ∀ i, x i - a ≤ ρ) :
+    |Matrix.det (fun i => taylorWithinEval Φ (S - 1) s a (x i))| ≤
+      Fintype.card (Fin N → Fin S) *
+        (ρ ^ (N * (N - 1) / 2) *
+          derivativeDeterminantSum
+            (fun k : Fin S => iteratedDerivWithin k.val Φ s a)) := by
+  have horder : S - 1 + 1 = S :=
+    Nat.sub_add_cancel (Nat.one_le_iff_ne_zero.mpr hS.ne')
+  have hrows :
+      (fun i => taylorWithinEval Φ (S - 1) s a (x i)) =
+        fun i => ∑ k : Fin S,
+          (((k.val.factorial : ℝ)⁻¹ * (x i - a) ^ k.val) •
+            iteratedDerivWithin k.val Φ s a) := by
+    funext i
+    rw [taylorWithinEval_eq_derivative_sum, horder,
+      ← Fin.sum_univ_eq_sum_range]
+  rw [hrows]
+  exact abs_det_taylor_sum_le
+    (fun k : Fin S => iteratedDerivWithin k.val Φ s a)
+    hρ0 hρ1 hx hxρ
+    (derivativeDeterminantSum_nonneg _)
+    (fun κ _ => abs_det_le_derivativeDeterminantSum
+      (v := fun k : Fin S => iteratedDerivWithin k.val Φ s a) κ)
+
 end MahlerLean

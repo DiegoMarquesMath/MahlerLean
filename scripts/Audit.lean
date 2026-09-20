@@ -259,3 +259,11 @@ import MahlerLean
 #print axioms MahlerLean.fin_val_le_of_strictMono
 #print axioms MahlerLean.triangular_le_sum_of_injective
 #print axioms MahlerLean.abs_det_taylor_sum_le
+
+-- Step 13: Taylor remainder row expansion
+#print axioms MahlerLean.abs_det_le_perm_card_mul_one_row
+#print axioms MahlerLean.derivativeDeterminantSum_nonneg
+#print axioms MahlerLean.abs_det_le_derivativeDeterminantSum
+#print axioms MahlerLean.abs_det_taylorWithinEval_le
+#print axioms MahlerLean.det_add_rows_eq_sum_bool
+#print axioms MahlerLean.abs_det_add_le_of_remainder_rows
