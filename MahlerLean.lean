@@ -74,3 +74,5 @@ import MahlerLean.RationalRelation
 import MahlerLean.RationalFamilyIndependent
 
 import MahlerLean.WronskianLeadingMatrix
+
+import MahlerLean.RationalTaylorBasis

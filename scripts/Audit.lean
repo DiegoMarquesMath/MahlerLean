@@ -407,3 +407,10 @@ import MahlerLean
 #print axioms MahlerLean.rationalFamily_exists_first_nonzero_derivative
 #print axioms MahlerLean.det_descFactorial_eq_vandermonde
 #print axioms MahlerLean.det_descFactorial_ne_zero
+
+-- Adapted Taylor basis and constant Wronskian basis changes
+#print axioms MahlerLean.exists_basis_distinct_orders
+#print axioms MahlerLean.iteratedDeriv_analytic_sum
+#print axioms MahlerLean.rationalFamily_exists_basis_distinct_orders
+#print axioms MahlerLean.wronskian_linearCombination_matrix
+#print axioms MahlerLean.wronskian_basis_ne_zero_iff

@@ -496,3 +496,14 @@ Only propext, Classical.choice, Quot.sound occur transitively.
 This does not complete the analytic Wronskian criterion: the adapted basis
 and leading-term formula remain. This is targeted validation, not a new
 full CI success claim.
+
+## Wronskian criterion: adapted basis and basis-change identity
+
+Compiled OrderedTaylorBasis.lean and RationalTaylorBasis.lean with warnings
+as errors. Audited exists_basis_distinct_orders, iteratedDeriv_analytic_sum,
+rationalFamily_exists_basis_distinct_orders,
+wronskian_linearCombination_matrix, wronskian_basis_ne_zero_iff.
+Only propext, Classical.choice, Quot.sound occur transitively.
+The basis is a genuine constant invertible change of coefficients.
+The analytic leading-term formula remains unproved; the full criterion and
+Theorem 1.2 are not claimed here. Targeted validation only.
