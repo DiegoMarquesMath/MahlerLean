@@ -334,3 +334,25 @@ all unit coefficient vectors and sublevel heights. The interval union is
 exact, includes singleton pieces, and may overlap. The general C^(N-1)
 version of Lemma 3.5 is not claimed. See `docs/STEP12_PT.md` for the remaining
 Farey interface, nonrationality, determinant, and final-theorem dependencies.
+
+# Step 13 — arithmetic determinant lower bounds
+
+Validated on 20 September 2026 at commit
+`a6aa168d41a421f2dbecc51d98a3a670a931b60d` by
+[GitHub Actions run 35486318942](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35486318942).
+
+- Full build passed (3133 jobs).
+- All project modules passed with warnings treated as errors.
+- All 188 listed declarations were printed by the axiom audit.
+- Every printed list contains only `propext`, `Classical.choice`, and `Quot.sound`.
+- The six new theorems cover integral row scaling, exact denominator
+  clearing, product and dyadic lower bounds, and determinant vanishing
+  below the arithmetic threshold.
+- Fractions need not be reduced; arbitrary signed numerators and degree
+  zero are included. Positive denominators are explicit hypotheses.
+- The analytic upper bound remains to be proved; its strict comparison
+  with the arithmetic threshold is a hypothesis of the vanishing theorem.
+- No manuscript or dependency revision was changed.
+
+The record above concerns the exact Lean source at the cited commit.
+Subsequent documentation-only commits do not change that source.
