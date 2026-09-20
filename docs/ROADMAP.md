@@ -1,158 +1,37 @@
-# Mathematical roadmap
+# Proof roadmap
 
-Reference: Mahler_Question_18SEPT.pdf. Keep this version fixed while matching
-statements, and record any later change of the manuscript explicitly.
+The local quantitative Theorem 1.2 is assembled in
+[`MahlerLean.theorem_1_2`](../MahlerLean/IrrationalityExponent.lean).
+The proof follows this dependency structure:
 
-## Current verified milestone
+1. **Arithmetic supply and packing.** Farey separation, counting in interval
+   components and source supply with cF = 1/4.
+2. **Uniform analytic estimates.** Wronskian localization, normalized jets,
+   finite interval covers and uniform sublevel measure bounds.
+3. **Two-height counting.** Arithmetic determinant lower bounds, analytic
+   determinant decay with multilinear perturbations, rank-to-counting,
+   source cells, small and large dyadic target blocks. These prove Proposition
+   5.1 with the original margin and uniformity in H.
+4. **Infinite fusion.** Safe centers, nested intervals and source/target
+   invariants give a Liouville point and eventual target avoidance.
+5. **Original analytic hypotheses.** Local derivative bounds follow from
+   nonconstancy. Nonrationality gives independence of the rational family;
+   an adapted Taylor basis and the Wronskian leading term give nontriviality.
+6. **Quantitative conclusion.** The exact infinitely-many-pairs definition
+   of the irrationality exponent converts avoidance into μ(f(ξ)) ≤ 100.
 
-Step 2 proves safe-center selection conditional on the source supply and
-the uniform counting estimate, with a source threshold independent of H.
-See [STEP2_PT.md](STEP2_PT.md).
+No mathematical intermediate lemma remains open for this formal statement
+of Theorem 1.2. Statement correspondence is recorded in
+[THEOREM_1_2.md](THEOREM_1_2.md) and [STEP14_PT.md](STEP14_PT.md).
+The actual validation performed is recorded in [VALIDATION.md](../VALIDATION.md).
 
-Step 3 proves equivalence between the library and manuscript Liouville
-conventions, coverage by the target blocks, and the existence of a
-Liouville escape point conditional on the explicit invariants in
-`FusionData`. It also derives the movement bound from a derivative bound
-using the mean-value theorem. See [STEP3_PT.md](STEP3_PT.md).
+## Separate future work
 
-Step 4 proves quantitative avoidance of a finite set, simultaneous scale
-selection, the floor-cutoff estimates, propagation of the tail bound, and
-one successor step from the counting hypotheses on the middle third.
-The finite forbidden set and all scale thresholds are fixed before Q is
-chosen. See [STEP4_PT.md](STEP4_PT.md).
+- Formalize the rational-rigidity corollary and the entire-function
+  consequence, Theorem 1.1.
+- Formalize the independent Section 7 statements if desired.
+- Prepare a tagged archival release and optional public blueprint site for citation.
 
-Step 5 initializes the interval and target cutoff, constructs the infinite
-sequence by recursion, and proves all seven fusion invariants from the
-explicit `FusionInputs` interface. It also proves uniqueness of the common
-point, unbounded source denominators and the counting-to-escape theorem.
-See [STEP5_PT.md](STEP5_PT.md).
-
-Step 6 proves rational separation and the upper bound in the component
-form of Lemma 2.1: a finite set of rationals in a supplied decomposition
-into at most R disjoint intervals has cardinality at most 4Q^2 |E| + R.
-The volume is Lebesgue measure; the component term has no factor Q.
-See [STEP6_PT.md](STEP6_PT.md).
-
-Step 7 proves Lemma 2.2 with cF = 1/4 by finite Möbius inversion and
-elementary totient/divisor estimates. The new `UniformCountingInputs`
-interface removes source supply as an assumption in the escape theorem.
-See [STEP7_PT.md](STEP7_PT.md).
-
-Step 8 proves compact finiteness of analytic zeros, analyticity of the exact
-Wronskians, simultaneous localization, and the finite nested sets Z_n used
-in fusion, conditional on Wronskian nontriviality. The new
-`WronskianCountingInputs` adapter constructs those sets instead of taking
-an arbitrary finite-set sequence as input. See [STEP8_PT.md](STEP8_PT.md).
-
-Step 12 combines the uniform jet and one-dimensional sublevel results
-into uniform analytic sublevel bounds: an exact union of at most R intervals
-and measure at most C eps^(1/(N-1)), with constants preceding all normalized
-coefficient vectors. It includes the rational-family specialization.
-See [STEP12_PT.md](STEP12_PT.md) for the precise analytic hypotheses.
-
-Step 13 proves the determinant-to-counting core of Proposition 5.1. It
-separates source and target denominator heights in the arithmetic lower
-bound, proves triangular analytic determinant decay and perturbation control,
-forces determinant vanishing, extracts a common normalized relation from all
-maximal minors, transfers it to the graph, and applies a pairwise-disjoint
-uniform sublevel decomposition to Farey counting.
-See [STEP13_PT.md](STEP13_PT.md).
-
-The abstract infinite fusion argument is formalized conditionally.
-Remaining tasks include deriving Wronskian nontriviality from nonrationality
-and completing the scale/cell and target-height-block assembly of
-Proposition 5.1. These must provide `FusionInputs`
-from the hypotheses of the manuscript before the main theorems can be
-claimed as fully formalized.
-
-## Stage 0: reproducible environment
-
-Install VS Code, Lean 4 extension, Elan, and Git. Open the project root;
-obtain the matching mathlib cache; build; inspect the nine initial statements.
-Make a first local commit. Run the GitHub workflow when the project is published.
-
-## Stage 1: source and target definitions
-
-Inspect mathlib's existing `Liouville` definitions and prove the equivalence
-with the convention used in the paper. Do not silently replace the paper's
-strict nonzero approximation condition with a weaker definition.
-
-In the pinned v4.24.0 source, this definition is in
-`Mathlib/NumberTheory/Transcendental/Liouville/Basic.lean`:
-`∀ n : ℕ, ∃ a b : ℤ, 1 < b ∧ x ≠ a / b ∧ |x - a / b| < 1 / (b : ℝ)^n`.
-It uses existence at every exponent, while the manuscript states infinitely
-many pairs at every exponent. Their equivalence must be explicitly checked.
-
-Specify source fractions in lowest terms, their denominator block [Q, 2Q),
-and target witnesses with unreduced denominator allowed. Count distinct
-source rationals, not source-target witness pairs. Establish finiteness on
-a bounded source interval before using finite cardinalities.
-
-Define the avoidance property for every integer numerator and all sufficiently
-large positive target denominators. At first, this explicit inequality can be
-used instead of formalizing the irrationality exponent itself.
-
-## Stage 2: abstract fusion, then its application
-
-State all earlier results used by fusion as explicit hypotheses of a
-conditional theorem. Do not introduce an axiom asserting Proposition 5.1.
-
-The following parts are now proved under the explicit `FusionInputs`
-interface (steps 2--5):
-
-1. Selection of a safe center from supply and exclusion estimates.
-2. Stability under movement away from the center.
-3. Extraction of an interval of controlled length after deleting finitely
-   many Wronskian zeros and the current center.
-4. The full simultaneous induction (F1)--(F7), with Q chosen after all
-   quantities on which its lower threshold depends.
-5. Existence and uniqueness of the point in nested nonempty compact intervals.
-6. Unbounded reduced source denominators and arbitrarily strong nonzero
-   rational approximations.
-7. Coverage of every sufficiently large target denominator by consecutive
-   integer blocks [T_n, T_(n+1)).
-8. The eventual lower bound for target approximation.
-
-The counting-to-fusion interface must retain both uniformities:
-`C_low` independent of the shrinking source interval, and
-`C(J,A), Q0(J,A)` independent of H. Include the separate rational supply
-and Wronskian localization hypotheses; the numeric inequality alone is not
-the full interface.
-
-## Stage 3: Proposition 5.1 and dependencies
-
-Farey separation, the upper estimate from a disjoint interval
-decomposition, and rational supply with cF = 1/4 are now proved.
-Localized Wronskian separation is now proved given nontriviality.
-Uniform sublevel measure and pairwise-disjoint finite interval bounds are now
-proved for analytic families with a nonvanishing Wronskian on the compact
-interval. Determinant perturbation, rational denominator clearing, rank
-deficiency, coefficient normalization and their Farey-counting composition
-are also proved. Remaining statements include rationality versus linear
-dependence, the analytic Wronskian criterion, and the full cell/block scale
-assembly of Proposition 5.1.
-
-In the large-target range track:
-
-- A >= 20, u >= 1/5, d = ceil(10u), N = 2(d+1).
-- kappa <= 33/20, s - kappa*N >= 1/5, s/(N-1) >= 97/35.
-- Constants chosen over the finite degree range before Q and target blocks.
-- One target witness per source center, all maximal minors, then a relation
-  valid for every selected center in the cell.
-- Uniformity in normalized polynomial coefficients and number of components.
-- Summation of O(log Q) blocks with the exponent loss 1/20.
-
-An obstacle can be missing Lean infrastructure or a mathematical gap.
-Record which one it is. Never weaken the final statement just to compile.
-
-## Stage 4: main conclusions and public release
-
-Combine the unconditional estimate with fusion, prove the local rigidity
-corollary, and then the entire-function consequence. Audit the exact
-formal statements against Theorems 1.2 and 1.1. The independent Section 7
-results are a separate milestone.
-
-Only after verification, create a tagged release and describe its precise
-scope in the paper. A public blueprint site and an archival DOI can be added
-then. A Markdown dependency plan is not itself a machine-checked proof.
-
+These are separate from the completed mathematical dependency chain for
+Proposition 5.1 and Theorem 1.2. Historical `STEP*.md` files retain their
+checkpoint descriptions and are not the current list of pending results.

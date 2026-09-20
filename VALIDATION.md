@@ -1,3 +1,44 @@
+# Validation record
+
+## Current result — 20 September 2026
+
+Proposition 5.1 and the local quantitative Theorem 1.2 are formalized.
+The final declaration is `MahlerLean.theorem_1_2` in
+`MahlerLean/IrrationalityExponent.lean`. It includes the manuscript's
+irrationality-exponent bound and eventual strict approximation lower bound.
+
+The complete `bash scripts/check.sh` passed with exit code 0 in an isolated
+copy of the repository sources plus the new final theorem:
+
+- Lean 4.24.0 and the pinned mathlib dependencies.
+- `lake build`: passed, 3191 jobs.
+- All 88 project source modules: passed with `-DwarningAsError=true`.
+- All 352 listed declarations: audited transitively.
+- The only reported axioms are `propext`, `Classical.choice`, `Quot.sound`.
+- No `sorryAx` occurs, including in `theorem_1_2`.
+
+The isolated copy was checked against the Git tree of
+`d168565513791c9ad3348dd4fdd6a358c87a233d`; only the new
+IrrationalityExponent module and its root-import/audit entries differ among
+the code and build files. An old unpublished scratch module was excluded
+by copying exactly the repository's tracked paths, not by weakening the
+verification script. The unchanged script was run to completion.
+
+GitHub Actions independently passed for the preceding Wronskian checkpoint:
+[run 35527250193](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35527250193).
+That run does not certify the final new commit. Its own workflow runs on publication;
+the full local verification above covers the final Lean sources.
+
+The manual statement comparison with `paper/main.tex` is recorded in
+[THEOREM_1_2.md](docs/THEOREM_1_2.md), and the Proposition 5.1 comparison in
+[STEP14_PT.md](docs/STEP14_PT.md). Kernel verification applies to these
+formal statements; unrelated manuscript results are not claimed.
+
+## Historical checkpoint records
+
+The entries below describe earlier states. Their old statements of pending
+work and validation scope are historical; the current result is given above.
+
 # Validation record — initial commit
 
 Validated on 18 September 2026 in a Linux x86_64 environment.

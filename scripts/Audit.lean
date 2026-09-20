@@ -428,3 +428,8 @@ import MahlerLean
 #print axioms MahlerLean.eventually_rationalWronskian_ne_zero_of_not_rational
 #print axioms MahlerLean.exists_rationalWronskian_ne_zero_of_not_rational
 #print axioms MahlerLean.exists_escape_of_analytic_not_rational
+
+-- Irrationality exponent and the complete local quantitative theorem
+#print axioms MahlerLean.approximationPairs_finite_of_eventual_target_avoidance
+#print axioms MahlerLean.irrationalityExponent_le_of_eventual_target_avoidance
+#print axioms MahlerLean.theorem_1_2

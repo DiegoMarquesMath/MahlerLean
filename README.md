@@ -1,118 +1,89 @@
 # Mahler's Question on Liouville Numbers
 
-[![Lean verification](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=step13-determinants)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml?query=branch%3Astep13-determinants)
+[![Lean verification](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
 
-A Lean 4 formalization project accompanying Diego Marques's manuscript
+A Lean 4 formalization accompanying Diego Marques's manuscript
 [*Mahler's problem on Liouville numbers*](paper/main.pdf).
-The current focus is the counting estimate in Proposition 5.1 and the
-Liouville escape theorem, Theorem 1.2.
 
-Mahler asked whether a transcendental entire function could map every
-Liouville number to a Liouville number. The manuscript addresses this
-question through the following local statement, which is the principal
-target of this formalization:
+**The local quantitative Theorem 1.2 and the two-height counting estimate
+of Proposition 5.1 are formalized.** The final theorem includes the
+irrationality-exponent bound and has no additional counting, derivative
+or Wronskian hypotheses.
 
-> Let $U\subseteq\mathbb R$ be a nonempty open interval, and let
-> $f:U\to\mathbb R$ be real analytic and not the restriction of a rational
-> function in $\mathbb R(x)$ without poles on $U$. Every nonempty open subinterval $V\subseteq U$
-> contains a Liouville number $\xi$ such that $\mu(f(\xi))\leq 100$.
-
-Here $\mu$ denotes the irrationality exponent. The proof combines rational
-point counting at independent source and target heights, Wronskian
-estimates, and a nested-interval construction.
-
-**Proposition 5.1 is formalized on this branch under its fixed analytic,
-derivative and Wronskian hypotheses. The analytic nonrational escape result
-is now proved without extra Wronskian assumptions. The final irrationality-exponent
-statement and validation of Theorem 1.2 remain in progress.**
-
-The [statement comparison](docs/STEP14_PT.md) checks these hypotheses and
-definitions against Proposition 5.1 in the repository manuscript.
-
-[Manuscript](paper/main.pdf) · [Proof roadmap](docs/ROADMAP.md) ·
-[Formalized results](docs/FORMALIZATION.md) · [Validation record](VALIDATION.md) ·
+[Main theorem](MahlerLean/IrrationalityExponent.lean) ·
+[Manuscript](paper/main.pdf) ·
+[Statement comparison](docs/THEOREM_1_2.md) ·
+[Validation](VALIDATION.md) ·
 [Guia em português](GUIA_PT.md)
 
-## Current status
+## Main result
 
-The [two-height counting theorem](MahlerLean/TwoHeightCounting.lean) combines
-small and large target blocks to prove Proposition 5.1 for the original
-`dangerousSources` and safety margin. The leading constant is chosen before
-the source subinterval and approximation order; the remainder constant and
-threshold are uniform in the target-height cutoff. It also supplies the
-`HasUniformDangerBound` interface used by fusion.
-See the [determinant and counting overview](docs/STEP13_PT.md).
-The [Step 12 overview](docs/STEP12_PT.md) records the analytic hypotheses and
-scope. These additions have not yet been merged into `main`.
+Let $U\subseteq\mathbb R$ be an open interval and let $f$ be real analytic
+on $U$. Suppose that $f$ is not the restriction of a rational function
+in $\mathbb R(x)$ without poles on $U$. Then every nonempty open
+subinterval $V\subseteq U$ contains a Liouville number $\xi$ such that
 
-| Part of the argument | Formalization status |
+$$\mu(f(\xi))\leq 100.$$
+
+In fact, for every integer $a$ and every sufficiently large positive
+integer $b$,
+
+$$\left|f(\xi)-\frac{a}{b}\right|>b^{-100}.$$
+
+The declaration [`MahlerLean.theorem_1_2`](MahlerLean/IrrationalityExponent.lean)
+proves this statement. The irrationality exponent is the extended-real
+supremum defined using infinitely many integer numerator/positive
+denominator pairs, with strictly positive approximation error, as in
+the manuscript. The Lean statement allows any nonempty open subset $V$.
+
+## Proof structure
+
+The argument combines rational point counting at independent source and
+target heights with a nested-interval construction.
+
+| Component | Formalization |
 | --- | --- |
-| Farey separation and upper counting | Proved for a supplied disjoint interval decomposition. |
-| Rational source supply | Proved with the absolute constant $c_F=1/4$. |
-| Infinite fusion and Liouville escape | Proved from analyticity and nonrationality, with target avoidance at exponent 100. |
-| Wronskian localization | Proved; nontriviality is now deduced from nonrationality. |
-| Uniform jets and one-dimensional sublevels | Proved. |
-| Uniform analytic sublevels | Proved, including a pairwise-disjoint rational-family specialization. |
-| Arithmetic determinant lower bound | Proved, without reduced-fraction assumptions. |
-| Analytic determinant and rank-to-counting core | Proved on this branch. |
-| Full scale/cell assembly of Proposition 5.1 | Proved, including small and large target blocks and uniformity in the cutoff. |
-| Theorem 1.2 from the manuscript's hypotheses | Escape and exponent-100 target avoidance proved. Explicit irrationality-exponent formulation and final validation remain. |
+| Farey source supply and rational packing | Source supply with $c_F=1/4$; separation and interval-component upper bounds. |
+| Uniform analytic estimates | Wronskians, jets, finite covers and sublevel estimates. |
+| Proposition 5.1 | Arithmetic and analytic determinants, multilinear perturbations, and complete small/large target-block counting, uniform in the target cutoff. |
+| Infinite fusion | Safe centers and nested intervals yield a Liouville point with eventual target avoidance. |
+| Analytic nonrationality | Independence, an adapted Taylor basis and the Wronskian leading term discharge the analytic hypotheses of fusion. |
+| Theorem 1.2 | The resulting image has irrationality exponent at most 100. |
 
-[Analytic nonrational escape](MahlerLean/RationalWronskianNonvanishing.lean)
-now works in every nonempty open subset of the domain. The theorem
-`exists_escape_of_analytic_not_rational` supplies a Liouville point whose
-image satisfies `EventualTargetAvoidance` at exponent 100 and is not Liouville.
-Counting, derivative bounds and Wronskian nontriviality are all proved internally.
+See the [proof roadmap](docs/ROADMAP.md),
+[declaration map](docs/FORMALIZATION.md), and
+[Proposition 5.1 comparison](docs/STEP14_PT.md).
+The conditional interfaces in intermediate modules are instantiated in
+the final theorem. Historical development notes record earlier checkpoints.
 
-The [Wronskian leading-term formula](MahlerLean/WronskianLeadingTerm.lean)
-is proved using scaled derivative limits and the Vandermonde determinant.
-An adapted constant basis transfers nonvanishing to the manuscript's exact
-rational family. See the [criterion and validation notes](docs/WRONSKIAN_CRITERION.md).
-The remaining finalization is the explicit irrationality-exponent formulation,
-the whole-theorem manuscript comparison and full project validation.
-The uniform sublevel result assumes analyticity; the more general
-finite-smoothness statement in the manuscript is not claimed.
+## Reproduce the verification
 
-## Build the Lean files
-
-Install Lean using the [Lean community installation guide](https://leanprover-community.github.io/get_started.html).
-From the root of a checkout, run:
+Install Lean using the [Lean community guide](https://leanprover-community.github.io/get_started.html).
+From the repository root, run:
 
 ```bash
 lake exe cache get
-lake build
-```
-
-The project pins Lean 4.24.0 and the exact dependency revisions in
-`lean-toolchain` and `lake-manifest.json`.
-Use these recorded versions when reproducing the proofs.
-
-To run the full verification, including warnings as errors and the
-listed-theorem axiom audit:
-
-```bash
 bash scripts/check.sh
 ```
 
-The [GitHub workflow](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
-runs these checks automatically. The audit inspects the declarations in
-[scripts/Audit.lean](scripts/Audit.lean) and rejects dependencies on
-`sorryAx`. Formal correctness applies to the Lean statements with their
-explicit hypotheses; it does not certify unformalized claims in the manuscript.
+The project pins Lean 4.24.0 and its dependencies in `lean-toolchain` and
+`lake-manifest.json`. The script builds the project, checks every project
+source with warnings treated as errors, and audits the listed theorem
+axioms, rejecting `sorryAx`. The [GitHub workflow](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
+runs the same checks. Actual verification results are recorded in
+[VALIDATION.md](VALIDATION.md).
 
-## Exploring the proof
+## Scope and citation
 
-- [MahlerLean.lean](MahlerLean.lean) imports the formalization.
-- [Formalized results](docs/FORMALIZATION.md) maps declarations to the mathematical argument.
-- [Proof roadmap](docs/ROADMAP.md) describes the dependencies and remaining work.
-- [Development notes](docs/) contain detailed explanations of each stage.
+This formalization covers Proposition 5.1 and the local quantitative
+Theorem 1.2. It does not claim that every result in the manuscript is
+formalized; the entire-function consequence of Theorem 1.1 and the
+independent Section 7 results are outside this scope. The general
+finite-smoothness version of the sublevel theorem is not claimed.
 
-## Source and citation
-
-The reference text is the manuscript stored in
-[paper/main.pdf](paper/main.pdf), with [LaTeX source](paper/main.tex).
-When citing the formalization, include the repository URL and the commit
-used, so that readers can identify the exact statements and verification
-status.
+The kernel verifies the Lean statements. The correspondence to the
+manuscript is documented separately in the statement comparisons.
+When citing the formalization, include the repository URL and the exact
+commit or release used, so readers can reproduce the same proof.
 
 Maintained by [Diego Marques](https://github.com/DiegoMarquesMath).

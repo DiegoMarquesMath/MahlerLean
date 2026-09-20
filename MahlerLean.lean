@@ -78,3 +78,4 @@ import MahlerLean.WronskianLeadingMatrix
 import MahlerLean.RationalTaylorBasis
 import MahlerLean.WronskianLeadingTerm
 import MahlerLean.RationalWronskianNonvanishing
+import MahlerLean.IrrationalityExponent

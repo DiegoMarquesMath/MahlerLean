@@ -54,6 +54,6 @@ All twelve new declarations were audited transitively: only propext,
 Classical.choice and Quot.sound occur, without sorryAx.
 The main import module and scripts/Audit.lean include these results.
 
-This records targeted compilation and axiom audits, not a fresh full CI
-success. The explicit irrationality-exponent formulation, final comparison
-of the entire Theorem 1.2 and full project validation remain to be completed.
+The final irrationality-exponent statement is now `theorem_1_2` in
+`IrrationalityExponent.lean`. See `THEOREM_1_2.md` for the complete statement
+comparison and `../VALIDATION.md` for project verification results.
