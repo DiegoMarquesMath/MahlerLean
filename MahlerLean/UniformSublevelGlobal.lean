@@ -89,8 +89,14 @@ theorem exists_uniform_analytic_sublevel_measure_bound
       le_min hx.2 hxp.2.le
 
     have hpnonempty :
-        max A (a p) ≤ min B (b p) :=
-      hleft.trans hright
+        max A (a p) ≤ min B (b p) := by
+      apply max_le
+      · apply le_min
+        · exact hAB
+        · exact hx.1.trans hxp.2.le
+      · apply le_min
+        · exact hxp.1.le.trans hx.2
+        · exact hxp.1.le.trans hxp.2.le
 
     have hps : p ∈ s := by
       apply Finset.mem_filter.mpr
