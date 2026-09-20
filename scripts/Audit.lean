@@ -355,3 +355,19 @@ import MahlerLean
 #print axioms MahlerLean.safetyMargin_le_largeTarget_error
 #print axioms MahlerLean.witness_rational_den_le
 #print axioms MahlerLean.exists_largeTarget_original_margin_card_bound
+
+-- Small-target witnesses, packing and uniform dyadic sums
+#print axioms MahlerLean.rational_target_neighborhood_card_le
+#print axioms MahlerLean.mem_targetWitnessBox
+#print axioms MahlerLean.targetWitnessBox_card_le
+#print axioms MahlerLean.safetyMargin_le_two_add_four
+#print axioms MahlerLean.target_witness_numerator_bound
+#print axioms MahlerLean.safetyMargin_le_block
+#print axioms MahlerLean.dyadic_inverse_power_sum_le
+#print axioms MahlerLean.dyadic_square_partial_sum_le
+#print axioms MahlerLean.dyadic_square_sum_le
+#print axioms MahlerLean.small_target_block_card_le_raw
+#print axioms MahlerLean.small_target_block_card_le
+#print axioms MahlerLean.exists_smallTarget_original_margin_card_bound
+#print axioms MahlerLean.inverse_bound_of_abs_deriv_lower
+#print axioms MahlerLean.exists_smallTarget_counting_of_derivative_bounds

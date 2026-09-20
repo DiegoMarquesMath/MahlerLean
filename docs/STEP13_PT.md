@@ -241,3 +241,40 @@ atribuídos ao regime pequeno, conforme o artigo. Theorem 1.2 não está conclu�
 Validação: os cinco novos módulos compilaram com warningAsError=true.
 Os nove resultados foram auditados: apenas propext, Classical.choice e
 Quot.sound. Não se confunde essa validação direcionada com o CI integral.
+
+## Item 3: pequenas alturas — concluído
+
+O teorema `exists_smallTarget_counting_of_derivative_bounds` prova
+#S ≤ C_low Q² H^(-98) + C_err Q^(2/5) para a contribuição dos blocos
+B=2^k H<Q^(1/5), com a safetyMargin original. Ambas as constantes são
+escolhidas antes de A,Q,H e da família finita de fontes; o resultado vale
+para A≥3, Q>0 e H≥1.
+
+Hipóteses fixas: |f(x)|≤F no intervalo [a,b], M≥0, m>0,
+diferenciabilidade e m≤|deriv f x| nesse intervalo. O lema
+`inverse_bound_of_abs_deriv_lower` deriva a estimativa inversa de Lipschitz
+pelo teorema do valor médio.
+
+A implementação contém:
+- empacotamento de Farey para cada pré-imagem de uma vizinhança alvo,
+  usando o diâmetro ≤2 eps/m;
+- limite |p|≤(F+2+4M)q para os witnesses e uma caixa finita com
+  ≤K B² pares, K=3(4(F+2+4M)+3);
+- cota por bloco (16K/m)Q² B^(-98)+K(32M/m+1)B²;
+- somas diádicas ≤2H^(-98) e ≤2Q^(2/5).
+
+Podem-se tomar C_low=32K/m e C_err=2K(32M/m+1). Não se exige redução
+dos witnesses nem disjunção das pré-imagens: a soma usa sobrecontagem.
+Os blocos que cruzam Q^(1/5) continuam incluídos no regime pequeno se
+o seu extremo esquerdo for menor que esse limiar. Para famílias finitas,
+a prova seleciona índices de witnesses e constrói o conjunto finito
+de blocos usado na soma, sem supor previamente uma cobertura finita.
+
+**Resta o item 4:** decompor dangerousSources entre os regimes pequeno e
+grande e reunir os dois resultados no enunciado integral da Proposition 5.1.
+O Theorem 1.2 ainda não está concluído.
+
+Validação: os sete módulos novos compilaram com warningAsError=true.
+Os catorze resultados novos foram auditados e usam somente propext,
+Classical.choice e Quot.sound. Essa validação direcionada não declara
+que o CI integral já terminou.
