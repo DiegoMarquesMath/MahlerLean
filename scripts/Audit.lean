@@ -311,3 +311,16 @@ import MahlerLean
 #print axioms MahlerLean.exists_smooth_curve_perturbed_sum_bound
 #print axioms MahlerLean.exists_smooth_curve_strong_perturbed_bound
 #print axioms MahlerLean.exists_targetLinearMatrix_strong_perturbed_bound
+
+-- Uniformity in moving cells and adaptive degrees
+#print axioms MahlerLean.iteratedDerivWithin_right_subinterval
+#print axioms MahlerLean.exists_uniform_derivative_bound_right_subinterval
+#print axioms MahlerLean.exists_uniform_taylor_remainder_moving_base
+#print axioms MahlerLean.exists_moving_base_curve_determinant_bound
+#print axioms MahlerLean.exists_moving_base_smooth_curve_minor_bound
+#print axioms MahlerLean.exists_moving_base_curve_mixed_bound
+#print axioms MahlerLean.exists_moving_base_curve_perturbed_sum_bound
+#print axioms MahlerLean.exists_moving_base_curve_strong_perturbed_bound
+#print axioms MahlerLean.exists_targetLinearMatrix_uniform_perturbed_bound
+#print axioms MahlerLean.exists_targetLinearMatrix_uniform_degree_bound
+#print axioms MahlerLean.exists_targetLinearMatrix_det_zero_uniform_cells

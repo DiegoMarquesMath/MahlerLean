@@ -52,3 +52,5 @@ import MahlerLean.TargetLinearCounting
 import MahlerLean.CellCountingAssembly
 
 import MahlerLean.MixedDeterminantDecay
+
+import MahlerLean.UniformDeterminantVanishing

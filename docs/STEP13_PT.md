@@ -105,3 +105,32 @@ artigo em toda célula móvel dentro de J, falta extrair os limites de
 Taylor/derivadas uniformemente na base em J. Só depois essa estimativa
 substituirá a interface usada na montagem global da Proposição 5.1.
 A alternativa por inversão da matriz de derivadas não foi incorporada.
+
+## Uniformidade na posição da célula — concluída
+
+A restrição à base fixa do bloco anterior foi removida:
+
+- `UniformTaylorBase.lean` escolhe limites das derivadas e do resto de
+Taylor no intervalo compacto pai [a,b], antes de escolher a base c.
+A igualdade das derivadas nas restrições [c,b] é provada explicitamente.
+- `UniformCurveDeterminant.lean` propaga esses limites ao decaimento de
+cada menor, incluindo os tamanhos 0 e 1.
+- `UniformPerturbedDeterminant.lean` prova a soma de termos mistos e a
+estimativa forte, com a constante independente de c, rho, delta e dos
+pontos escolhidos. As células satisfazem a ≤ c < b e c ≤ x_i ≤ b,
+x_i-c ≤ rho.
+- `UniformDeterminantVanishing.lean` escolhe uma constante única antes
+do grau d≤D e da célula, e compara a estimativa forte com a cota
+aritmética dos denominadores para forçar o determinante a zero.
+
+A versão forte não usa Wronskianos nem matriz inversa. Ela depende somente
+da regularidade da curva no intervalo pai e da hipótese delta ≤ rho^N.
+A uniformidade analítica necessária para as células está, portanto,
+formalizada. Os onze resultados principais passaram por compilação com
+warningAsError=true e auditoria com os três axiomas padrão.
+
+Próximo trabalho: verificar uniformemente a desigualdade estrita entre
+K*rho^(N(N-1)/2) e o limiar aritmético após inserir as escalas do artigo;
+construir as famílias de centros com testemunhos, aplicar a contagem,
+e concluir as somas de células e blocos. A Proposição 5.1 completa ainda
+não é declarada como concluída.
