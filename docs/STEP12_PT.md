@@ -13,6 +13,8 @@ Lemma 3.5 do manuscrito. Os módulos intermediários são:
 
 `MahlerLean/FiniteSublevelAssembly.lean`
 
+`MahlerLean/UniformIntervalCover.lean`
+
 ## Resultado já formalizado
 
 Para uma família analítica `φ : Fin N → ℝ → ℝ` e um vetor de
@@ -82,16 +84,26 @@ intervalos:
   combina os dois fatos anteriores com a estimativa local da etapa 12d,
   permitindo que a ordem positiva da derivada varie entre os intervalos.
 
+O sexto módulo completa a extração topológica dos intervalos:
+
+- `exists_product_nhds_Icc_subset`: dentro de uma vizinhança de um par
+  coeficiente/fonte, escolhe uma vizinhança dos coeficientes e um
+  intervalo compacto da fonte contido no domínio analítico;
+- `exists_finite_uniform_jet_interval_cover_of_analytic`: aplica essa
+  construção a todos os pares normalizados e usa compactidade para obter
+  uma única família finita de retângulos; cada retângulo possui ordem de
+  derivação fixa e a mesma cota positiva de jato.
+
 ## O que ainda não está provado
 
 Esta etapa intermediária ainda não afirma o Lemma 3.5 completo. Ainda é
 necessário formalizar:
 
-1. extrair, da cobertura finita do produto, uma família finita de
-   intervalos compactos subordinados aos patches e válida para cada vetor
-   unitário de coeficientes;
-2. alimentar essa família no teorema de montagem já formalizado, obtendo
-   a afirmação global sem hipóteses auxiliares de cobertura;
+1. recortar os intervalos extraídos pelo intervalo-fonte `J` e
+   alimentar a família resultante no teorema de montagem, incluindo os
+   patches de ordem zero;
+2. obter assim a afirmação global de medida sem hipóteses auxiliares de
+   cobertura;
 3. representar o subnível como união de um número uniformemente limitado
    de intervalos;
 4. especializar o resultado global à família racional `x^i f(x)^j`,

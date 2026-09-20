@@ -191,3 +191,7 @@ import MahlerLean
 #print axioms MahlerLean.jetLinearCombo_sublevel_measure_bound_uniform_order
 #print axioms MahlerLean.measureReal_le_card_mul_of_finite_cover
 #print axioms MahlerLean.jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover
+
+-- Step 12f: uniform compact interval patches
+#print axioms MahlerLean.exists_product_nhds_Icc_subset
+#print axioms MahlerLean.exists_finite_uniform_jet_interval_cover_of_analytic
