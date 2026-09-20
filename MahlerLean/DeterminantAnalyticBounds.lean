@@ -103,6 +103,35 @@ theorem targetLinearPerturbation_l1_le (d : ℕ) {x y z X δ : ℝ}
       Finset.sum_le_sum (fun j _ => abs_targetLinearPerturbation_le d hX hx hδ j)
     _ = _ := by simp
 
+/-- Matrix whose `k`th row is the vertical perturbation at the `k`th
+source point. -/
+def targetLinearPerturbationMatrix (d : ℕ)
+    (x y z : Fin (2 * (d + 1)) → ℝ) :
+    Matrix (Fin (2 * (d + 1))) (Fin (2 * (d + 1))) ℝ :=
+  fun k j => targetLinearPerturbation d (x k) (y k) (z k) j
+
+/-- Exact decomposition of the evaluation matrix into its graph part and
+the vertical perturbation matrix. -/
+theorem targetLinearMatrix_eq_add_perturbation (d : ℕ)
+    (x y z : Fin (2 * (d + 1)) → ℝ) :
+    targetLinearMatrix d x y = targetLinearMatrix d x z +
+      targetLinearPerturbationMatrix d x y z := by
+  ext k j
+  change x k ^ (j.val / 2) * y k ^ (j.val % 2) =
+    x k ^ (j.val / 2) * z k ^ (j.val % 2) +
+      (x k ^ (j.val / 2) * y k ^ (j.val % 2) -
+        x k ^ (j.val / 2) * z k ^ (j.val % 2))
+  ring
+
+/-- Uniform `L¹` bound for every row of the perturbation matrix. -/
+theorem targetLinearPerturbationMatrix_rowL1_le (d : ℕ)
+    {x y z : Fin (2 * (d + 1)) → ℝ} {X δ : ℝ}
+    (hX : 1 ≤ X) (hx : ∀ k, |x k| ≤ X)
+    (hδ : ∀ k, |y k - z k| ≤ δ) (k : Fin (2 * (d + 1))) :
+    matrixRowL1 (targetLinearPerturbationMatrix d x y z) k ≤
+      (2 * (d + 1) : ℕ) * (X ^ d * δ) := by
+  exact targetLinearPerturbation_l1_le d hX (hx k) (hδ k)
+
 /-- Exact exponent identity behind the stability of the determinant
 under `r` vertical perturbation rows. -/
 theorem perturbation_exponent_identity (N r : ℝ) :

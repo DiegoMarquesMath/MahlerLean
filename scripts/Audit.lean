@@ -240,3 +240,7 @@ import MahlerLean
 #print axioms MahlerLean.targetLinearMatrix_row_eq_curve
 #print axioms MahlerLean.targetLinearCurve_contDiffOn
 #print axioms MahlerLean.exists_targetLinearCurve_taylor_remainder_bound
+
+-- Step 13: perturbation matrix interface
+#print axioms MahlerLean.targetLinearMatrix_eq_add_perturbation
+#print axioms MahlerLean.targetLinearPerturbationMatrix_rowL1_le
