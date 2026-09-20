@@ -484,3 +484,15 @@ propext, Classical.choice, Quot.sound only. The exact Fin(2(d+1)) family
 is independent on U and as germs at every point of U. The implication
 from analytic independence to a nontrivial Wronskian is still pending.
 This records targeted validation, not a new full CI run.
+
+## Wronskian criterion: Taylor orders and algebraic leading matrix
+
+Compiled AnalyticTaylorInjectivity.lean and WronskianLeadingMatrix.lean
+with warnings as errors. Audited eventually_zero_of_all_iteratedDeriv_zero,
+rationalFamily_exists_nonzero_derivative,
+rationalFamily_exists_first_nonzero_derivative,
+det_descFactorial_eq_vandermonde, and det_descFactorial_ne_zero.
+Only propext, Classical.choice, Quot.sound occur transitively.
+This does not complete the analytic Wronskian criterion: the adapted basis
+and leading-term formula remain. This is targeted validation, not a new
+full CI success claim.

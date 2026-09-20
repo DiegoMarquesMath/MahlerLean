@@ -63,7 +63,9 @@ now proves that nonrationality excludes every nontrivial relation A+Bf=0
 and implies nonconstancy. [Independence of the exact indexed family](MahlerLean/RationalFamilyIndependent.lean)
 is proved globally on the domain and locally as analytic germs.
 The remaining implication is Wronskian nontriviality from analytic
-independence, followed by the final application to Theorem 1.2. See the [derivative localization notes](docs/STEP15_PT.md).
+independence, followed by the final application to Theorem 1.2.
+[Taylor orders and the leading determinant](docs/WRONSKIAN_CRITERION.md)
+are proved; the basis construction and analytic leading-term formula remain. See the [derivative localization notes](docs/STEP15_PT.md).
 The uniform sublevel result assumes analyticity; the more general
 finite-smoothness statement in the manuscript is not claimed.
 

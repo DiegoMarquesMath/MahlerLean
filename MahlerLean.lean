@@ -72,3 +72,5 @@ import MahlerLean.AnalyticDerivativeInterval
 import MahlerLean.RationalRelation
 
 import MahlerLean.RationalFamilyIndependent
+
+import MahlerLean.WronskianLeadingMatrix

@@ -400,3 +400,10 @@ import MahlerLean
 #print axioms MahlerLean.relationPolynomial_eval
 #print axioms MahlerLean.rationalFamily_linearIndependent_of_not_rational
 #print axioms MahlerLean.rationalFamily_coeff_eq_zero_of_eventually_sum_eq_zero
+
+-- Taylor orders and the algebraic leading matrix for the Wronskian criterion
+#print axioms MahlerLean.eventually_zero_of_all_iteratedDeriv_zero
+#print axioms MahlerLean.rationalFamily_exists_nonzero_derivative
+#print axioms MahlerLean.rationalFamily_exists_first_nonzero_derivative
+#print axioms MahlerLean.det_descFactorial_eq_vandermonde
+#print axioms MahlerLean.det_descFactorial_ne_zero
