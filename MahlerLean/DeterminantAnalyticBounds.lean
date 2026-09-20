@@ -1,5 +1,5 @@
 import MahlerLean.TargetLinearDeterminant
-import Mathlib.Tactic
+import Mathlib.Tactic.Linarith
 
 /-!
 Analytic groundwork for the determinant upper bound.  We use the row
@@ -36,8 +36,8 @@ theorem abs_det_le_sum_perm_prod_rowL1
     _ ≤ ∑ σ : Equiv.Perm n, ∏ i, matrixRowL1 M (σ i) := by
       apply Finset.sum_le_sum
       intro σ _
-      simp only [smul_eq_mul, abs_mul, Int.cast_abs, Equiv.Perm.abs_sign,
-        Int.cast_one, one_mul, abs_prod]
+      rw [Units.smul_def, abs_zsmul, Equiv.Perm.sign_abs, one_zsmul,
+        Finset.abs_prod]
       exact Finset.prod_le_prod (fun i _ => abs_nonneg _) (fun i _ =>
         matrix_entry_le_rowL1 M (σ i) i)
 
