@@ -273,8 +273,29 @@ theorem jetLinearCombo_sublevel_measure_bound_uniform
   · have hEmpty :=
       jetLinearCombo_sublevel_eq_empty_of_zero_order
         φ c hφ k hk0 hI hepslam hlow
-    rw [hEmpty]
-    positivity
+    calc
+      volume.real
+          {x : ℝ |
+            x ∈ Icc a b ∧
+              ‖jetLinearCombo φ c x‖ ≤ eps}
+        = 0 := by
+            rw [hEmpty]
+            simp
+      _ ≤
+          2 * (((N - 1 : ℕ) : ℝ)) *
+            (2 * (((N - 1 : ℕ) : ℝ)) + 1) *
+            (eps / lam) ^ (((((N - 1 : ℕ) : ℝ)))⁻¹) := by
+              have hratio0 : 0 ≤ eps / lam :=
+                div_nonneg heps hlam.le
+              have hn0 : 0 ≤ (((N - 1 : ℕ) : ℝ)) := by
+                positivity
+              have hfactor :
+                  0 ≤ 2 * (((N - 1 : ℕ) : ℝ)) + 1 := by
+                positivity
+              exact
+                mul_nonneg
+                  (mul_nonneg (mul_nonneg (by norm_num) hn0) hfactor)
+                  (Real.rpow_nonneg hratio0 _)
 
   · exact
       jetLinearCombo_sublevel_measure_bound_uniform_order
