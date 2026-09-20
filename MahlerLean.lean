@@ -27,3 +27,4 @@ import MahlerLean.FiniteJetCover
 import MahlerLean.LocalUniformSublevel
 import MahlerLean.FiniteSublevelAssembly
 import MahlerLean.UniformIntervalCover
+import MahlerLean.UniformSublevelGlobal

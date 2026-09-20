@@ -239,4 +239,120 @@ theorem jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover
         hN φ c hφ (k i) (hk i hi) (hab i hi)
           (hIU i hi) heps hlam hepslam (hlow i hi)
 
+
+/-- Uniform local measure bound valid for every jet order.  The order-zero
+case gives an empty sublevel; positive orders use the common exponent
+`1 / (N - 1)`. -/
+theorem jetLinearCombo_sublevel_measure_bound_uniform
+    {N : ℕ}
+    (hN : 2 ≤ N)
+    (φ : Fin N → ℝ → ℝ)
+    (c : EuclideanSpace ℝ (Fin N))
+    {U : Set ℝ}
+    (hφ : ∀ j, AnalyticOnNhd ℝ (φ j) U)
+    {a b eps lam : ℝ}
+    (k : Fin N)
+    (hab : a ≤ b)
+    (hI : Icc a b ⊆ U)
+    (heps : 0 ≤ eps)
+    (hlam : 0 < lam)
+    (hepslam : eps < lam)
+    (hlow :
+      ∀ x ∈ Icc a b,
+        lam ≤ |jetApply φ c k x|) :
+    volume.real
+        {x : ℝ |
+          x ∈ Icc a b ∧
+            ‖jetLinearCombo φ c x‖ ≤ eps}
+      ≤
+        2 * (((N - 1 : ℕ) : ℝ)) *
+          (2 * (((N - 1 : ℕ) : ℝ)) + 1) *
+          (eps / lam) ^ (((((N - 1 : ℕ) : ℝ)))⁻¹) := by
+
+  by_cases hk0 : k.val = 0
+  · have hEmpty :=
+      jetLinearCombo_sublevel_eq_empty_of_zero_order
+        φ c hφ k hk0 hI hepslam hlow
+    rw [hEmpty]
+    positivity
+
+  · exact
+      jetLinearCombo_sublevel_measure_bound_uniform_order
+        hN φ c hφ k (Nat.pos_of_ne_zero hk0)
+          hab hI heps hlam (le_of_lt hepslam) hlow
+
+/-- Finite interval assembly allowing both zero and positive derivative
+orders on the patches. -/
+theorem jetLinearCombo_sublevel_measure_bound_of_finite_interval_cover_all_orders
+    {ι : Type*}
+    {N : ℕ}
+    (hN : 2 ≤ N)
+    (φ : Fin N → ℝ → ℝ)
+    (c : EuclideanSpace ℝ (Fin N))
+    {U : Set ℝ}
+    (hφ : ∀ j, AnalyticOnNhd ℝ (φ j) U)
+    {A B eps lam : ℝ}
+    (t : Finset ι)
+    (a b : ι → ℝ)
+    (k : ι → Fin N)
+    (hcover :
+      Icc A B ⊆ ⋃ i ∈ t, Icc (a i) (b i))
+    (hsub :
+      ∀ i ∈ t, Icc (a i) (b i) ⊆ Icc A B)
+    (hab :
+      ∀ i ∈ t, a i ≤ b i)
+    (hIU :
+      ∀ i ∈ t, Icc (a i) (b i) ⊆ U)
+    (heps : 0 ≤ eps)
+    (hlam : 0 < lam)
+    (hepslam : eps < lam)
+    (hlow :
+      ∀ i ∈ t,
+        ∀ x ∈ Icc (a i) (b i),
+          lam ≤ |jetApply φ c (k i) x|) :
+    volume.real
+        {x : ℝ |
+          x ∈ Icc A B ∧
+            ‖jetLinearCombo φ c x‖ ≤ eps}
+      ≤
+        (t.card : ℝ) *
+          (2 * (((N - 1 : ℕ) : ℝ)) *
+            (2 * (((N - 1 : ℕ) : ℝ)) + 1) *
+            (eps / lam) ^ (((((N - 1 : ℕ) : ℝ)))⁻¹)) := by
+  classical
+
+  let S : Set ℝ :=
+    {x : ℝ |
+      x ∈ Icc A B ∧
+        ‖jetLinearCombo φ c x‖ ≤ eps}
+
+  let E : ι → Set ℝ :=
+    fun i =>
+      {x : ℝ |
+        x ∈ Icc (a i) (b i) ∧
+          ‖jetLinearCombo φ c x‖ ≤ eps}
+
+  apply
+    measureReal_le_card_mul_of_finite_cover
+      t S E
+        (2 * (((N - 1 : ℕ) : ℝ)) *
+          (2 * (((N - 1 : ℕ) : ℝ)) + 1) *
+          (eps / lam) ^ (((((N - 1 : ℕ) : ℝ)))⁻¹))
+
+  · intro x hx
+    rcases Set.mem_iUnion₂.mp (hcover hx.1) with
+      ⟨i, hi, hxi⟩
+    exact
+      Set.mem_iUnion₂.mpr
+        ⟨i, hi, hxi, hx.2⟩
+
+  · intro i hi x hx
+    exact ⟨hsub i hi hx.1, hx.2⟩
+
+  · intro i hi
+    exact
+      jetLinearCombo_sublevel_measure_bound_uniform
+        hN φ c hφ (k i) (hab i hi)
+          (hIU i hi) heps hlam hepslam (hlow i hi)
+
 end MahlerLean
