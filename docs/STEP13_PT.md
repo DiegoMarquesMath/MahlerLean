@@ -164,3 +164,39 @@ Validação: os três novos módulos compilaram com warningAsError=true.
 Os oito resultados novos foram auditados: somente propext, Classical.choice
 e Quot.sound. Esta validação é direcionada aos módulos novos; o CI completo
 é uma verificação separada.
+
+## Item 1: dados uniformes de subnível e cota por célula — concluído
+
+Este avanço resolve a pendência de uniformidade indicada na seção anterior.
+
+- `UniformDegreeCounting.lean` escolhe C>0, R>0 e eps>0 antes do grau:
+  os mesmos dados valem para todo 2≤d≤D. As hipóteses de Wronskianos
+  são exigidas apenas nesse intervalo de graus.
+- `UniformSublevelThreshold.lean` domina N X^d K₀ por
+  L = 2(D+1) X^D K₀. Como s≥97u≥97/5>1, o limiar
+  Q≥max(1,L/eps+1) garante N X^d K₀ Q^(-s)<eps
+  uniformemente. Ele é combinado com o limiar já provado dos determinantes.
+- `UniformLargeTargetCounting.lean` escolhe as constantes e Q₀ antes de u,
+  Q, da célula e da família finita de pontos fonte. A condição de pequenas
+  perturbações foi eliminada das hipóteses.
+
+O resultado final
+`exists_uniform_largeTarget_interval_cell_card_bound` fornece M>0 e Q₀≥1,
+dependentes apenas dos dados fixos f, U, [a,b], A e K₀. Para Q≥Q₀, u≥1/5,
+97u<A e qualquer célula admissível de comprimento Q^(-κ), toda família
+finita de fontes racionais com denominadores <2Q e witnesses de denominador
+≤2Q^u, erro ≤K₀Q^(-s), tem cardinalidade ≤M.
+
+A cota constante usa s/(N−1)>2: o decaimento de subnível absorve o fator Q²
+da contagem de Farey. O limite |x|≤X não é uma hipótese adicional no
+resultado final: X=max(1,|a|,|b|) é escolhido a partir do intervalo fixo.
+Nenhuma constante depende do bloco alvo, da célula ou de um cutoff H.
+
+**Próximas pendências:** construir/somar as células que cobrem o conjunto de
+fontes de cada bloco grande, somar os blocos e combinar o regime de pequenas
+alturas no enunciado integral da Proposition 5.1. O Theorem 1.2 permanece
+pendente.
+
+Validação: os três novos módulos compilaram com warningAsError=true.
+Os oito resultados novos foram auditados e dependem apenas de propext,
+Classical.choice e Quot.sound. O build/CI integral é uma verificação separada.

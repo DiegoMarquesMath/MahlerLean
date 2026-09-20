@@ -334,3 +334,13 @@ import MahlerLean
 #print axioms MahlerLean.exists_largeTarget_det_zero_uniform_threshold
 #print axioms MahlerLean.exists_largeTarget_witnesses_all_det_zero
 #print axioms MahlerLean.exists_largeTarget_cell_counting_data
+
+-- Uniform finite-degree sublevel constants and per-cell counting
+#print axioms MahlerLean.exists_uniform_degree_counting_data
+#print axioms MahlerLean.scaled_error_le_uniform_coefficient
+#print axioms MahlerLean.scaled_error_lt_of_uniform_threshold
+#print axioms MahlerLean.sublevel_power_le_uniform_decay
+#print axioms MahlerLean.farey_sublevel_bound_le_constant
+#print axioms MahlerLean.exists_uniform_largeTarget_cell_counting_bound
+#print axioms MahlerLean.exists_uniform_largeTarget_cell_card_bound
+#print axioms MahlerLean.exists_uniform_largeTarget_interval_cell_card_bound
