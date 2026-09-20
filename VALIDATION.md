@@ -391,3 +391,26 @@ Validated on 20 September 2026 at commit
   all-error determinant term are formalized.
 - The mixed multilinear terms and the complete
   (ρ^{N(N-1)/2}) determinant estimate remain pending.
+
+
+# Step 13 — alternating Taylor and remainder-row expansion
+
+Validated on 20 September 2026 at commit
+`8034de7890ad557f2f69037a19afd6ab566626ee` by
+[GitHub Actions run 35490297130](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/35490297130).
+
+- Full build passed (3142 jobs).
+- Warnings were treated as errors.
+- The listed-theorem audit passed for 224 declarations.
+- The eleven declarations added after the previous recorded source milestone
+  use only `propext`, `Classical.choice`, and `Quot.sound`.
+- Taylor-polynomial determinants are expanded over derivative-order choices;
+  non-injective choices vanish by alternation.
+- Distinct derivative orders yield the exact triangular exponent
+  (N(N-1)/2).
+- A canonical finite derivative-determinant constant controls
+  `taylorWithinEval` rows of arbitrary positive order.
+- The determinant of `P+R` is expanded rowwise, and every term containing
+  a small remainder row has an explicit Leibniz bound.
+- The final uniform smooth-curve assembly and the simultaneous vertical
+  perturbation estimate remain pending.
