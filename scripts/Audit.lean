@@ -275,3 +275,9 @@ import MahlerLean
 #print axioms MahlerLean.curveTaylorRemainderMatrix_rowL1_le
 #print axioms MahlerLean.abs_det_curveValueMatrix_le_of_taylor
 #print axioms MahlerLean.exists_targetLinearCurve_determinant_bound
+
+-- Step 13: vertical stability and arithmetic comparison
+#print axioms MahlerLean.abs_det_targetLinearMatrix_le_graph_add_error
+#print axioms MahlerLean.exists_targetLinearCurve_rowL1_bound
+#print axioms MahlerLean.exists_targetLinearMatrix_analytic_upper_bound
+#print axioms MahlerLean.exists_targetLinearMatrix_det_zero_of_clustered_approximations
