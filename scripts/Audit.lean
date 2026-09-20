@@ -227,3 +227,9 @@ import MahlerLean
 #print axioms MahlerLean.targetLinearPerturbation_l1_le
 #print axioms MahlerLean.perturbation_exponent_identity
 #print axioms MahlerLean.perturbation_exponent_ge
+
+-- Step 13: uniform vector Taylor remainder
+#print axioms MahlerLean.exists_taylor_remainder_bound_nonneg
+#print axioms MahlerLean.taylor_remainder_le_radius
+#print axioms MahlerLean.exists_taylor_remainder_bound_on_radius
+#print axioms MahlerLean.taylorWithinEval_eq_derivative_sum
