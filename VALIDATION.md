@@ -473,3 +473,14 @@ nonzero everywhere on U; gcd cancellation and the analytic identity theorem
 justify removal of apparent poles. Wronskian nontriviality remains an
 explicit hypothesis of escape. The full analytic Wronskian criterion is
 not claimed. This records targeted validation, not a new full CI run.
+
+## Step 17: indexed family independence
+
+Compiled RationalFamilyIndependent.lean with warnings as errors and audited
+relationPolynomial_coeff, relationPolynomial_eval,
+rationalFamily_linearIndependent_of_not_rational, and
+rationalFamily_coeff_eq_zero_of_eventually_sum_eq_zero. Transitive axioms:
+propext, Classical.choice, Quot.sound only. The exact Fin(2(d+1)) family
+is independent on U and as germs at every point of U. The implication
+from analytic independence to a nontrivial Wronskian is still pending.
+This records targeted validation, not a new full CI run.

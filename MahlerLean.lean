@@ -70,3 +70,5 @@ import MahlerLean.FusionFromTwoHeight
 import MahlerLean.AnalyticDerivativeInterval
 
 import MahlerLean.RationalRelation
+
+import MahlerLean.RationalFamilyIndependent

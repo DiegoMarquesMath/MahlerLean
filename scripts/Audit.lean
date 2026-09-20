@@ -394,3 +394,9 @@ import MahlerLean
 #print axioms MahlerLean.polynomial_relation_eq_zero_of_not_rational
 #print axioms MahlerLean.nonconstant_of_not_rational
 #print axioms MahlerLean.exists_escape_of_not_rational_and_wronskians
+
+-- Independence of the exact rational family and its analytic germs
+#print axioms MahlerLean.relationPolynomial_coeff
+#print axioms MahlerLean.relationPolynomial_eval
+#print axioms MahlerLean.rationalFamily_linearIndependent_of_not_rational
+#print axioms MahlerLean.rationalFamily_coeff_eq_zero_of_eventually_sum_eq_zero

@@ -60,9 +60,10 @@ scope. These additions have not yet been merged into `main`.
 works in every nonempty open subset of the domain. Counting and derivative
 bounds are proved internally. [Polynomial relation cancellation](MahlerLean/RationalRelation.lean)
 now proves that nonrationality excludes every nontrivial relation A+Bf=0
-and implies nonconstancy. The remaining implication is Wronskian
-nontriviality, via the analytic linear-independence criterion, followed
-by the final application to Theorem 1.2. See the [derivative localization notes](docs/STEP15_PT.md).
+and implies nonconstancy. [Independence of the exact indexed family](MahlerLean/RationalFamilyIndependent.lean)
+is proved globally on the domain and locally as analytic germs.
+The remaining implication is Wronskian nontriviality from analytic
+independence, followed by the final application to Theorem 1.2. See the [derivative localization notes](docs/STEP15_PT.md).
 The uniform sublevel result assumes analyticity; the more general
 finite-smoothness statement in the manuscript is not claimed.
 
