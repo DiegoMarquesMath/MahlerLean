@@ -1,4 +1,5 @@
 import MahlerLean.TargetLinearDeterminant
+import Mathlib.Analysis.Normed.Group.Constructions
 import Mathlib.Tactic.Linarith
 
 /-!
@@ -15,6 +16,13 @@ namespace MahlerLean
 /-- The `L¹` size of a row of a real matrix. -/
 def matrixRowL1 {m n : Type*} [Fintype n] (M : Matrix m n ℝ) (i : m) : ℝ :=
   ∑ j, |M i j|
+
+/-- Comparison of the row L¹ size with the sup norm on a finite product. -/
+theorem matrixRowL1_le_card_mul_norm {m n : Type*} [Fintype n]
+    (M : Matrix m n ℝ) (i : m) :
+    matrixRowL1 M i ≤ (Fintype.card n : ℝ) * norm (M i) := by
+  simpa [matrixRowL1, nsmul_eq_mul] using
+    (Pi.sum_norm_apply_le_norm (ι := n) (G := fun _ => ℝ) (M i))
 
 theorem matrix_entry_le_rowL1 {m n : Type*} [Fintype n]
     (M : Matrix m n ℝ) (i : m) (j : n) :

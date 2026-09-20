@@ -267,3 +267,11 @@ import MahlerLean
 #print axioms MahlerLean.abs_det_taylorWithinEval_le
 #print axioms MahlerLean.det_add_rows_eq_sum_bool
 #print axioms MahlerLean.abs_det_add_le_of_remainder_rows
+
+-- Step 13: uniform smooth-curve determinant decay
+#print axioms MahlerLean.matrixRowL1_le_card_mul_norm
+#print axioms MahlerLean.curveValueMatrix_eq_taylor_add_remainder
+#print axioms MahlerLean.matrixRowL1_sub_le
+#print axioms MahlerLean.curveTaylorRemainderMatrix_rowL1_le
+#print axioms MahlerLean.abs_det_curveValueMatrix_le_of_taylor
+#print axioms MahlerLean.exists_targetLinearCurve_determinant_bound
