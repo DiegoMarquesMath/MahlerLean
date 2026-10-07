@@ -47,7 +47,7 @@ theorem cantorStage_cons_false {f : ℝ → ℝ} (d : FusionInputs f)
     cantorStage d (n + 1) (Fin.cons false omega) =
       (cantorTransition d n omega).leftChild := by
   rw [cantorStage_succ]
-  simp
+  simp only [Fin.cons_zero, if_false, Fin.tail_cons]
 
 @[simp]
 theorem cantorStage_cons_true {f : ℝ → ℝ} (d : FusionInputs f)
@@ -55,7 +55,7 @@ theorem cantorStage_cons_true {f : ℝ → ℝ} (d : FusionInputs f)
     cantorStage d (n + 1) (Fin.cons true omega) =
       (cantorTransition d n omega).rightChild := by
   rw [cantorStage_succ]
-  simp
+  simp only [Fin.cons_zero, if_true, Fin.tail_cons]
 
 /-- Every child interval lies strictly inside its parent interval. -/
 theorem cantorStage_nested {f : ℝ → ℝ} (d : FusionInputs f)
@@ -66,9 +66,9 @@ theorem cantorStage_nested {f : ℝ → ℝ} (d : FusionInputs f)
           (cantorStage d n (Fin.tail omega)).right := by
   rw [cantorStage_succ]
   by_cases h : omega 0
-  · simp only [h, if_true]
+  · simp only [h]
     exact (cantorTransition d n (Fin.tail omega)).right_nested
-  · simp only [h, if_false]
+  · simp only [h]
     exact (cantorTransition d n (Fin.tail omega)).left_nested
 
 /-- The target cutoff grows strictly along every edge of the tree. -/
@@ -78,9 +78,9 @@ theorem cantorStage_cutoff_growth {f : ℝ → ℝ} (d : FusionInputs f)
       (cantorStage d (n + 1) omega).cutoff := by
   rw [cantorStage_succ]
   by_cases h : omega 0
-  · simp only [h, if_true]
+  · simp only [h]
     exact (cantorTransition d n (Fin.tail omega)).cutoff_growth_right
-  · simp only [h, if_false]
+  · simp only [h]
     exact (cantorTransition d n (Fin.tail omega)).cutoff_growth_left
 
 /-- Source approximation inherited by every child. -/
@@ -95,9 +95,9 @@ theorem cantorStage_source {f : ℝ → ℝ} (d : FusionInputs f)
         (((t.center.den : ℕ) : ℝ) ^ (n + 3))⁻¹ := by
   rw [cantorStage_succ] at hx
   by_cases h : omega 0
-  · simp only [h, if_true] at hx
+  · simp only [h] at hx
     exact (cantorTransition d n (Fin.tail omega)).source_right x hx
-  · simp only [h, if_false] at hx
+  · simp only [h] at hx
     exact (cantorTransition d n (Fin.tail omega)).source_left x hx
 
 /-- Target avoidance inherited by every child. -/
@@ -112,9 +112,9 @@ theorem cantorStage_target {f : ℝ → ℝ} (d : FusionInputs f)
     ((b : ℝ) ^ 100)⁻¹ < |f x - (a : ℝ) / (b : ℝ)| := by
   rw [cantorStage_succ] at hx hhi
   by_cases h : omega 0
-  · simp only [h, if_true] at hx hhi
+  · simp only [h] at hx hhi
     exact (cantorTransition d n (Fin.tail omega)).target_right x hx a b hlo hhi
-  · simp only [h, if_false] at hx hhi
+  · simp only [h] at hx hhi
     exact (cantorTransition d n (Fin.tail omega)).target_left x hx a b hlo hhi
 
 /-- The two children of a node are strictly separated. -/
