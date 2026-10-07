@@ -1,5 +1,6 @@
 import MahlerLean.CantorTopology
 import MahlerLean.RationalWronskianNonvanishing
+import MahlerLean.EntireRigidity
 
 /-!
 The current manuscript's Theorem 1.1.
@@ -107,5 +108,12 @@ theorem current_corollary_1_2
     (hpres : ∀ x ∈ U, Liouville x → Liouville (f x)) :
     IsRationalOn f U :=
   rationalOn_of_preserves_liouville hU hconn hne hf hpres
+
+
+/-- Current Theorem 1.3, under a numbering-stable descriptive alias. -/
+theorem current_theorem_1_3 {F : ℂ → ℂ} (hF : Differentiable ℂ F)
+    (hpres : ∀ x : ℝ, Liouville x → ∃ y : ℝ, Liouville y ∧ F x = y) :
+    ∃ P : Polynomial ℝ, ∀ z : ℂ, F z = P.eval₂ Complex.ofRealHom z :=
+  theorem_1_1 hF hpres
 
 end MahlerLean
