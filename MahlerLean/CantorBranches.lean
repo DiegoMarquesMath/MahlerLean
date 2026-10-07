@@ -35,11 +35,15 @@ theorem cantorStage_order_separated_of_ne {f : ℝ → ℝ} (d : FusionInputs f)
         cases homega : omega 0 <;> cases heta : eta 0
         · exact (hbit (by simp [homega, heta])).elim
         · left
-          simpa [cantorStage_succ, homega, heta, htail] using
-            (cantorTransition d n (Fin.tail omega)).separated
+          rw [cantorStage_succ, cantorStage_succ]
+          simp only [homega, heta]
+          rw [← htail]
+          exact (cantorTransition d n (Fin.tail omega)).separated
         · right
-          simpa [cantorStage_succ, homega, heta, htail] using
-            (cantorTransition d n (Fin.tail eta)).separated
+          rw [cantorStage_succ, cantorStage_succ]
+          simp only [homega, heta]
+          rw [htail]
+          exact (cantorTransition d n (Fin.tail eta)).separated
         · exact (hbit (by simp [homega, heta])).elim
       · rcases ih (Fin.tail omega) (Fin.tail eta) htail with hparent | hparent
         · left
