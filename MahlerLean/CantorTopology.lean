@@ -123,14 +123,9 @@ theorem exists_cantorStage_width_lt {f : ℝ → ℝ} (d : FusionInputs f)
   refine ⟨k + 1, by omega, ?_⟩
   intro omega
   have hw := cantorStage_width_lt_two_pow d k omega
-  calc
-    (cantorStage d (k + 1) omega).right -
-        (cantorStage d (k + 1) omega).left
-        < 2 * (((2 : ℝ) ^ k)⁻¹) := hw
-    _ = 2 * ((1 / 2 : ℝ) ^ k) := by
-      rw [inv_pow]
-      norm_num
-    _ < ε := by nlinarith
+  have hk' : (((2 : ℝ) ^ k)⁻¹) < ε / 2 := by
+    simpa [one_div, inv_pow] using hk
+  nlinarith [hw, hk']
 
 /-- The full binary limit set is perfect. -/
 theorem cantorLimitSet_perfect {f : ℝ → ℝ} (d : FusionInputs f) :
