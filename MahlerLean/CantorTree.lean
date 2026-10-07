@@ -47,7 +47,9 @@ theorem cantorStage_cons_false {f : ℝ → ℝ} (d : FusionInputs f)
     cantorStage d (n + 1) (Fin.cons false omega) =
       (cantorTransition d n omega).leftChild := by
   rw [cantorStage_succ]
-  simp only [Fin.cons_zero, if_false, Fin.tail_cons]
+  have htail : Fin.tail (Fin.cons false omega) = omega := Fin.tail_cons false omega
+  rw [htail]
+  simp
 
 @[simp]
 theorem cantorStage_cons_true {f : ℝ → ℝ} (d : FusionInputs f)
@@ -55,7 +57,9 @@ theorem cantorStage_cons_true {f : ℝ → ℝ} (d : FusionInputs f)
     cantorStage d (n + 1) (Fin.cons true omega) =
       (cantorTransition d n omega).rightChild := by
   rw [cantorStage_succ]
-  simp only [Fin.cons_zero, if_true, Fin.tail_cons]
+  have htail : Fin.tail (Fin.cons true omega) = omega := Fin.tail_cons true omega
+  rw [htail]
+  simp
 
 /-- Every child interval lies strictly inside its parent interval. -/
 theorem cantorStage_nested {f : ℝ → ℝ} (d : FusionInputs f)
