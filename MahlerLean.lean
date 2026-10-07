@@ -85,3 +85,5 @@ import MahlerLean.CantorFusion
 import MahlerLean.CantorTree
 import MahlerLean.CantorBranches
 import MahlerLean.CantorSubtree
+
+import MahlerLean.CantorTopology
