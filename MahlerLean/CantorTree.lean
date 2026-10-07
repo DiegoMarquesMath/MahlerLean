@@ -165,7 +165,7 @@ theorem cantorLimitSet_nonempty {f : ℝ → ℝ} (d : FusionInputs f) :
     (fun n => cantorLevel d n)
     (cantorLevel_nested d)
     (cantorLevel_nonempty d)
-    (cantorLevel_compact d)
+    (cantorLevel_compact d 0)
     (fun n => (cantorLevel_compact d n).isClosed)
 
 theorem cantorLimitSet_compact {f : ℝ → ℝ} (d : FusionInputs f) :
