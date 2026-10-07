@@ -1,110 +1,154 @@
 # Cantor refinement of the local rigidity theorem
 
-This note tracks the Lean 4 upgrade from the already verified single-point
-fusion theorem to the full Cantor-set statement in the current Theorem 1.1
-of the manuscript.
+This note records the completed Lean 4 upgrade from the single-point fusion
+theorem to the full Cantor-set conclusion of the current Theorem 1.1 of
+*Arithmetic Rigidity of Analytic Functions and Mahler's Problem on Liouville Numbers*.
 
-## Target statement
+## Final statement
 
-For every nonempty open interval `V` inside the analytic domain of a
-nonrational real-analytic function `f`, construct a set `K ⊆ V` such that:
+For every nonempty open set $V$ inside the analytic domain of a nonrational
+real-analytic function $f$, the formalization constructs a set $K\subseteq V$
+and an integer $b_0\ge2$ such that:
 
-1. `K.Nonempty`;
-2. `IsCompact K`;
-3. `Perfect K`;
-4. `IsTotallyDisconnected K`;
-5. every `ξ ∈ K` is Liouville;
-6. there is one integer cutoff `b₀ ≥ 2` such that, for every `ξ ∈ K`,
-   every `a : ℤ`, and every `b ≥ b₀`,
-   `b^(-100) < |f ξ - a / b|`;
-7. consequently `irrationalityExponent (f ξ) ≤ 100` for every `ξ ∈ K`.
+1. $K$ is nonempty;
+2. $K$ is compact;
+3. $K$ is perfect;
+4. $K$ is totally disconnected;
+5. every $\xi\in K$ is Liouville;
+6. one common cutoff $b_0$ satisfies
 
-Items 1--4 are the topological Cantor-set package used by the manuscript.
+   $$
+   \left|f(\xi)-\frac{a}{b}\right|>b^{-100}
+   $$
 
-## Formalization plan
+   for every $\xi\in K$, every $a\in\mathbb Z$, and every $b\ge b_0$;
+7. consequently,
 
-### Step C1 — binary successor
+   $$
+   \mu(f(\xi))\le100 \qquad (\xi\in K).
+   $$
 
-Starting from one `FusionStage`, choose the same kind of safe rational
-center as in the single-branch construction, but strengthen the scale budget
-by a fixed constant factor.  Delete the next finite Wronskian-zero set and
-the center, obtain one admissible interval, and take its left and right
-thirds.
+The theorem-level declaration is `MahlerLean.current_theorem_1_1`.
 
-Both children inherit:
+## Formalization structure
 
-- strict nesting in the parent;
-- avoidance of the next Wronskian-zero set;
-- source approximation by the common center;
-- target avoidance on the common denominator block;
-- the tail estimate required at the next stage.
+### C1 — Binary successor
 
-The children are strictly separated by the middle third.
+Implemented in `MahlerLean/CantorFusion.lean`.
 
-Implementation: `MahlerLean/CantorFusion.lean`.
+From each admissible fusion stage, the construction chooses a safe rational
+center and produces two strictly separated successor intervals. Both children
+inherit the source approximation, target avoidance, cutoff growth, denominator
+growth, Wronskian-zero avoidance, and the next-stage tail estimate.
 
-### Step C2 — binary recursion
+Principal declaration:
 
-Index level-`n` nodes by `Fin n → Bool`.  Recursively attach the two
-children supplied by Step C1 to each node.  Prove:
+`MahlerLean.exists_binary_fusion_transition`.
 
-- every child lies in the interior of its parent;
-- siblings are strictly separated;
-- denominator growth holds along every edge;
-- cutoff growth holds along every edge;
-- level intervals are pairwise disjoint;
-- all level intervals satisfy a uniform diameter bound tending to zero.
+### C2 — Binary recursion and compact levels
 
-### Step C3 — level sets and the Cantor set
+Implemented in `MahlerLean/CantorTree.lean`.
 
-Define
+Nodes at depth $n$ are indexed by Boolean $n$-tuples. The file defines the
+stage attached to each node, the compact level set, and the global limit set
 
-```
-E n = ⋃ ω : Fin n → Bool, Icc (left n ω) (right n ω)
-K   = ⋂ n, E n.
-```
+$$
+K=\bigcap_{n\ge0} E_n.
+$$
 
-Because `Fin n → Bool` is finite, each `E n` is compact.  The level sets
-are nonempty and nested, hence `K` is nonempty and compact.
+It proves nestedness, compactness, nonemptiness, separation of distinct nodes,
+and containment in the initial interval.
 
-### Step C4 — branch arithmetic
+### C3 — Arithmetic along branches
 
-For `ξ ∈ K`, the pairwise-disjoint level intervals determine a unique node
-at every depth and therefore a unique coherent branch.  Along this branch:
+Implemented in `MahlerLean/CantorBranches.lean`.
 
-- the source denominators tend to infinity;
-- the source approximation exponents are `n + 3`, hence `ξ` is
-  Liouville;
-- the successive target blocks cover every denominator above the common
-  root cutoff;
-- target avoidance gives one cutoff valid for every point of `K`.
+Every point of $K$ determines a unique coherent branch. The existing
+single-branch fusion interface can therefore be reused verbatim along that
+branch.
 
-### Step C5 — perfectness
+Principal declarations:
 
-Given `ξ ∈ K` and a neighborhood of `ξ`, go sufficiently deep that the
-containing level interval lies inside the neighborhood.  Follow the sibling
-child at the next split and then continue down that subtree.  Compact
-intersection gives another point of `K` in the neighborhood, while sibling
-separation makes it different from `ξ`.
+- `MahlerLean.cantorLimitSet_liouville`;
+- `MahlerLean.cantorLimitSet_target_avoidance`;
+- `MahlerLean.cantorLimitSet_irrationalityExponent_le`.
 
-This proves `Perfect K`.
+The target-avoidance theorem uses the root cutoff, so the same $b_0$ works for
+all points of $K$.
 
-### Step C6 — total disconnectedness
+### C4 — Nonempty subtrees
 
-Use the order characterization available in mathlib:
+Implemented in `MahlerLean/CantorSubtree.lean`.
 
-```
-isTotallyDisconnected_iff_lt
-```
+Following left children below any prescribed node gives a nested sequence of
+nonempty compact intervals. Cantor intersection yields a point of the global
+limit set inside every node interval.
 
-For two points `x < y` in `K`, choose a level whose interval diameters
-are smaller than `y - x`.  The points must then lie in different
-level intervals.  Their recursive sibling separation supplies a point
-strictly between them that is outside the level set, hence outside `K`.
+Principal declaration:
 
-### Step C7 — final theorem and audit
+`MahlerLean.cantorLimitSet_meets_node`.
 
-Upgrade the current single-point theorem to the full current Theorem 1.1,
-then derive Corollary 1.2 and Theorem 1.3 from it.  Add the final declarations
-to `scripts/Audit.lean`, update the README status to verified, and record
-the exact passing commit for the manuscript.
+### C5 — Shrinking diameters and perfectness
+
+Implemented in `MahlerLean/CantorTopology.lean`.
+
+Uniform source approximation gives a geometric upper bound for the width of
+every level-$n$ interval. Hence level diameters tend uniformly to zero.
+
+To prove perfectness, fix $x\in K$ and a neighborhood of $x$. At a sufficiently
+deep level, the parent interval of $x$ lies inside the neighborhood. Switching
+to the sibling child and using subtree nonemptiness produces a distinct point
+of $K$ in the same neighborhood.
+
+Principal declarations:
+
+- `MahlerLean.cantorStage_width_lt_two_pow`;
+- `MahlerLean.exists_cantorStage_width_lt`;
+- `MahlerLean.cantorLimitSet_perfect`.
+
+### C6 — Total disconnectedness
+
+Implemented in `MahlerLean/CantorTopology.lean`.
+
+For $x<y$ in $K$, take a level whose node widths are smaller than $y-x$.
+The points must then lie in distinct node intervals. The endpoint of the node
+containing $x$ lies strictly between $x$ and $y$, while endpoint-exclusion
+shows that this point is not in $K$. The order characterization
+`isTotallyDisconnected_iff_lt` then gives total disconnectedness.
+
+Principal declarations:
+
+- `MahlerLean.cantorStage_left_not_mem_limitSet`;
+- `MahlerLean.cantorStage_right_not_mem_limitSet`;
+- `MahlerLean.cantorLimitSet_isTotallyDisconnected`.
+
+### C7 — Final analytic assembly
+
+Implemented in `MahlerLean/CurrentTheoremOne.lean`.
+
+The file combines:
+
+- derivative localization;
+- Proposition 5.1;
+- Wronskian nonvanishing from analytic nonrationality;
+- the binary fusion construction;
+- the completed Cantor topology;
+- the Liouville and target-avoidance conclusions.
+
+It exposes the current manuscript numbering through:
+
+- `MahlerLean.current_theorem_1_1`;
+- `MahlerLean.current_corollary_1_2`;
+- `MahlerLean.current_theorem_1_3`.
+
+## Verification
+
+The complete project build, warning-as-error source checks, and the listed
+theorem audit pass on Lean 4.24.0 and mathlib v4.24.0.
+
+Verified proof commit:
+
+`dcbac6a16e910c22155e4882a3b11b2bb0c66222`.
+
+The new Cantor declarations and the current theorem aliases are included in
+`scripts/Audit.lean`.
