@@ -160,7 +160,13 @@ theorem exists_binary_fusion_transition {f : ℝ → ℝ} (d : FusionInputs f)
       rw [hlen']
       field_simp
     rw [hw]
-    convert hstrongtail using 1 <;> (push_cast; ring)
+    have hdenom :
+        R / (3 * (((3 * Lambda : ℕ) : ℝ))) =
+          (R / (3 * (Lambda : ℝ))) / 3 := by
+      push_cast
+      ring
+    rw [← hdenom]
+    exact hstrongtail
   have hrparent : (r : ℝ) ∈ Icc s.left s.right :=
     ⟨by linarith [hrleft, s.nondegenerate],
       by linarith [hrright, s.nondegenerate]⟩
