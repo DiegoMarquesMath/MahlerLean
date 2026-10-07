@@ -441,3 +441,24 @@ import MahlerLean
 #print axioms MahlerLean.entire_eq_of_eq_on_real
 #print axioms MahlerLean.entire_polynomial_of_rational_real_restriction
 #print axioms MahlerLean.theorem_1_1
+
+
+-- Cantor refinement and current manuscript numbering
+#print axioms MahlerLean.exists_binary_fusion_transition
+#print axioms MahlerLean.cantorLimitSet_nonempty
+#print axioms MahlerLean.cantorLimitSet_compact
+#print axioms MahlerLean.cantorLimitSet_subset_ambient
+#print axioms MahlerLean.cantorStage_order_separated_of_ne
+#print axioms MahlerLean.cantorLimitSet_liouville
+#print axioms MahlerLean.cantorLimitSet_target_avoidance
+#print axioms MahlerLean.cantorLimitSet_irrationalityExponent_le
+#print axioms MahlerLean.cantorLimitSet_meets_node
+#print axioms MahlerLean.cantorStage_width_lt_two_pow
+#print axioms MahlerLean.cantorStage_left_not_mem_limitSet
+#print axioms MahlerLean.cantorStage_right_not_mem_limitSet
+#print axioms MahlerLean.exists_cantorStage_width_lt
+#print axioms MahlerLean.cantorLimitSet_perfect
+#print axioms MahlerLean.cantorLimitSet_isTotallyDisconnected
+#print axioms MahlerLean.current_theorem_1_1
+#print axioms MahlerLean.current_corollary_1_2
+#print axioms MahlerLean.current_theorem_1_3
