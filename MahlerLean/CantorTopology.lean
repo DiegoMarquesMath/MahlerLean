@@ -111,4 +111,109 @@ theorem cantorStage_right_not_mem_limitSet {f : ℝ → ℝ} (d : FusionInputs f
   rw [cantorPathAt_tail d (cantorStage d n omega).right hx n, hpath] at hchild
   exact (lt_irrefl _ hchild.2)
 
+/-- At a sufficiently deep level all node intervals are shorter than any
+prescribed positive epsilon. -/
+theorem exists_cantorStage_width_lt {f : ℝ → ℝ} (d : FusionInputs f)
+    {ε : ℝ} (hε : 0 < ε) :
+    ∃ n : ℕ, 0 < n ∧ ∀ omega : CantorPath n,
+      (cantorStage d n omega).right - (cantorStage d n omega).left < ε := by
+  have hε2 : 0 < ε / 2 := by linarith
+  obtain ⟨k, hk⟩ :=
+    exists_pow_lt_of_lt_one hε2 (by norm_num : (1 / 2 : ℝ) < 1)
+  refine ⟨k + 1, by omega, ?_⟩
+  intro omega
+  have hw := cantorStage_width_lt_two_pow d k omega
+  calc
+    (cantorStage d (k + 1) omega).right -
+        (cantorStage d (k + 1) omega).left
+        < 2 * (((2 : ℝ) ^ k)⁻¹) := hw
+    _ = 2 * ((1 / 2 : ℝ) ^ k) := by
+      rw [inv_pow]
+      norm_num
+    _ < ε := by nlinarith
+
+/-- The full binary limit set is perfect. -/
+theorem cantorLimitSet_perfect {f : ℝ → ℝ} (d : FusionInputs f) :
+    Perfect (cantorLimitSet d) := by
+  refine ⟨(cantorLimitSet_compact d).isClosed, ?_⟩
+  rw [preperfect_iff_nhds]
+  intro x hx U hU
+  obtain ⟨ε, hε, hball⟩ := Metric.mem_nhds_iff.mp hU
+  obtain ⟨n, _hn, hwidth⟩ := exists_cantorStage_width_lt d hε
+  let parent : CantorPath n := cantorPathAt d x hx n
+  let child : CantorPath (n + 1) := cantorPathAt d x hx (n + 1)
+  let sibling : CantorPath (n + 1) := Fin.cons (! child 0) parent
+  have hsibTail : Fin.tail sibling = parent := by
+    simp [sibling]
+  obtain ⟨y, hyK, hyNode⟩ := cantorLimitSet_meets_node d sibling
+  have hyParentOpen := cantorStage_nested d n sibling hyNode
+  rw [hsibTail] at hyParentOpen
+  have hyParent :
+      y ∈ Icc (cantorStage d n parent).left (cantorStage d n parent).right :=
+    ⟨hyParentOpen.1.le, hyParentOpen.2.le⟩
+  have hxParent :
+      x ∈ Icc (cantorStage d n parent).left (cantorStage d n parent).right := by
+    simpa [parent] using cantorPathAt_mem d x hx n
+  have hsib_ne_child : sibling ≠ child := by
+    intro h
+    have h0 := congrFun h 0
+    dsimp [sibling] at h0
+    cases hbit : child 0 <;> simp [hbit] at h0
+  have hyne : y ≠ x := by
+    intro hyx
+    subst y
+    apply hsib_ne_child
+    have huniq :=
+      cantorStage_path_unique d (n + 1) hyNode
+        (cantorPathAt_mem d x hx (n + 1))
+    simpa [child] using huniq
+  have habs :
+      |y - x| ≤
+        (cantorStage d n parent).right - (cantorStage d n parent).left := by
+    rw [abs_le]
+    constructor <;> linarith [hxParent.1, hxParent.2, hyParent.1, hyParent.2]
+  have hdist : dist y x < ε := by
+    rw [Real.dist_eq]
+    exact habs.trans_lt (hwidth parent)
+  have hyU : y ∈ U := by
+    apply hball
+    simpa [Metric.mem_ball, dist_comm] using hdist
+  exact ⟨y, ⟨hyU, hyK⟩, hyne⟩
+
+/-- The full binary limit set is totally disconnected. -/
+theorem cantorLimitSet_isTotallyDisconnected {f : ℝ → ℝ} (d : FusionInputs f) :
+    IsTotallyDisconnected (cantorLimitSet d) := by
+  rw [isTotallyDisconnected_iff_lt]
+  intro x hx y hy hxy
+  obtain ⟨n, _hn, hwidth⟩ :=
+    exists_cantorStage_width_lt d (sub_pos.mpr hxy)
+  let omega : CantorPath n := cantorPathAt d x hx n
+  let eta : CantorPath n := cantorPathAt d y hy n
+  have hxNode :
+      x ∈ Icc (cantorStage d n omega).left (cantorStage d n omega).right := by
+    simpa [omega] using cantorPathAt_mem d x hx n
+  have hyNode :
+      y ∈ Icc (cantorStage d n eta).left (cantorStage d n eta).right := by
+    simpa [eta] using cantorPathAt_mem d y hy n
+  have hne : omega ≠ eta := by
+    intro heq
+    have hySame :
+        y ∈ Icc (cantorStage d n omega).left (cantorStage d n omega).right := by
+      rw [heq]
+      exact hyNode
+    have hw := hwidth omega
+    linarith [hxNode.1, hxNode.2, hySame.1, hySame.2]
+  rcases cantorStage_order_separated_of_ne d n omega eta hne with hsep | hsep
+  · let z := (cantorStage d n omega).right
+    have hxz_le : x ≤ z := hxNode.2
+    have hxz_ne : x ≠ z := by
+      intro h
+      apply cantorStage_right_not_mem_limitSet d n omega
+      simpa [z, ← h] using hx
+    have hxz : x < z := lt_of_le_of_ne hxz_le hxz_ne
+    have hzy : z < y := hsep.trans_le hyNode.1
+    exact ⟨z, cantorStage_right_not_mem_limitSet d n omega, ⟨hxz, hzy⟩⟩
+  · exfalso
+    linarith [hyNode.2, hxNode.1]
+
 end MahlerLean
