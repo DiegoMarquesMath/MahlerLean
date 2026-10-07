@@ -1,60 +1,86 @@
-# Theorem 1.2: statement correspondence and verification
+# Legacy declaration \`theorem_1_2\`: single-point core of current Theorem 1.1
 
-Reference manuscript: `paper/main.tex` at commit
-`d168565513791c9ad3348dd4fdd6a358c87a233d`, labels `eq:intro-mu` and
-`thm:intro-local`. The source was read alongside the final Lean declarations.
-This is a mathematical comparison of statements; Lean checks the formal
-statement, not the LaTeX document itself.
+## Current manuscript numbering
 
-## Final declaration
+The declaration \`MahlerLean.theorem_1_2\` predates the final manuscript
+renumbering. It is the already verified **single-point quantitative core** of
+the current Theorem 1.1 in
 
-`MahlerLean.theorem_1_2` in `MahlerLean/IrrationalityExponent.lean` gives
+*Arithmetic Rigidity of Analytic Functions and Mahler's Problem on Liouville Numbers*.
 
-    ∃ ξ ∈ V, Liouville ξ ∧ irrationalityExponent (f ξ) ≤ 100 ∧
-      ∃ B : ℕ, 2 ≤ B ∧ EventualTargetAvoidance (f ξ) 100 B
+The current manuscript strengthens this statement from one point \(\xi\) to a
+Cantor set \(K\) of such points, with one common target-denominator cutoff.
 
-from openness and preconnectedness of U, analyticity of f on U,
-nonrationality on U, and V a nonempty open subset of U.
-There are no unproved counting, derivative or Wronskian hypotheses.
-The constant 100 is fixed independently of f, U and V and is greater than 2.
+## Lean declaration
 
-| Manuscript | Lean | Correspondence |
+\`MahlerLean.theorem_1_2\` in
+\`MahlerLean/IrrationalityExponent.lean\` proves
+
+\`\`\`text
+∃ ξ ∈ V, Liouville ξ ∧ irrationalityExponent (f ξ) ≤ 100 ∧
+  ∃ B : ℕ, 2 ≤ B ∧ EventualTargetAvoidance (f ξ) 100 B
+\`\`\`
+
+from openness and preconnectedness of \(U\), analyticity of \(f\) on \(U\),
+nonrationality on \(U\), and \(V\) a nonempty open subset of \(U\).
+
+There are no unproved counting, derivative, or Wronskian hypotheses.
+
+## Statement correspondence
+
+| Current manuscript single-point content | Lean | Correspondence |
 | --- | --- | --- |
-| U an open real interval | `IsOpen U`, `IsPreconnected U` | Every real interval is preconnected; nonemptiness follows from V. |
-| f real analytic on U | `AnalyticOnNhd ℝ f U` | At every point of the open domain. |
-| f not a restriction of a rational function without poles on U | `¬ IsRationalOn f U` | A quotient of real polynomials with denominator nonzero everywhere on U. |
-| V a nonempty open subinterval of U | `IsOpen V`, `V.Nonempty`, `V ⊆ U` | The Lean result is stronger: V need not itself be an interval. |
-| ξ Liouville | mathlib `Liouville ξ` | `liouville_iff_paperLiouville` proves agreement with the paper's infinitely-many-pairs convention. |
-| Positive exponents λ and infinitely many (a,b) ∈ ℤ × ℤ_{>0} | `approximationPairs y lam` with `0 < p.2` | Positive integers represented by naturals; no reduced-fraction condition. |
-| 0 < abs(y-a/b) < b^(-λ) | The two strict inequalities in `approximationPairs` | Zero errors are excluded exactly as in the paper. |
-| μ as a supremum, allowing +∞ | `irrationalityExponent : ℝ → EReal` | Supremum of the same set of positive real exponents, embedded in extended reals. |
-| μ(f(ξ)) ≤ 100 | `irrationalityExponent (f ξ) ≤ (100 : EReal)` | Exact quantitative bound. |
-| abs(f(ξ)-a/b) > b^(-100) for all a and sufficiently large b | `∃ B, 2 ≤ B ∧ EventualTargetAvoidance (f ξ) 100 B` | Universal in numerator a and all b ≥ B; inverse natural powers agree with negative real powers. |
+| \(U\) an open real interval | \`IsOpen U\`, \`IsPreconnected U\` | Every real interval is preconnected; nonemptiness follows from \(V\). |
+| \(f\) real analytic on \(U\) | \`AnalyticOnNhd ℝ f U\` | Analytic at every point of the open domain. |
+| \(f\) not rational on \(U\) | \`¬ IsRationalOn f U\` | No quotient of real polynomials with denominator nonzero on \(U\). |
+| \(V\) a nonempty open subinterval of \(U\) | \`IsOpen V\`, \`V.Nonempty\`, \`V ⊆ U\` | Lean is slightly stronger: \(V\) need not itself be an interval. |
+| \(\xi\) Liouville | mathlib \`Liouville ξ\` | \`liouville_iff_paperLiouville\` matches the paper's convention. |
+| \(\mu(f(\xi))\le100\) | \`irrationalityExponent (f ξ) ≤ (100 : EReal)\` | Exact quantitative bound. |
+| Eventual lower bound for all rational targets | \`EventualTargetAvoidance (f ξ) 100 B\` | Universal in every numerator and every denominator \(b\ge B\). |
 
-Lean represents f as a total function ℝ → ℝ. Values outside U are unrestricted.
-A function defined only on U can be extended arbitrarily outside that open
-set without changing its analytic germs on U. No global analyticity is assumed.
+Lean represents \(f\) as a total function \(\mathbb R\to\mathbb R\), but values
+outside \(U\) are irrelevant and unrestricted.
 
-## From avoidance to the supremum bound
+## From target avoidance to the irrationality exponent
 
-For every lam > tau, `approximationPairs_finite_of_eventual_target_avoidance`
-proves finiteness of the entire set of pairs, not merely finiteness of the
-denominator set. All sufficiently large b are excluded by monotonicity of
-b^(-lam). For the remaining positive b < B, the error is less than 1, so
-abs(a) < b(abs(y)+1) ≤ B(abs(y)+1). The pairs therefore lie in an explicit
-finite integer/natural rectangle. Consequently every exponent contributing
-to the supremum is at most tau.
+For every \(\lambda>100\),
+\`approximationPairs_finite_of_eventual_target_avoidance\` proves finiteness of
+the entire set of approximation pairs. Large denominators are excluded by the
+eventual target-avoidance inequality. The finitely many small denominators admit
+only finitely many numerators in the relevant approximation range. Hence no
+\(\lambda>100\) contributes to the defining supremum, and therefore
 
-## Proof dependencies and scope
+\[
+\mu(f(\xi))\le100.
+\]
 
-The final theorem composes the two-height estimate of Proposition 5.1,
-source supply, infinite fusion, analytic derivative localization, rational
-family independence, the adapted Taylor basis and the Wronskian leading-term
-formula. The Wronskian criterion is documented in `WRONSKIAN_CRITERION.md`;
-Proposition 5.1's statement comparison is in `STEP14_PT.md`.
+## Proof dependencies
 
-This completes the local quantitative statement of Theorem 1.2.
-The entire-function consequence, Theorem 1.1, is now formalized in
-`EntireRigidity.lean`; see [THEOREM_1_1.md](THEOREM_1_1.md).
-The independent Section 7 statements remain outside the formalization scope.
-Reproducible build and audit results are recorded in `../VALIDATION.md`.
+The declaration composes:
+
+- Proposition 5.1, the two-height counting estimate;
+- source supply;
+- infinite fusion;
+- analytic derivative localization;
+- rational-family independence;
+- the adapted Taylor basis;
+- the Wronskian leading-term argument;
+- eventual target avoidance and the irrationality-exponent bridge.
+
+The Wronskian criterion is documented in
+[WRONSKIAN_CRITERION.md](WRONSKIAN_CRITERION.md), and Proposition 5.1 is
+compared with the manuscript in [STEP14_PT.md](STEP14_PT.md).
+
+## Cantor-set upgrade
+
+The \`cantor-refinement\` branch upgrades this single-point theorem to the full
+current Theorem 1.1. The arithmetic branchwise conclusions are already
+formalized; the remaining task is the topological completion proving that the
+limit set is perfect and totally disconnected.
+
+The current Theorem 1.3 (entire-function rigidity) is formalized under the
+legacy declaration name \`theorem_1_1\`; see
+[THEOREM_1_1.md](THEOREM_1_1.md).
+
+Reproducible build and audit results are recorded in
+[VALIDATION.md](../VALIDATION.md).
