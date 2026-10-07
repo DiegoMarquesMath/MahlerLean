@@ -158,7 +158,7 @@ theorem exists_binary_fusion_transition {f : ℝ → ℝ} (d : FusionInputs f)
       rw [hlen']
       field_simp
     rw [hw]
-    convert hstrongtail using 1 <;> push_cast <;> ring
+    convert hstrongtail using 1 <;> (push_cast; ring)
   have hrparent : (r : ℝ) ∈ Icc s.left s.right :=
     ⟨by linarith [hrleft, s.nondegenerate],
       by linarith [hrright, s.nondegenerate]⟩
