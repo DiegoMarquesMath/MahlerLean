@@ -47,7 +47,9 @@ theorem cantorStage_cons_false {f : ℝ → ℝ} (d : FusionInputs f)
     cantorStage d (n + 1) (Fin.cons false omega) =
       (cantorTransition d n omega).leftChild := by
   rw [cantorStage_succ]
-  have htail : Fin.tail (Fin.cons false omega) = omega := Fin.tail_cons false omega
+  have htail : Fin.tail (Fin.cons false omega) = omega := by
+    funext i
+    simp [Fin.tail]
   rw [htail]
   simp
 
@@ -57,7 +59,9 @@ theorem cantorStage_cons_true {f : ℝ → ℝ} (d : FusionInputs f)
     cantorStage d (n + 1) (Fin.cons true omega) =
       (cantorTransition d n omega).rightChild := by
   rw [cantorStage_succ]
-  have htail : Fin.tail (Fin.cons true omega) = omega := Fin.tail_cons true omega
+  have htail : Fin.tail (Fin.cons true omega) = omega := by
+    funext i
+    simp [Fin.tail]
   rw [htail]
   simp
 
