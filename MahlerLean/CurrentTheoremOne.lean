@@ -102,10 +102,10 @@ theorem current_theorem_1_1
 /-- Current Corollary 1.2, under a numbering-stable descriptive alias. -/
 theorem current_corollary_1_2
     {f : ℝ → ℝ} {U : Set ℝ}
-    (hU : IsOpen U) (hconn : IsPreconnected U)
+    (hU : IsOpen U) (hconn : IsPreconnected U) (hne : U.Nonempty)
     (hf : AnalyticOnNhd ℝ f U)
     (hpres : ∀ x ∈ U, Liouville x → Liouville (f x)) :
     IsRationalOn f U :=
-  rationalOn_of_preserves_liouville hU hconn hf hpres
+  rationalOn_of_preserves_liouville hU hconn hne hf hpres
 
 end MahlerLean
