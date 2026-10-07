@@ -34,6 +34,8 @@ structure BinaryFusionTransition {f : ℝ → ℝ} (d : FusionInputs f) (n : ℕ
   separated : leftChild.right < rightChild.left
   left_cutoff : leftChild.cutoff = nextCutoff height (n + 3)
   right_cutoff : rightChild.cutoff = nextCutoff height (n + 3)
+  cutoff_growth_left : s.cutoff < leftChild.cutoff
+  cutoff_growth_right : s.cutoff < rightChild.cutoff
   left_previousDen : leftChild.previousDen = center.den
   right_previousDen : rightChild.previousDen = center.den
   source_left : ∀ x ∈ Icc leftChild.left leftChild.right,
@@ -236,6 +238,8 @@ theorem exists_binary_fusion_transition {f : ℝ → ℝ} (d : FusionInputs f)
     separated := ?_
     left_cutoff := rfl
     right_cutoff := rfl
+    cutoff_growth_left := hnext
+    cutoff_growth_right := hnext
     left_previousDen := rfl
     right_previousDen := rfl
     source_left := ?_
