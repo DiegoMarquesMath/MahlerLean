@@ -62,7 +62,7 @@ theorem split_interval_thirds
     (a + w) - a = w ∧
     b - (a + 2 * w) = w := by
   dsimp
-  have hw : 0 < (b - a) / 3 := by positivity
+  have hw : 0 < (b - a) / 3 := by linarith
   constructor
   · linarith
   constructor
@@ -157,7 +157,6 @@ theorem exists_binary_fusion_transition {f : ℝ → ℝ} (d : FusionInputs f)
       dsimp [w]
       rw [hlen']
       field_simp
-      ring
     rw [hw]
     convert hstrongtail using 1 <;> push_cast <;> ring
   have hrparent : (r : ℝ) ∈ Icc s.left s.right :=
@@ -181,11 +180,13 @@ theorem exists_binary_fusion_transition {f : ℝ → ℝ} (d : FusionInputs f)
     have hkT : (k : ℝ) < targetCutoff Q (n + 3) :=
       lt_of_lt_of_le (by exact_mod_cast hkhi)
         (nextCutoff_le_targetCutoff Q (n + 3))
+    have hcut : 2 ≤ s.cutoff := s.cutoff_ge_two
+    have hkpos : 0 < k := by omega
     exact safeCenter_avoidance_of_deriv_bound f s.left s.right d.M Q (n + 3)
       s.cutoff r x d.M_nonneg hsafe
       (fun y hy => d.differentiable y (hparent hy))
       (fun y hy => d.deriv_bound y (hparent hy))
-      hrparent hxparent hclose z k (by omega) hklo hkT
+      hrparent hxparent hclose z k hkpos hklo hkT
   let leftStage : FusionStage d (n + 1) := {
     left := a
     right := a + w
@@ -217,7 +218,8 @@ theorem exists_binary_fusion_transition {f : ℝ → ℝ} (d : FusionInputs f)
     cutoff := nextCutoff Q (n + 3)
     cutoff_ge_two := hnext_two
     tail := by
-      simpa [hrightlen] using hchildtail
+      rw [hrightlen]
+      exact hchildtail
     previousDen := r.den
   }
   refine ⟨{
