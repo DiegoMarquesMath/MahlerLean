@@ -80,3 +80,12 @@ import MahlerLean.WronskianLeadingTerm
 import MahlerLean.RationalWronskianNonvanishing
 import MahlerLean.IrrationalityExponent
 import MahlerLean.EntireRigidity
+
+import MahlerLean.CantorFusion
+import MahlerLean.CantorTree
+import MahlerLean.CantorBranches
+import MahlerLean.CantorSubtree
+
+import MahlerLean.CantorTopology
+
+import MahlerLean.CurrentTheoremOne
