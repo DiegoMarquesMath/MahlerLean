@@ -1,45 +1,58 @@
-# Theorem 1.1: entire-function rigidity
+# Legacy declaration \`theorem_1_1\`: current Theorem 1.3
 
-## Statement correspondence
+## Current manuscript numbering
 
-The manuscript's Theorem 1.1 (label `thm:intro-mahler`) states that
-an entire function F : ℂ → ℂ preserving all Liouville numbers belongs to ℝ[z].
+The declaration \`MahlerLean.theorem_1_1\` predates the final renumbering of the
+manuscript. It now corresponds to **Theorem 1.3 (entire-function rigidity)** in
 
-The declaration `MahlerLean.theorem_1_1` in
-[EntireRigidity.lean](../MahlerLean/EntireRigidity.lean) proves:
+*Arithmetic Rigidity of Analytic Functions and Mahler's Problem on Liouville Numbers*.
 
-```lean
+The current Theorem 1.3 states that an entire function
+\(F:\mathbb C\to\mathbb C\) preserving all Liouville numbers belongs to
+\(\mathbb R[z]\). In particular, no transcendental entire function has
+Maillet's property.
+
+## Lean declaration
+
+The declaration in [EntireRigidity.lean](../MahlerLean/EntireRigidity.lean) is:
+
+\`\`\`lean
 theorem theorem_1_1 {F : ℂ → ℂ} (hF : Differentiable ℂ F)
     (hpres : ∀ x : ℝ, Liouville x → ∃ y : ℝ, Liouville y ∧ F x = y) :
     ∃ P : Polynomial ℝ, ∀ z : ℂ, F z = P.eval₂ Complex.ofRealHom z
-```
+\`\`\`
 
-Here complex differentiability everywhere is precisely the entire-function
-hypothesis. The real arguments and values in the preservation hypothesis
-are embedded in ℂ by the canonical coercion. The conclusion supplies an
-actual polynomial over ℝ whose evaluation agrees with F on all of ℂ.
-Thus it also excludes every transcendental entire function.
+Complex differentiability everywhere is exactly the entire-function hypothesis.
+The preservation hypothesis says that every real Liouville input is sent to a
+real Liouville value. The conclusion supplies an actual polynomial over
+\(\mathbb R\) agreeing with \(F\) on all of \(\mathbb C\).
 
-No real-axis, rationality, Wronskian or counting assumption is added.
+No extra real-axis rationality, Wronskian, or counting hypothesis appears in the
+final statement.
 
-## Proof
+## Proof structure
 
-1. **Real rational rigidity.** Apply Theorem 1.2 contrapositively: a
-   nonrational real-analytic function has a Liouville input whose image
-   satisfies eventual target avoidance and hence is not Liouville.
-2. **Real values on the axis.** The imaginary part of F vanishes on the
-   dense set of real Liouville numbers, so continuity makes it vanish
-   on the whole real axis.
-3. **Analytic restriction.** Restrict the complex analytic function to
-   real scalars and compose with the real embedding and real-part map.
-4. **Complex continuation.** A rational expression on the real axis gives
-   the entire identity QF − P = 0 on ℂ by the identity theorem.
-5. **Pole cancellation.** Extract the polynomial gcd, cancel it using the
-   analytic identity theorem, and obtain coprime real polynomials A,B
-   with BF = A on ℂ. Coprimality rules out a complex zero of B. The
-   fundamental theorem of algebra makes B constant; hence F is the
-   real polynomial B(0)⁻¹A.
+1. **Local rational rigidity.** The already verified single-point quantitative
+   escape statement implies contrapositively that any real-analytic function
+   preserving all Liouville numbers must be rational on its interval. In the
+   current manuscript this is Corollary 1.2.
+2. **Real values on the axis.** The imaginary part of \(F\) vanishes on the
+   dense set of real Liouville numbers, hence on all of \(\mathbb R\).
+3. **Analytic restriction.** Restrict the entire function to the real axis.
+4. **Complex continuation.** A rational identity on \(\mathbb R\) yields
+   \(QF-P\equiv0\) on \(\mathbb C\) by the identity theorem.
+5. **Absence of poles.** Coprimality and the fundamental theorem of algebra
+   force \(Q\) to be constant.
 
-The six declarations in this module are included in `scripts/Audit.lean`.
+Thus \(F\in\mathbb R[z]\).
+
+## Relation to the current Theorem 1.1
+
+The current Theorem 1.1 is the stronger local Cantor-set theorem and is being
+completed on the \`cantor-refinement\` branch. The current Theorem 1.3 does not
+depend on the Cantor strengthening: the verified single-point escape statement
+already suffices for Corollary 1.2 and hence for entire-function rigidity.
+
+The declarations in this module are included in \`scripts/Audit.lean\`.
 Reproduction instructions and verification results are in
 [VALIDATION.md](../VALIDATION.md).
