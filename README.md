@@ -1,9 +1,9 @@
-# Arithmetic Rigidity of Analytic Functions and Mahler's Problem on Liouville Numbers
+# Mahler's Problem on Liouville Numbers I. Analytic Rigidity
 
 [![Lean verification](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
 
-Lean 4 formalization of the analytic-rigidity core of Diego Marques's manuscript
-[*Arithmetic Rigidity of Analytic Functions and Mahler's Problem on Liouville Numbers*](paper/main.pdf).
+Lean 4 formalization accompanying Diego Marques's manuscript
+*Mahler's Problem on Liouville Numbers I. Analytic Rigidity*.
 
 The formalization covers the two-height counting estimate, the full Cantor-set
 version of the local rigidity theorem, the local rational-rigidity corollary,
@@ -65,7 +65,7 @@ problem posed by Mahler in 1984.
 Lean declaration:
 [`MahlerLean.current_theorem_1_3`](MahlerLean/CurrentTheoremOne.lean).
 
-### Proposition 5.1 — Two-height counting
+### Theorem 5.1 — Two-height counting
 
 The formalization includes the uniform two-height counting estimate on analytic
 graphs, with source and target denominator scales treated independently and
@@ -78,7 +78,7 @@ Lean declaration:
 
 | Current manuscript result | Lean declaration | Source | Status |
 | --- | --- | --- | --- |
-| Proposition 5.1 | `MahlerLean.proposition_5_1` | [TwoHeightCounting.lean](MahlerLean/TwoHeightCounting.lean) | Verified |
+| Theorem 5.1 | `MahlerLean.proposition_5_1` | [TwoHeightCounting.lean](MahlerLean/TwoHeightCounting.lean) | Verified |
 | Theorem 1.1 — binary successor | `MahlerLean.exists_binary_fusion_transition` | [CantorFusion.lean](MahlerLean/CantorFusion.lean) | Verified |
 | Theorem 1.1 — compact binary limit set | `MahlerLean.cantorLimitSet` | [CantorTree.lean](MahlerLean/CantorTree.lean) | Verified |
 | Theorem 1.1 — branch arithmetic | `cantorLimitSet_liouville`, `cantorLimitSet_target_avoidance`, `cantorLimitSet_irrationalityExponent_le` | [CantorBranches.lean](MahlerLean/CantorBranches.lean) | Verified |
@@ -151,17 +151,17 @@ Verified proof commit:
 
 ## Scope
 
-The completed formalization covers Proposition 5.1, Theorem 1.1,
+The completed formalization covers Theorem 5.1, Theorem 1.1,
 Corollary 1.2, and Theorem 1.3 of the current manuscript.
 
-The independent Section 7 results — Theorems 1.4 and 1.5 — are not part of
+The rational-map classification belongs to the companion paper and is not part of
 the present Lean project.
 
 ## Citation
 
 Suggested manuscript wording:
 
-> A machine-checked Lean 4 formalization of Proposition 5.1 and of the complete
+> A machine-checked Lean 4 formalization of Theorem 5.1 and of the complete
 > proof of Theorems 1.1 and 1.3, including the Cantor-set refinement in
 > Theorem 1.1, is available in the
 > [MahlerLean repository](https://github.com/DiegoMarquesMath/MahlerLean).
