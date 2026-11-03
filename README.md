@@ -1,172 +1,89 @@
-# Mahler's Problem on Liouville Numbers I. Analytic Rigidity
+# MahlerLean
 
-[![Lean verification](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
+**Machine-checked arithmetic rigidity** · Lean 4 + mathlib
 
-Lean 4 formalization accompanying Diego Marques's manuscript
-*Mahler's Problem on Liouville Numbers I. Analytic Rigidity*.
+[![Lean CI](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
 
-The formalization covers the two-height counting estimate, the full Cantor-set
-version of the local rigidity theorem, the local rational-rigidity corollary,
-and the entire-function consequence answering Mahler's problem.
+This repository develops formal proofs around analytic rigidity and Mahler's problem on Liouville numbers. It contains a completed **earlier formalization** and a carefully separated **new formalization program** for *Diophantine Rigidity of Analytic Graphs*.
 
-## Verified results
+> **Verification boundary.** A theorem is described as formalized here only when its actual Lean statement has been matched against the paper, its proof has been checked by Lean, and its axioms have been inspected. A successful build of a scaffold is not proof of a research theorem.
 
-### Theorem 1.1 — Local quantitative rigidity
+## Research tracks
 
-Let $U\subseteq\mathbb R$ be an open interval and let $f:U\to\mathbb R$ be
-real analytic. Suppose that $f$ is not the restriction to $U$ of a rational
-function in $\mathbb R(x)$ without poles on $U$.
+| Track | Mathematical content | Status |
+| :--- | :--- | :--- |
+| **Mahler's Problem I · Analytic Rigidity** | Rational approximation, Liouville-preserving analytic functions, Cantor refinement and the entire-function corollary | **Previously formalized**; see the [validation record](VALIDATION.md) and [legacy theorem map](docs/FORMALIZATION.md) |
+| **Diophantine Rigidity of Analytic Graphs** | Polynomial small values of arbitrary bounded degree; independent heights; finite algebraic type; propagation; S-number images; arithmetic descent | **Formalization in progress**; [12-stage plan](docs/ATH_FORMALIZATION.md) |
 
-Then every nonempty open subinterval $V\subseteq U$ contains a nonempty compact,
-perfect, totally disconnected set $K\subseteq V$ consisting of Liouville
-numbers such that
-
-$$
-\mu(f(\xi))\le 100 \qquad (\xi\in K).
-$$
-
-Moreover, one cutoff $b_0\ge2$ works simultaneously for the whole set:
-
-$$
-\left|f(\xi)-\frac{a}{b}\right|>b^{-100}
-$$
-
-for every $\xi\in K$, every $a\in\mathbb Z$, and every integer $b\ge b_0$.
-
-In the Lean development this is exposed as
-[`MahlerLean.current_theorem_1_1`](MahlerLean/CurrentTheoremOne.lean).
-
-### Corollary 1.2 — Local rational rigidity
-
-If a real-analytic function $f:U\to\mathbb R$ satisfies
-
-$$
-f(\mathcal L\cap U)\subseteq\mathcal L,
-$$
-
-then $f$ is the restriction to $U$ of a rational function in
-$\mathbb R(x)$ with no pole on $U$.
-
-Lean declaration:
-[`MahlerLean.current_corollary_1_2`](MahlerLean/CurrentTheoremOne.lean).
-
-### Theorem 1.3 — Entire-function rigidity
-
-If an entire function $F:\mathbb C\to\mathbb C$ satisfies
-
-$$
-F(\mathcal L)\subseteq\mathcal L,
-$$
-
-then $F\in\mathbb R[z]$. In particular, no transcendental entire function has
-Maillet's property. This gives a negative answer, in the entire setting, to a
-problem posed by Mahler in 1984.
-
-Lean declaration:
-[`MahlerLean.current_theorem_1_3`](MahlerLean/CurrentTheoremOne.lean).
-
-### Theorem 5.1 — Two-height counting
-
-The formalization includes the uniform two-height counting estimate on analytic
-graphs, with source and target denominator scales treated independently and
-uniformity in the lower target cutoff.
-
-Lean declaration:
-[`MahlerLean.proposition_5_1`](MahlerLean/TwoHeightCounting.lean).
-
-## Correspondence with the Lean development
-
-| Current manuscript result | Lean declaration | Source | Status |
-| --- | --- | --- | --- |
-| Theorem 5.1 | `MahlerLean.proposition_5_1` | [TwoHeightCounting.lean](MahlerLean/TwoHeightCounting.lean) | Verified |
-| Theorem 1.1 — binary successor | `MahlerLean.exists_binary_fusion_transition` | [CantorFusion.lean](MahlerLean/CantorFusion.lean) | Verified |
-| Theorem 1.1 — compact binary limit set | `MahlerLean.cantorLimitSet` | [CantorTree.lean](MahlerLean/CantorTree.lean) | Verified |
-| Theorem 1.1 — branch arithmetic | `cantorLimitSet_liouville`, `cantorLimitSet_target_avoidance`, `cantorLimitSet_irrationalityExponent_le` | [CantorBranches.lean](MahlerLean/CantorBranches.lean) | Verified |
-| Theorem 1.1 — every node meets the limit set | `MahlerLean.cantorLimitSet_meets_node` | [CantorSubtree.lean](MahlerLean/CantorSubtree.lean) | Verified |
-| Theorem 1.1 — perfectness | `MahlerLean.cantorLimitSet_perfect` | [CantorTopology.lean](MahlerLean/CantorTopology.lean) | Verified |
-| Theorem 1.1 — total disconnectedness | `MahlerLean.cantorLimitSet_isTotallyDisconnected` | [CantorTopology.lean](MahlerLean/CantorTopology.lean) | Verified |
-| Theorem 1.1 — final assembly | `MahlerLean.current_theorem_1_1` | [CurrentTheoremOne.lean](MahlerLean/CurrentTheoremOne.lean) | Verified |
-| Corollary 1.2 | `MahlerLean.current_corollary_1_2` | [CurrentTheoremOne.lean](MahlerLean/CurrentTheoremOne.lean) | Verified |
-| Theorem 1.3 | `MahlerLean.current_theorem_1_3` | [CurrentTheoremOne.lean](MahlerLean/CurrentTheoremOne.lean) | Verified |
-
-The older declarations `MahlerLean.theorem_1_1` and
-`MahlerLean.theorem_1_2` predate the final manuscript renumbering and remain
-available for compatibility. Under the current numbering, the former is
-Theorem 1.3 and the latter is the single-point quantitative core of
-Theorem 1.1.
-
-## Cantor refinement
-
-The Cantor-set strengthening is organized into five small modules:
-
-- [CantorFusion.lean](MahlerLean/CantorFusion.lean): constructs two strictly
-  separated admissible successors from each fusion stage;
-- [CantorTree.lean](MahlerLean/CantorTree.lean): builds the binary tree, compact
-  level sets, and the global limit set;
-- [CantorBranches.lean](MahlerLean/CantorBranches.lean): extracts the coherent
-  branch through each point and proves the Liouville and target-avoidance
-  conclusions with one common root cutoff;
-- [CantorSubtree.lean](MahlerLean/CantorSubtree.lean): proves that every node
-  interval contains a point of the global limit set;
-- [CantorTopology.lean](MahlerLean/CantorTopology.lean): proves uniform
-  shrinking of the node intervals, perfectness, and total disconnectedness.
-
-The final analytic assembly is in
-[CurrentTheoremOne.lean](MahlerLean/CurrentTheoremOne.lean).
-
-## Proof architecture
-
-| Component | Role |
-| --- | --- |
-| Farey estimates | Supply reduced rational source points and control their number in unions of intervals. |
-| Uniform analytic sublevel estimates | Control normalized target-linear relations through Wronskians, jets, and finite covers. |
-| Two-height counting | Combine analytic and arithmetic determinant bounds at independent source and target heights. |
-| Single-branch fusion | Produce Liouville source approximation together with eventual target avoidance. |
-| Binary fusion | Run the safe-center construction simultaneously along a full binary tree. |
-| Cantor topology | Prove shrinking diameters, perfectness, and total disconnectedness. |
-| Entire-function rigidity | Combine local rational rigidity, Liouville density, analytic continuation, and absence of poles. |
-
-## Verification
-
-The complete build and the listed-theorem audit pass on Lean 4.24.0 and
-mathlib v4.24.0.
-
-To reproduce the verification:
-
-```bash
-lake exe cache get
-bash scripts/check.sh
+The new manuscript studies the count
+```math
+N_{f,m}(Q,B,w) \ll Q^{2-\eta}
+\qquad (w>2m-1,\quad Q^{u_0}\le B\le Q^U),
+```
+and its Diophantine consequences:
+```math
+\xi\in\mathscr L,\qquad
+f(\xi)\ \text{transcendental},\qquad
+w_m(f(\xi))\le 2m-1\quad (m\ge1).
 ```
 
-The verification script:
+These are **target statements**, not yet fully proved in the new Lean library. The previous project addresses a different, degree-one approximation problem and does not by itself certify these stronger claims.
 
-1. builds the complete project;
-2. checks every project source with warnings treated as errors;
-3. prints the axioms of the listed principal declarations;
-4. fails if any listed theorem depends on `sorryAx`.
+## Code map
 
-Verified proof commit:
+```text
+MahlerLean/                 Existing formalization (preserved)
+AnalyticGraphs/             New manuscript: definitions, bridges and upcoming proofs
+MahlerLean.lean             Legacy library entry point
+AnalyticGraphs.lean         New library entry point
+paper/main.tex              Historical manuscript; kept for reproducibility
+paper/ATH_rev.tex           New manuscript: copy from local working folder
+paper/ATH_rev.pdf           New manuscript: copy from local working folder
+docs/ATH_FORMALIZATION.md   Stages and completion gates
+docs/ATH_PROOF_CONTRACTS.md Paper-to-Lean statement specifications
+docs/ATH_REUSE_MAP.md       Verified reuse vs new obligations
+docs/ATH_VERIFICATION.md    Proof integrity and independent audit policy
+scripts/check.sh            Existing project checks
+scripts/check_analytic_graphs.sh   New library checks
+```
 
-[`dcbac6a16e910c22155e4882a3b11b2bb0c66222`](https://github.com/DiegoMarquesMath/MahlerLean/tree/dcbac6a16e910c22155e4882a3b11b2bb0c66222)
+The files `paper/ATH_rev.tex` and `paper/ATH_rev.pdf` are **not yet committed**; they must be copied from the author's desktop before a statement-level comparison can be signed off.
 
-## Scope
+## Reproduce
 
-The completed formalization covers Theorem 5.1, Theorem 1.1,
-Corollary 1.2, and Theorem 1.3 of the current manuscript.
+This repository pins Lean **4.24.0** and the matching mathlib snapshot through `lean-toolchain` and `lake-manifest.json`. Preserve that pin while reusing the legacy proofs.
 
-The rational-map classification belongs to the companion paper and is not part of
-the present Lean project.
+```bash
+git clone https://github.com/DiegoMarquesMath/MahlerLean.git
+cd MahlerLean
+lake exe cache get
+bash scripts/check.sh
+bash scripts/check_analytic_graphs.sh
+```
 
-## Citation
+To work on the new development branch:
 
-Suggested manuscript wording:
+```bash
+git fetch origin
+git switch feature/analytic-graphs-formalization
+lake exe cache get
+lake build AnalyticGraphs
+```
 
-> A machine-checked Lean 4 formalization of Theorem 5.1 and of the complete
-> proof of Theorems 1.1 and 1.3, including the Cantor-set refinement in
-> Theorem 1.1, is available in the
-> [MahlerLean repository](https://github.com/DiegoMarquesMath/MahlerLean).
+The new checker currently audits **only the declarations actually implemented**; later milestones must extend its audited list. See [verification policy](docs/ATH_VERIFICATION.md).
 
-For reproducibility, the submitted version should cite the exact verified
-commit above.
+## Mathematical method
 
-Maintained by [Diego Marques](https://github.com/DiegoMarquesMath).
+The intended proof architecture runs from local determinant relations to irreducible polynomial reconstruction, projective specialization content, integral resultants and multiscale propagation. Finite algebraic type then yields the two-height count. A separate metric argument produces Cantor sets with simultaneous Mahler-exponent bounds; the algebraic-branch argument uses the same propagation to obtain arithmetic descent.
+
+The central proof obligations, including exact quantifier order and endpoint cases, are specified in [proof contracts](docs/ATH_PROOF_CONTRACTS.md). The previous formalization offers reusable tools, but not a substitute for the new proofs.
+
+## Integrity
+
+All code changes are reviewed on branches with GitHub Actions; the source files of the earlier project are not modified by this new workstream. New mathematical declarations must not rely on unproved placeholders, custom axioms, hidden hypotheses, or a restatement of their desired conclusion as an assumption. The [agent rules](AGENTS.md) apply equally to human and automated contributions.
+
+## Attribution
+
+**Diego Marques** · Department of Mathematics, Universidade de Brasília.
+
+This repository is research software accompanying mathematical manuscripts. The mathematical statements in the papers, not the status badges, define what must be certified.
