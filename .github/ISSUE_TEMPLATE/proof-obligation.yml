@@ -1,0 +1,53 @@
+name: Lean proof obligation
+description: Record an exact mathematical statement, blocker, or formal proof milestone.
+title: "[Lean] "
+body:
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Formalization stage
+      options:
+        - "01: Statement audit"
+        - "02: Heights and arithmetic foundations"
+        - "03: Finite algebraic type"
+        - "04: Local determinants"
+        - "05: Hankel reconstruction"
+        - "06: Projective contents"
+        - "07: Integral resultants"
+        - "08: Multiscale propagation"
+        - "09: Two-height counting"
+        - "10: Cantor and S-numbers"
+        - "11: Arithmetic descent"
+        - "12: Certification"
+    validations:
+      required: true
+  - type: textarea
+    id: statement
+    attributes:
+      label: Exact mathematical obligation
+      description: Include all assumptions, conclusions, constants, and the precise manuscript location. Avoid unpublished source text unless approved.
+      placeholder: "Lemma, statement and all quantified parameters..."
+    validations:
+      required: true
+  - type: textarea
+    id: existing
+    attributes:
+      label: Existing Lean declarations and verified prerequisites
+      description: Link exact declarations or use #check output. Distinguish available lemmas from conjectured bridges.
+  - type: textarea
+    id: blocker
+    attributes:
+      label: Current blocker and unsuccessful attempts
+      description: Give a minimal reproducible Lean error or the unproved mathematical lemma.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criterion
+      value: |
+        - [ ] Exact statement matches the manuscript
+        - [ ] Proof compiles in the pinned toolchain
+        - [ ] No placeholders or unapproved axioms
+        - [ ] #print axioms inspected
+        - [ ] Status and proof commit recorded
