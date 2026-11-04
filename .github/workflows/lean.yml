@@ -2,11 +2,17 @@ name: Lean verification
 
 on:
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: lean-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -20,5 +26,7 @@ jobs:
           test: false
           lint: false
           use-mathlib-cache: true
-      - name: Audit the initial results
+      - name: Audit the earlier MahlerLean results
         run: bash scripts/check.sh
+      - name: Build and audit the AnalyticGraphs workstream
+        run: bash scripts/check_analytic_graphs.sh

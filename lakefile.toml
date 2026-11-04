@@ -9,3 +9,6 @@ rev = "v4.24.0"
 
 [[lean_lib]]
 name = "MahlerLean"
+
+[[lean_lib]]
+name = "AnalyticGraphs"
