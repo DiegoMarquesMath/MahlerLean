@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software or its formal development, please cite the repository and the exact verified commit. Cite the corresponding research article separately."
+type: software
+title: "MahlerLean: Formalizing Diophantine Rigidity and Mahler's Problem"
+authors:
+  - family-names: Marques
+    given-names: Diego
+repository-code: "https://github.com/DiegoMarquesMath/MahlerLean"
+url: "https://github.com/DiegoMarquesMath/MahlerLean"
+keywords:
+  - Lean 4
+  - mathlib
+  - Diophantine approximation
+  - analytic rigidity
+  - Liouville numbers
+  - Mahler's problem
