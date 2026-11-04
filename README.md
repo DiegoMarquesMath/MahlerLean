@@ -1,89 +1,168 @@
 # MahlerLean
 
-**Machine-checked arithmetic rigidity** · Lean 4 + mathlib
+**Formal verification of Diophantine approximation and analytic rigidity**  
+*A Lean 4 + mathlib research project by Diego Marques · Universidade de Brasília*
 
-[![Lean CI](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
+[![Lean CI — main](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml)
+[![Lean CI — analytic graphs](https://github.com/DiegoMarquesMath/MahlerLean/actions/workflows/lean.yml/badge.svg?branch=feature%2Fanalytic-graphs-formalization)](https://github.com/DiegoMarquesMath/MahlerLean/pull/4)
 
-This repository develops formal proofs around analytic rigidity and Mahler's problem on Liouville numbers. It contains a completed **earlier formalization** and a carefully separated **new formalization program** for *Diophantine Rigidity of Analytic Graphs*.
+MahlerLean develops machine-checked proofs about rational approximation, Liouville numbers, and rigidity of analytic functions. The project preserves a completed **earlier formalization** and develops a separate, more ambitious formalization of **_Diophantine Rigidity of Analytic Graphs_**.
 
-> **Verification boundary.** A theorem is described as formalized here only when its actual Lean statement has been matched against the paper, its proof has been checked by Lean, and its axioms have been inspected. A successful build of a scaffold is not proof of a research theorem.
+> [!IMPORTANT]
+> **Verified code is not the same as a verified manuscript.** The earlier theorems listed below have Lean implementations and a recorded verification history. The new arbitrary-degree counting theorem, S-number Cantor theorem, and arithmetic descent **remain formalization targets**. Their statements must be checked against the revised manuscript before they can be called verified.
 
-## Research tracks
+## Two research tracks
 
-| Track | Mathematical content | Status |
-| :--- | :--- | :--- |
-| **Mahler's Problem I · Analytic Rigidity** | Rational approximation, Liouville-preserving analytic functions, Cantor refinement and the entire-function corollary | **Previously formalized**; see the [validation record](VALIDATION.md) and [legacy theorem map](docs/FORMALIZATION.md) |
-| **Diophantine Rigidity of Analytic Graphs** | Polynomial small values of arbitrary bounded degree; independent heights; finite algebraic type; propagation; S-number images; arithmetic descent | **Formalization in progress**; [12-stage plan](docs/ATH_FORMALIZATION.md) |
+| | **Mahler's Problem I · Analytic Rigidity** | **Diophantine Rigidity of Analytic Graphs** |
+| --- | --- | --- |
+| **Mathematics** | Rational-target approximation, Liouville numbers, analytic and entire-function rigidity | Small polynomial values of arbitrary bounded degree, two independent heights, propagation and arithmetic descent |
+| **Code** | [`MahlerLean/`](https://github.com/DiegoMarquesMath/MahlerLean/tree/main/MahlerLean) | [`AnalyticGraphs/`](https://github.com/DiegoMarquesMath/MahlerLean/tree/feature/analytic-graphs-formalization/AnalyticGraphs) |
+| **Formal status** | Earlier Lean proofs documented and audited | Infrastructure checked; new principal proofs in progress |
+| **Evidence** | [Validation record](https://github.com/DiegoMarquesMath/MahlerLean/blob/main/VALIDATION.md) | [Proof-status register](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_STATUS.md) · [Draft PR #4](https://github.com/DiegoMarquesMath/MahlerLean/pull/4) |
 
-The new manuscript studies the count
-```math
-N_{f,m}(Q,B,w) \ll Q^{2-\eta}
-\qquad (w>2m-1,\quad Q^{u_0}\le B\le Q^U),
+The two tracks share reusable foundations, **not interchangeable theorem statements**. In particular, the existing degree-one two-height result does not establish the new estimate for integer polynomials of arbitrary bounded degree.
+
+## Mathematics
+
+### I. Earlier machine-checked results
+
+The original development includes the following named Lean declarations. These are statements from the **earlier analytic-rigidity work**, not the numbering of the new manuscript.
+
+| Mathematical result | Lean declaration |
+| --- | --- |
+| A Cantor set of Liouville arguments with image irrationality exponent at most (100) | [`MahlerLean.current_theorem_1_1`](MahlerLean/CurrentTheoremOne.lean) |
+| Liouville preservation forces a real-analytic function to be rational on its interval | [`MahlerLean.current_corollary_1_2`](MahlerLean/CurrentTheoremOne.lean) |
+| An entire function preserving every Liouville number is a polynomial with real coefficients | [`MahlerLean.current_theorem_1_3`](MahlerLean/CurrentTheoremOne.lean) |
+| Degree-one, two-height rational-target counting | [`MahlerLean.proposition_5_1`](MahlerLean/TwoHeightCounting.lean) |
+
+For example, the established entire-function conclusion is
+
+$$
+F\text{ entire},\qquad
+F(\mathscr L)\subseteq\mathscr L
+\quad\Longrightarrow\quad
+F\in\mathbb R[z],
+$$
+
+where (mathscr L) is the set of Liouville numbers. The associated proof is in [`EntireRigidity.lean`](MahlerLean/EntireRigidity.lean); its assembly is in [`CurrentTheoremOne.lean`](MahlerLean/CurrentTheoremOne.lean).
+
+The earlier Cantor theorem gives, for the functions covered by its hypotheses, a nonempty compact perfect set (K) of Liouville numbers with
+
+$$
+\mu(f(\xi))\le 100\qquad(\xi\in K).
+$$
+
+See the [original theorem correspondence](https://github.com/DiegoMarquesMath/MahlerLean/blob/main/docs/FORMALIZATION.md) and [validation record](https://github.com/DiegoMarquesMath/MahlerLean/blob/main/VALIDATION.md) for the exact hypotheses, recorded proof commits, and limits of certification.
+
+### II. New target: two-height rigidity of analytic graphs
+
+For a reduced rational argument (r=p/q) with (Q\le q<2Q), consider nonzero integer polynomials (P\in\mathbb Z[Y]) satisfying
+
+$$
+\deg P\le m,\qquad
+B\le H(P)<2B,\qquad
+|P(f(r))|\le L B^{-w}.
+$$
+
+Here (H(P)) is the **maximum absolute coefficient**, and each rational argument is counted **once**, even if it has several witnesses. Exact zeros are included.
+
+The new manuscript's central target is a uniform power saving
+
+$$
+\boxed{N_{f,m}(Q,B,w)\ll Q^{2-\eta}}
+\qquad
+\bigl(w>2m-1,\ \ Q^{u_0}\le B\le Q^U\bigr)
+$$
+
+for real-analytic graphs transcendental over (mathbb R(X)), with a corresponding uniform formulation for smooth families of finite algebraic type.
+
+Its Diophantine consequence aims to construct, inside **every** nonempty open subinterval, a single Cantor set (K\subseteq\mathscr L) such that
+
+$$
+f(\xi)\ \text{is transcendental},\qquad
+w_m(f(\xi))\le 2m-1\ \ (\forall m\ge1),\qquad
+\mu(f(\xi))=2
+$$
+
+for **every** (\xi\in K). A separate application is **arithmetic descent**: recovering the rationality of an algebraic analytic branch's defining equation from sufficiently frequent approximate specializations at the critical height (Q^d).
+
+**These are mathematical targets, not yet Lean-certified theorems.** The entire-function conclusion is already available through the earlier proof route, while its derivation specifically through the new S-number theorem remains to be formalized.
+
+## Proof architecture
+
+```mermaid
+flowchart TD
+    A["Polynomial heights · Farey fractions · finite type"] --> B["Local determinants (3.1)"]
+    B --> C["Hankel reconstruction (3.2)"]
+    C --> F["Multiscale propagation (5.1)"]
+    D["Projective contents (4.1)"] --> F
+    E["Integral resultants (4.2)"] --> F
+    F --> G["Uniform two-height counting (1.1 / 2.1)"]
+    G --> H["Metric tail · Cantor · S-numbers (1.2)"]
+    F --> I["Arithmetic descent (1.4)"]
 ```
-and its Diophantine consequences:
-```math
-\xi\in\mathscr L,\qquad
-f(\xi)\ \text{transcendental},\qquad
-w_m(f(\xi))\le 2m-1\quad (m\ge1).
-```
 
-These are **target statements**, not yet fully proved in the new Lean library. The previous project addresses a different, degree-one approximation problem and does not by itself certify these stronger claims.
+Each dependency is intended to be a separately reviewed Lean theorem. Particularly demanding obligations are the two-chart (p)-adic content estimate, preservation of one polynomial across propagation scales, and the positive-measure Cantor induction.
 
-## Code map
+The work is organized into **12 verification gates**: statement audit; arithmetic foundations; finite algebraic type; determinants; Hankel recovery; projective contents; resultants; propagation; counting; Cantor/S-numbers; arithmetic descent; and final certification.
 
-```text
-MahlerLean/                 Existing formalization (preserved)
-AnalyticGraphs/             New manuscript: definitions, bridges and upcoming proofs
-MahlerLean.lean             Legacy library entry point
-AnalyticGraphs.lean         New library entry point
-paper/main.tex              Historical manuscript; kept for reproducibility
-paper/ATH_rev.tex           New manuscript: copy from local working folder
-paper/ATH_rev.pdf           New manuscript: copy from local working folder
-docs/ATH_FORMALIZATION.md   Stages and completion gates
-docs/ATH_PROOF_CONTRACTS.md Paper-to-Lean statement specifications
-docs/ATH_REUSE_MAP.md       Verified reuse vs new obligations
-docs/ATH_VERIFICATION.md    Proof integrity and independent audit policy
-scripts/check.sh            Existing project checks
-scripts/check_analytic_graphs.sh   New library checks
-```
+**Follow the [12-stage roadmap](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_FORMALIZATION.md), [precise proof contracts](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_PROOF_CONTRACTS.md), and [reuse map](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_REUSE_MAP.md).**
 
-The files `paper/ATH_rev.tex` and `paper/ATH_rev.pdf` are **not yet committed**; they must be copied from the author's desktop before a statement-level comparison can be signed off.
+## Current verification status
 
-## Reproduce
+| Area | Evidence | Status |
+| --- | --- | --- |
+| Historical MahlerLean theorems | [Lean declarations](https://github.com/DiegoMarquesMath/MahlerLean/tree/main/MahlerLean) · [validation history](https://github.com/DiegoMarquesMath/MahlerLean/blob/main/VALIDATION.md) | Previously verified |
+| New `AnalyticGraphs` scaffold | [GitHub Actions run](https://github.com/DiegoMarquesMath/MahlerLean/actions/runs/41763448379) | CI passed at the recorded commit |
+| Revised manuscript ↔ Lean statements | Author's local statement audit; not published in this repository | Not yet signed off |
+| New arbitrary-degree count, simultaneous S-number images, and descent | [Milestone tracker](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_STATUS.md) | Not yet formalized |
 
-This repository pins Lean **4.24.0** and the matching mathlib snapshot through `lean-toolchain` and `lake-manifest.json`. Preserve that pin while reusing the legacy proofs.
+A **green badge confirms only the tests actually executed on that commit**. It is not a claim that all theorems described in the project have been formalized.
+
+## Reproduce the Lean checks
+
+Lean **4.24.0** and the matching mathlib version are pinned by [`lean-toolchain`](lean-toolchain), [`lakefile.toml`](lakefile.toml), and [`lake-manifest.json`](lake-manifest.json).
 
 ```bash
 git clone https://github.com/DiegoMarquesMath/MahlerLean.git
 cd MahlerLean
 lake exe cache get
 bash scripts/check.sh
-bash scripts/check_analytic_graphs.sh
 ```
 
-To work on the new development branch:
+To check the new development branch:
 
 ```bash
 git fetch origin
 git switch feature/analytic-graphs-formalization
 lake exe cache get
-lake build AnalyticGraphs
+bash scripts/check_analytic_graphs.sh
 ```
 
-The new checker currently audits **only the declarations actually implemented**; later milestones must extend its audited list. See [verification policy](docs/ATH_VERIFICATION.md).
+The checks build the relevant Lean sources and inspect the recorded principal declarations for admitted placeholders. An independent **statement-fidelity review** is also mandatory: no proof is labeled complete merely because Lean accepted a theorem of a different type, with stronger assumptions, weaker quantifiers, or unapproved axioms.
 
-## Mathematical method
+## Repository guide
 
-The intended proof architecture runs from local determinant relations to irreducible polynomial reconstruction, projective specialization content, integral resultants and multiscale propagation. Finite algebraic type then yields the two-height count. A separate metric argument produces Cantor sets with simultaneous Mahler-exponent bounds; the algebraic-branch argument uses the same propagation to obtain arithmetic descent.
+| Resource | Purpose |
+| --- | --- |
+| [Legacy proof modules](https://github.com/DiegoMarquesMath/MahlerLean/tree/main/MahlerLean) | Existing formal developments and reusable infrastructure |
+| [AnalyticGraphs modules](https://github.com/DiegoMarquesMath/MahlerLean/tree/feature/analytic-graphs-formalization/AnalyticGraphs) | New paper's separate proof workstream |
+| [Formalization roadmap](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_FORMALIZATION.md) | The twelve completion gates and mathematical dependencies |
+| [Proof contracts](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_PROOF_CONTRACTS.md) | Assumptions, constants, quantifiers, and edge cases |
+| [Verification policy](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/docs/ATH_VERIFICATION.md) | Proof integrity and theorem-status requirements |
+| [Agent instructions](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/AGENTS.md) | Codex rules: no `sorry`, hidden assumptions, or false completion claims |
+| [Contributing](https://github.com/DiegoMarquesMath/MahlerLean/blob/feature/analytic-graphs-formalization/CONTRIBUTING.md) | Development and review protocol |
+| [Draft PR #4](https://github.com/DiegoMarquesMath/MahlerLean/pull/4) | Reviewable ongoing work, kept separate from `main` |
 
-The central proof obligations, including exact quantifier order and endpoint cases, are specified in [proof contracts](docs/ATH_PROOF_CONTRACTS.md). The previous formalization offers reusable tools, but not a substitute for the new proofs.
+The exact revised manuscript `ATH_rev.tex` and `ATH_rev.pdf` remains in the author's local workspace and is **not published in this repository**. Public source release, if any, is a separate author decision.
 
-## Integrity
+## Citation and provenance
 
-All code changes are reviewed on branches with GitHub Actions; the source files of the earlier project are not modified by this new workstream. New mathematical declarations must not rely on unproved placeholders, custom axioms, hidden hypotheses, or a restatement of their desired conclusion as an assumption. The [agent rules](AGENTS.md) apply equally to human and automated contributions.
+Use [`CITATION.cff`](CITATION.cff) to cite the software. For a mathematical theorem, additionally cite the corresponding paper and **the exact proof commit**; a branch name or current badge is not a permanent proof reference.
 
-## Attribution
+Earlier completed proof checkpoint: [`dcbac6a16e910c22155e4882a3b11b2bb0c66222`](https://github.com/DiegoMarquesMath/MahlerLean/tree/dcbac6a16e910c22155e4882a3b11b2bb0c66222). Verification and scope are described in [`VALIDATION.md`](VALIDATION.md).
 
-**Diego Marques** · Department of Mathematics, Universidade de Brasília.
+---
 
-This repository is research software accompanying mathematical manuscripts. The mathematical statements in the papers, not the status badges, define what must be certified.
+**Maintainer:** [Diego Marques](https://github.com/DiegoMarquesMath) · Department of Mathematics, Universidade de Brasília.  
+**Principle:** *State the theorem exactly. Check the proof mechanically. Record what remains open.*
