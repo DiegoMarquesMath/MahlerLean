@@ -30,7 +30,7 @@ The original development includes the following named Lean declarations. These a
 
 | Mathematical result | Lean declaration |
 | --- | --- |
-| A Cantor set of Liouville arguments with image irrationality exponent at most (100) | [`MahlerLean.current_theorem_1_1`](MahlerLean/CurrentTheoremOne.lean) |
+| A Cantor set of Liouville arguments with image irrationality exponent at most $100$ | [`MahlerLean.current_theorem_1_1`](MahlerLean/CurrentTheoremOne.lean) |
 | Liouville preservation forces a real-analytic function to be rational on its interval | [`MahlerLean.current_corollary_1_2`](MahlerLean/CurrentTheoremOne.lean) |
 | An entire function preserving every Liouville number is a polynomial with real coefficients | [`MahlerLean.current_theorem_1_3`](MahlerLean/CurrentTheoremOne.lean) |
 | Degree-one, two-height rational-target counting | [`MahlerLean.proposition_5_1`](MahlerLean/TwoHeightCounting.lean) |
@@ -44,9 +44,9 @@ F(\mathscr L)\subseteq\mathscr L
 F\in\mathbb R[z],
 $$
 
-where (mathscr L) is the set of Liouville numbers. The associated proof is in [`EntireRigidity.lean`](MahlerLean/EntireRigidity.lean); its assembly is in [`CurrentTheoremOne.lean`](MahlerLean/CurrentTheoremOne.lean).
+where $\mathscr L$ is the set of Liouville numbers. The associated proof is in [`EntireRigidity.lean`](MahlerLean/EntireRigidity.lean); its assembly is in [`CurrentTheoremOne.lean`](MahlerLean/CurrentTheoremOne.lean).
 
-The earlier Cantor theorem gives, for the functions covered by its hypotheses, a nonempty compact perfect set (K) of Liouville numbers with
+The earlier Cantor theorem gives, for the functions covered by its hypotheses, a nonempty compact perfect set $K$ of Liouville numbers with
 
 $$
 \mu(f(\xi))\le 100\qquad(\xi\in K).
@@ -56,7 +56,7 @@ See the [original theorem correspondence](https://github.com/DiegoMarquesMath/Ma
 
 ### II. New target: two-height rigidity of analytic graphs
 
-For a reduced rational argument (r=p/q) with (Q\le q<2Q), consider nonzero integer polynomials (P\in\mathbb Z[Y]) satisfying
+For a reduced rational argument $r=p/q$ with $Q\le q<2Q$, consider nonzero integer polynomials $P\in\mathbb Z[Y]$ satisfying
 
 $$
 \deg P\le m,\qquad
@@ -64,7 +64,7 @@ B\le H(P)<2B,\qquad
 |P(f(r))|\le L B^{-w}.
 $$
 
-Here (H(P)) is the **maximum absolute coefficient**, and each rational argument is counted **once**, even if it has several witnesses. Exact zeros are included.
+Here $H(P)$ is the **maximum absolute coefficient**, and each rational argument is counted **once**, even if it has several witnesses. Exact zeros are included.
 
 The new manuscript's central target is a uniform power saving
 
@@ -74,9 +74,9 @@ $$
 \bigl(w>2m-1,\ \ Q^{u_0}\le B\le Q^U\bigr)
 $$
 
-for real-analytic graphs transcendental over (mathbb R(X)), with a corresponding uniform formulation for smooth families of finite algebraic type.
+for real-analytic graphs transcendental over $\mathbb R(X)$, with a corresponding uniform formulation for smooth families of finite algebraic type.
 
-Its Diophantine consequence aims to construct, inside **every** nonempty open subinterval, a single Cantor set (K\subseteq\mathscr L) such that
+Its Diophantine consequence aims to construct, inside **every** nonempty open subinterval, a single Cantor set $K\subseteq\mathscr L$ such that
 
 $$
 f(\xi)\ \text{is transcendental},\qquad
@@ -84,7 +84,7 @@ w_m(f(\xi))\le 2m-1\ \ (\forall m\ge1),\qquad
 \mu(f(\xi))=2
 $$
 
-for **every** (\xi\in K). A separate application is **arithmetic descent**: recovering the rationality of an algebraic analytic branch's defining equation from sufficiently frequent approximate specializations at the critical height (Q^d).
+for **every** $\xi\in K$. A separate application is **arithmetic descent**: recovering the rationality of an algebraic analytic branch's defining equation from sufficiently frequent approximate specializations at the critical height $Q^d$.
 
 **These are mathematical targets, not yet Lean-certified theorems.** The entire-function conclusion is already available through the earlier proof route, while its derivation specifically through the new S-number theorem remains to be formalized.
 
@@ -102,7 +102,7 @@ flowchart TD
     F --> I["Arithmetic descent (1.4)"]
 ```
 
-Each dependency is intended to be a separately reviewed Lean theorem. Particularly demanding obligations are the two-chart (p)-adic content estimate, preservation of one polynomial across propagation scales, and the positive-measure Cantor induction.
+Each dependency is intended to be a separately reviewed Lean theorem. Particularly demanding obligations are the two-chart $p$-adic content estimate, preservation of one polynomial across propagation scales, and the positive-measure Cantor induction.
 
 The work is organized into **12 verification gates**: statement audit; arithmetic foundations; finite algebraic type; determinants; Hankel recovery; projective contents; resultants; propagation; counting; Cantor/S-numbers; arithmetic descent; and final certification.
 
